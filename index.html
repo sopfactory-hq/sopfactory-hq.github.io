@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOP Factory — Free AI SOP Generator for Manufacturing, IT, Healthcare, Hospitality, F&amp;B, Restaurants, Finance &amp; Education</title>
+  <meta name="description" content="Generate free, formal, audit-ready Standard Operating Procedures (Verified >95/100 Compliance Score) with visual flowcharts and ClickUp checklists in 30 seconds." />
+  <meta name="keywords" content="free SOP generator, ISO 9001 SOP maker, SOC 2 IT SOP template, NABH healthcare SOP generator, HACCP FSSAI food beverage SOP, restaurant kitchen SOP checklist, KYC AML financial SOP builder, ISO 21001 NAAC education SOP" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://github.io" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "SOP Factory",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Automated Standard Operating Procedure (SOP) and compliance blueprint generator for Manufacturing, IT, Healthcare, Hospitality, Food & Beverages, Restaurants, Financial Institutions, and Education."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does SOP Factory guarantee a compliance score above 95?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our quality engine audits your raw workflow inputs and automatically injects missing verification gates, role sign-offs, and safety checks until the generated SOP achieves a verified score between 96 and 99 out of 100."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I customize the layout and formatting of my SOP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Use the Remarks & Specific Layout field to specify custom columns, section order, or shift rules, and refine the preview up to 3 times before unlocking your ClickUp workspace checklist."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-main: #070D19;
+      --bg-card: #0F172A;
+      --bg-input: #1E293B;
+      --border: #1E3A5F;
+      --accent: #0284C7;
+      --accent-hover: #0EA5E9;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --text-primary: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      background: rgba(7, 13, 25, 0.92);
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
+    }
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .brand-dot { width: 10px; height: 10px; background: var(--accent-hover); border-radius: 50%; display: inline-block; }
+    .nav-badge { font-size: 0.75rem; background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 10px; border-radius: 99px; font-weight: 600; text-align: center; }
+    .hero { text-align: center; padding: 54px 0 36px; }
+    .pill { display: inline-block; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38BDF8; font-size: 0.76rem; font-weight: 700; padding: 6px 14px; border-radius: 99px; letter-spacing: 0.04em; margin-bottom: 18px; }
+    h1 { font-size: clamp(1.9rem, 4vw, 3.1rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero p { max-width: 780px; margin: 0 auto 28px; color: var(--text-muted); font-size: 1.06rem; }
+    .trust-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; }
+    .trust-item { background: var(--bg-card); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; color: #E2E8F0; }
+    .presets-section { margin: 28px auto 18px; }
+    .presets-label { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 10px; text-align: center; font-weight: 700; }
+    .presets-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .preset-btn {
+      background: var(--bg-card); border: 1px solid var(--border); color: #CBD5E1;
+      padding: 8px 14px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+    }
+    .preset-btn:hover { border-color: var(--accent-hover); color: #fff; background: #16243D; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px; margin-top: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .form-grid { grid-template-columns: 1fr; } .card { padding: 20px; } .sop-paper { padding: 18px; } }
+    .full-span { grid-column: 1 / -1; }
+    label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: #E2E8F0; }
+    input, select, textarea {
+      width: 100%; background: var(--bg-input); border: 1px solid #334155; color: #fff;
+      padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-hover); }
+    textarea { min-height: 92px; resize: vertical; }
+    .consent-row { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+    .consent-row input { width: auto; margin-top: 4px; }
+    .btn-primary {
+      width: 100%; background: var(--accent); color: #fff; border: none; padding: 16px;
+      font-size: 1.05rem; font-weight: 700; border-radius: 10px; cursor: pointer; margin-top: 12px; transition: 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    #previewSection { display: none; }
+    .preview-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; }
+    .score-pill { background: rgba(16, 185, 129, 0.18); border: 1px solid var(--emerald); color: var(--emerald); padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; }
+    .rev-pill { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--amber); color: var(--amber); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+    .sop-paper {
+      background: #FFFFFF; color: #0F172A; padding: 30px; border-radius: 10px;
+      border: 2px solid #38BDF8; line-height: 1.65; overflow-x: auto;
+      user-select: none; -webkit-user-select: none; -moz-user-select: none;
+    }
+    .sop-paper table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92rem; }
+    .sop-paper th { background: #0F172A; color: #FFFFFF; text-align: left; padding: 10px; border: 1px solid #CBD5E1; }
+    .sop-paper td { padding: 10px; border: 1px solid #CBD5E1; vertical-align: top; }
+    .sop-paper ul, .sop-paper ol { padding-left: 22px; margin: 10px 0; }
+    .sop-paper li { margin-bottom: 6px; }
+    .action-bar { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+    .btn-revise { flex: 1; min-width: 220px; background: var(--amber); color: #070D19; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
+    .btn-approve { flex: 1; min-width: 220px; background: var(--emerald); color: #fff; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
+    #revisionDrawer { display: none; margin-top: 18px; background: #0B1324; border: 1px solid var(--amber); padding: 18px; border-radius: 10px; }
+    #unlockedCard { display: none; margin-top: 22px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 24px; border-radius: 12px; text-align: center; }
+    .seo-section { margin-top: 56px; }
+    .seo-section h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 18px; text-align: center; }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    .comp-table { width: 100%; border-collapse: collapse; background: var(--bg-card); }
+    .comp-table th, .comp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.92rem; }
+    .comp-table th { background: #132038; color: #38BDF8; }
+    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+    summary { font-weight: 700; cursor: pointer; color: #F1F5F9; }
+    details p { margin-top: 10px; color: var(--text-muted); font-size: 0.92rem; }
+    footer { margin-top: 60px; border-top: 1px solid var(--border); padding-top: 24px; text-align: center; color: var(--text-muted); font-size: 0.84rem; }
+    .spinner { display: none; text-align: center; padding: 20px; color: #38BDF8; font-weight: 700; }
+  </style>
+</head>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOP Factory — Free AI SOP Generator for Manufacturing, IT, Healthcare, Hospitality, F&amp;B, Restaurants, Finance &amp; Education</title>
+  <meta name="description" content="Generate free, formal, audit-ready Standard Operating Procedures (Verified >95/100 Compliance Score) with visual flowcharts and ClickUp checklists in 30 seconds." />
+  <meta name="keywords" content="free SOP generator, ISO 9001 SOP maker, SOC 2 IT SOP template, NABH healthcare SOP generator, HACCP FSSAI food beverage SOP, restaurant kitchen SOP checklist, KYC AML financial SOP builder, ISO 21001 NAAC education SOP" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://github.io" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "SOP Factory",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Automated Standard Operating Procedure (SOP) and compliance blueprint generator for Manufacturing, IT, Healthcare, Hospitality, Food & Beverages, Restaurants, Financial Institutions, and Education."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does SOP Factory guarantee a compliance score above 95?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our quality engine audits your raw workflow inputs and automatically injects missing verification gates, role sign-offs, and safety checks until the generated SOP achieves a verified score between 96 and 99 out of 100."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I customize the layout and formatting of my SOP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Use the Remarks & Specific Layout field to specify custom columns, section order, or shift rules, and refine the preview up to 3 times before unlocking your ClickUp workspace checklist."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-main: #070D19;
+      --bg-card: #0F172A;
+      --bg-input: #1E293B;
+      --border: #1E3A5F;
+      --accent: #0284C7;
+      --accent-hover: #0EA5E9;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --text-primary: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      background: rgba(7, 13, 25, 0.92);
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
+    }
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .brand-dot { width: 10px; height: 10px; background: var(--accent-hover); border-radius: 50%; display: inline-block; }
+    .nav-badge { font-size: 0.75rem; background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 10px; border-radius: 99px; font-weight: 600; text-align: center; }
+    .hero { text-align: center; padding: 54px 0 36px; }
+    .pill { display: inline-block; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38BDF8; font-size: 0.76rem; font-weight: 700; padding: 6px 14px; border-radius: 99px; letter-spacing: 0.04em; margin-bottom: 18px; }
+    h1 { font-size: clamp(1.9rem, 4vw, 3.1rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero p { max-width: 780px; margin: 0 auto 28px; color: var(--text-muted); font-size: 1.06rem; }
+    .trust-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; }
+    .trust-item { background: var(--bg-card); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; color: #E2E8F0; }
+    .presets-section { margin: 28px auto 18px; }
+    .presets-label { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 10px; text-align: center; font-weight: 700; }
+    .presets-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .preset-btn {
+      background: var(--bg-card); border: 1px solid var(--border); color: #CBD5E1;
+      padding: 8px 14px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+    }
+    .preset-btn:hover { border-color: var(--accent-hover); color: #fff; background: #16243D; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px; margin-top: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .form-grid { grid-template-columns: 1fr; } .card { padding: 20px; } .sop-paper { padding: 18px; } }
+    .full-span { grid-column: 1 / -1; }
+    label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: #E2E8F0; }
+    input, select, textarea {
+      width: 100%; background: var(--bg-input); border: 1px solid #334155; color: #fff;
+      padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-hover); }
+    textarea { min-height: 92px; resize: vertical; }
+    .consent-row { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
+    .consent-row input { width: auto; margin-top: 4px; }
+    .btn-primary {
+      width: 100%; background: var(--accent); color: #fff; border: none; padding: 16px;
+      font-size: 1.05rem; font-weight: 700; border-radius: 10px; cursor: pointer; margin-top: 12px; transition: 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    #previewSection { display: none; }
+    .preview-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; }
+    .score-pill { background: rgba(16, 185, 129, 0.18); border: 1px solid var(--emerald); color: var(--emerald); padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; }
+    .rev-pill { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--amber); color: var(--amber); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+    .sop-paper {
+      background: #FFFFFF; color: #0F172A; padding: 30px; border-radius: 10px;
+      border: 2px solid #38BDF8; line-height: 1.65; overflow-x: auto;
+      user-select: none; -webkit-user-select: none; -moz-user-select: none;
+    }
+    .sop-paper table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92rem; }
+    .sop-paper th { background: #0F172A; color: #FFFFFF; text-align: left; padding: 10px; border: 1px solid #CBD5E1; }
+    .sop-paper td { padding: 10px; border: 1px solid #CBD5E1; vertical-align: top; }
+    .sop-paper ul, .sop-paper ol { padding-left: 22px; margin: 10px 0; }
+    .sop-paper li { margin-bottom: 6px; }
+    .action-bar { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+    .btn-revise { flex: 1; min-width: 220px; background: var(--amber); color: #070D19; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
+    .btn-approve { flex: 1; min-width: 220px; background: var(--emerald); color: #fff; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
+    #revisionDrawer { display: none; margin-top: 18px; background: #0B1324; border: 1px solid var(--amber); padding: 18px; border-radius: 10px; }
+    #unlockedCard { display: none; margin-top: 22px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 24px; border-radius: 12px; text-align: center; }
+    .seo-section { margin-top: 56px; }
+    .seo-section h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 18px; text-align: center; }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    .comp-table { width: 100%; border-collapse: collapse; background: var(--bg-card); }
+    .comp-table th, .comp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.92rem; }
+    .comp-table th { background: #132038; color: #38BDF8; }
+    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+    summary { font-weight: 700; cursor: pointer; color: #F1F5F9; }
+    details p { margin-top: 10px; color: var(--text-muted); font-size: 0.92rem; }
+    footer { margin-top: 60px; border-top: 1px solid var(--border); padding-top: 24px; text-align: center; color: var(--text-muted); font-size: 0.84rem; }
+    .spinner { display: none; text-align: center; padding: 20px; color: #38BDF8; font-weight: 700; }
+  </style>
+</head>
+  <script>
+    // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL INSIDE THE QUOTES BELOW:
+    const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxdNQoYCGCBGBkOQbWER1ZDV70nsJY2yJw4_3fdflOMrLNdcxAVBStm_6GzByltOy-sSQ/exec
+";
+    let currentRecordId = null;
+
+    const PRESETS = {
+      mfg: {
+        company: "Precision Components Ltd",
+        sector: "Manufacturing & Supply Chain",
+        standard: "ISO 9001:2015 & Lean 5S",
+        tools: "Digital Vernier Calipers, ERP Receiving Module, Quarantine Tags",
+        bottleneck: "Incoming raw material inspection, dimensional tolerance verification, and non-conforming lot quarantine.",
+        remarks: "Include a clear PASS/FAIL decision flowchart and bold safety checks at the top."
+      },
+      it: {
+        company: "CloudScale Systems",
+        sector: "IT & SaaS Operations",
+        standard: "ISO 27001 & SOC 2 Security",
+        tools: "GitHub Actions, AWS CloudWatch, PagerDuty, Jira",
+        bottleneck: "Production software release deployment, automated smoke testing, and emergency rollback if error rates exceed 1%.",
+        remarks: "Include severity level response times and dual-approval sign-off before production push."
+      },
+      health: {
+        company: "CityCare Multispecialty Clinic",
+        sector: "Healthcare & Clinics",
+        standard: "NABH / HIPAA Clinical Hygiene",
+        tools: "Autoclave Sterilizer, EHR Portal, Biohazard Disposal Bins",
+        bottleneck: "Patient outpatient intake triage, vital sign logging, and examination room sterilization between consultations.",
+        remarks: "Use simple bullet points for nursing staff and highlight infection control checks."
+      },
+      hosp: {
+        company: "Grand Meridian Hotel",
+        sector: "Hospitality & Hotels",
+        standard: "Hospitality Guest & Facility Standards",
+        tools: "Property Management System (PMS), Housekeeping App, Keycard Encoder",
+        bottleneck: "VIP guest express check-in, housekeeping 25-point suite turnaround inspection, and maintenance escalation.",
+        remarks: "Use simple bullet points for housekeeping staff with clear supervisor sign-off."
+      },
+      fnb: {
+        company: "PureHarvest Foods & Beverages Pvt Ltd",
+        sector: "Food & Beverages Manufacturing",
+        standard: "ISO 22000, FSSAI & Allergen Control",
+        tools: "Metal Detector, Brix Refractometer, Batch Coding Printer, Cold Room Data Logger",
+        bottleneck: "Raw ingredient allergen segregation, pasteurization temperature logging, and batch seal integrity verification before dispatch.",
+        remarks: "Highlight critical control points (CCPs) and exact temperature limits in bold."
+      },
+      rest: {
+        company: "SpiceRoute Kitchens & Bistro",
+        sector: "Restaurants & Cloud Kitchens",
+        standard: "HACCP Kitchen Hygiene & Food Safety",
+        tools: "Digital Probe Thermometer, POS Order Screen, Color-Coded Chopping Boards, Tamper-Evident Seals",
+        bottleneck: "Morning kitchen prep hygiene check, cooking core temperature verification, and delivery order tamper-seal packing.",
+        remarks: "Keep steps super short for line cooks and include opening and closing shift checklists."
+      },
+      fin: {
+        company: "TrustBridge Financial Services",
+        sector: "Financial Institutions & Banking",
+        standard: "KYC / AML & Financial Audit Controls",
+        tools: "Core Banking System, Video KYC Portal, AML Screening API",
+        bottleneck: "Corporate client KYC document verification, beneficial ownership screening, and maker-checker account activation.",
+        remarks: "Enforce strict maker-checker dual verification and highlight high-risk AML escalation triggers."
+      },
+      edu: {
+        company: "Apex Institute of Technology & Management",
+        sector: "Education & Academic Institutions",
+        standard: "ISO 21001 & NAAC Academic Quality",
+        tools: "Student Information System (SIS), LMS Portal, Biometric Attendance, Exam Proctoring Logs",
+        bottleneck: "Student admissions document verification, semester exam invigilation protocol, and accreditation audit record archiving.",
+        remarks: "Use simple step-by-step instructions for faculty and admin staff with clear registrar sign-off gates."
+      }
+    };
+
+    function loadPreset(key) {
+      const p = PRESETS[key];
+      document.getElementById("companyName").value = p.company;
+      document.getElementById("sector").value = p.sector;
+      document.getElementById("standard").value = p.standard;
+      document.getElementById("tools").value = p.tools;
+      document.getElementById("bottleneck").value = p.bottleneck;
+      document.getElementById("remarks").value = p.remarks;
+    }
+
+    document.getElementById("sopForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (BACKEND_URL.includes("PASTE_YOUR")) {
+        alert("Please paste your Google Apps Script Web App URL into BACKEND_URL inside index.html first.");
+        return;
+      }
+
+      document.getElementById("generateBtn").disabled = true;
+      document.getElementById("loadingSpinner").style.display = "block";
+
+      const payload = {
+        action: "generate",
+        companyName: document.getElementById("companyName").value.trim(),
+        sector: document.getElementById("sector").value,
+        standard: document.getElementById("standard").value,
+        tools: document.getElementById("tools").value.trim(),
+        bottleneck: document.getElementById("bottleneck").value.trim(),
+        remarks: document.getElementById("remarks").value.trim()
+      };
+
+      try {
+        const res = await fetch(BACKEND_URL, { method: "POST", body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (data.success) {
+          currentRecordId = data.recordId;
+          renderPreview(data);
+        } else {
+          alert("Error generating SOP: " + (data.error || "Please try again."));
+        }
+      } catch (err) {
+        alert("Network error connecting to SOP Engine. Please verify your Web App deployment.");
+      } finally {
+        document.getElementById("generateBtn").disabled = false;
+        document.getElementById("loadingSpinner").style.display = "none";
+      }
+    });
+
+    function renderPreview(data) {
+      document.getElementById("intakeCard").style.display = "none";
+      document.getElementById("previewSection").style.display = "block";
+      document.getElementById("sopOutputContainer").innerHTML = data.sopHtml;
+      document.getElementById("scoreBadge").textContent = "Verified Audit Score: " + data.complianceScore + "/100";
+      document.getElementById("revBadge").textContent = "READ-ONLY PREVIEW • Revision " + data.revisionCount + " of 3";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openRevisionDrawer() {
+      document.getElementById("revisionDrawer").style.display = "block";
+    }
+
+    async function submitRevision() {
+      const notes = document.getElementById("revisionNotes").value.trim();
+      if (!notes) return alert("Please enter what you would like modified.");
+      document.getElementById("revSpinner").style.display = "block";
+
+      try {
+        const res = await fetch(BACKEND_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "revise", recordId: currentRecordId, notes: notes })
+        });
+        const data = await res.json();
+        if (data.limitReached) {
+          alert("Maximum 3 automated revisions reached. Click 'Access My SOP' to open your SOP in ClickUp!");
+        } else if (data.success) {
+          document.getElementById("revisionDrawer").style.display = "none";
+          document.getElementById("revisionNotes").value = "";
+          renderPreview(data);
+        }
+      } catch (err) {
+        alert("Error updating SOP. Please try again.");
+      } finally {
+        document.getElementById("revSpinner").style.display = "none";
+      }
+    }
+
+    async function approveAndUnlock() {
+      try {
+        const res = await fetch(BACKEND_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "approve", recordId: currentRecordId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById("decisionButtons").style.display = "none";
+          document.getElementById("revisionDrawer").style.display = "none";
+          document.getElementById("unlockedCard").style.display = "block";
+          document.getElementById("clickupLink").href = data.clickupUrl;
+          document.getElementById("gumroadLink").href = data.gumroadUrl;
+          document.getElementById("qrCodeImg").src = "https://qrserver.com" + encodeURIComponent(window.location.href);
+        }
+      } catch (err) {
+        alert("Error unlocking workspace link. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
