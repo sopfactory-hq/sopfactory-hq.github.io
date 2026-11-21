@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SOP Factory — Free AI SOP Generator for Manufacturing, IT, Healthcare, Hospitality, F&amp;B, Restaurants, Finance &amp; Education</title>
-  <meta name="description" content="Generate free, formal, audit-ready Standard Operating Procedures (Verified >95/100 Compliance Score) with visual flowcharts and ClickUp checklists in 30 seconds." />
-  <meta name="keywords" content="free SOP generator, ISO 9001 SOP maker, SOC 2 IT SOP template, NABH healthcare SOP generator, HACCP FSSAI food beverage SOP, restaurant kitchen SOP checklist, KYC AML financial SOP builder, ISO 21001 NAAC education SOP" />
+  <title>SOP Factory — Enterprise Standard Operating Procedure &amp; Compliance Studio</title>
+  <meta name="description" content="Standardize operational workflows into formal, audit-ready Standard Operating Procedures with visual process flowcharts and ClickUp checklists. Built for Manufacturing, IT, Healthcare, Hospitality, F&amp;B, Restaurants, Finance &amp; Education." />
+  <meta name="keywords" content="SOP generator, ISO 9001 SOP template, SOC 2 IT SOP maker, NABH healthcare SOP, HACCP FSSAI food safety SOP, restaurant kitchen checklist, KYC AML banking SOP, ISO 21001 NAAC education SOP" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://github.io" />
+  <link rel="preconnect" href="https://googleapis.com" />
+  <link rel="preconnect" href="https://gstatic.com" crossorigin />
+  <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
   {
@@ -19,25 +22,25 @@
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "description": "Automated Standard Operating Procedure (SOP) and compliance blueprint generator for Manufacturing, IT, Healthcare, Hospitality, Food & Beverages, Restaurants, Financial Institutions, and Education."
+        "description": "Formal Standard Operating Procedure (SOP) and compliance blueprint studio for Manufacturing, IT, Healthcare, Hospitality, Food & Beverages, Restaurants, Financial Institutions, and Education."
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How does SOP Factory guarantee a compliance score above 95?",
+            "name": "How does SOP Factory structure audit-ready procedures?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Our quality engine audits your raw workflow inputs and automatically injects missing verification gates, role sign-offs, and safety checks until the generated SOP achieves a verified score between 96 and 99 out of 100."
+              "text": "Our quality engine maps your raw workflow inputs into a formal document control header, visual process diagram, role-based execution table, and mandatory verification checkpoints."
             }
           },
           {
             "@type": "Question",
-            "name": "Can I customize the layout and formatting of my SOP?",
+            "name": "Can I customize the layout and table columns of my SOP?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Use the Remarks & Specific Layout field to specify custom columns, section order, or shift rules, and refine the preview up to 3 times before unlocking your ClickUp workspace checklist."
+              "text": "Yes. Specify your formatting preferences in the Layout & Remarks field before generating, or use the interactive revision loop to refine sections before unlocking your ClickUp workspace."
             }
           }
         ]
@@ -48,266 +51,713 @@
 
   <style>
     :root {
-      --bg-main: #070D19;
-      --bg-card: #0F172A;
-      --bg-input: #1E293B;
-      --border: #1E3A5F;
-      --accent: #0284C7;
-      --accent-hover: #0EA5E9;
-      --emerald: #10B981;
-      --amber: #F59E0B;
-      --text-primary: #F8FAFC;
-      --text-muted: #94A3B8;
+      --bg-page: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --bg-muted: #F1F5F9;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --ink-900: #0F172A;
+      --ink-700: #334155;
+      --ink-500: #64748B;
+      --accent: #1D4ED8;
+      --accent-hover: #1E40AF;
+      --accent-soft: #EFF6FF;
+      --emerald: #047857;
+      --emerald-soft: #ECFDF5;
+      --amber: #B45309;
+      --amber-soft: #FFFBEB;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-      background-color: var(--bg-main);
-      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--ink-900);
       line-height: 1.6;
-      padding-bottom: 60px;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+    /* Institutional Header */
     header {
+      background: rgba(255, 255, 255, 0.96);
       border-bottom: 1px solid var(--border);
-      padding: 18px 0;
-      background: rgba(7, 13, 25, 0.92);
-      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
+      padding: 15px 0;
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
     }
-    .nav-flex { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.06em; color: #fff; display: flex; align-items: center; gap: 10px; }
-    .brand-dot { width: 10px; height: 10px; background: var(--accent-hover); border-radius: 50%; display: inline-block; }
-    .nav-badge { font-size: 0.75rem; background: rgba(16, 185, 129, 0.15); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 10px; border-radius: 99px; font-weight: 600; text-align: center; }
-    .hero { text-align: center; padding: 54px 0 36px; }
-    .pill { display: inline-block; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38BDF8; font-size: 0.76rem; font-weight: 700; padding: 6px 14px; border-radius: 99px; letter-spacing: 0.04em; margin-bottom: 18px; }
-    h1 { font-size: clamp(1.9rem, 4vw, 3.1rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .hero p { max-width: 780px; margin: 0 auto 28px; color: var(--text-muted); font-size: 1.06rem; }
-    .trust-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; }
-    .trust-item { background: var(--bg-card); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; color: #E2E8F0; }
-    .presets-section { margin: 28px auto 18px; }
-    .presets-label { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 10px; text-align: center; font-weight: 700; }
-    .presets-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .preset-btn {
-      background: var(--bg-card); border: 1px solid var(--border); color: #CBD5E1;
-      padding: 8px 14px; border-radius: 8px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand {
+      display: flex; align-items: center; gap: 11px;
+      font-weight: 800; font-size: 1.12rem; letter-spacing: -0.02em; color: var(--ink-900);
     }
-    .preset-btn:hover { border-color: var(--accent-hover); color: #fff; background: #16243D; }
-    .card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 32px; margin-top: 20px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: var(--ink-900); color: #FFFFFF;
+      display: flex; align-items: center; justify-content: center;
     }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    @media (max-width: 700px) { .form-grid { grid-template-columns: 1fr; } .card { padding: 20px; } .sop-paper { padding: 18px; } }
+    .nav-meta { display: flex; align-items: center; gap: 10px; }
+    .nav-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.76rem; font-weight: 600; color: var(--ink-700);
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      padding: 6px 13px; border-radius: 99px;
+    }
+
+    /* Editorial Hero + Two-Column Studio */
+    .hero-studio {
+      padding: 48px 0 64px;
+      background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.22fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 940px) {
+      .studio-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--accent); background: var(--accent-soft);
+      border: 1px solid #DBEAFE; padding: 6px 13px; border-radius: 99px; margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(2.05rem, 3.6vw, 2.85rem);
+      font-weight: 800; line-height: 1.15; letter-spacing: -0.03em;
+      color: var(--ink-900); margin-bottom: 16px;
+    }
+    .lead {
+      font-size: 1.03rem; color: var(--ink-700); margin-bottom: 28px; max-width: 500px;
+    }
+
+    /* Value Pillar Cards (Left Column) */
+    .pillars { display: grid; gap: 14px; margin-bottom: 30px; }
+    .pillar-item {
+      display: flex; align-items: flex-start; gap: 13px;
+      background: #FFFFFF; border: 1px solid var(--border);
+      padding: 14px 16px; border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+    }
+    .pillar-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: var(--accent-soft); color: var(--accent);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .pillar-title { font-size: 0.88rem; font-weight: 700; color: var(--ink-900); margin-bottom: 2px; }
+    .pillar-text { font-size: 0.81rem; color: var(--ink-500); line-height: 1.45; }
+
+    /* Sector Quick-Fill Pills */
+    .templates-head {
+      font-size: 0.74rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--ink-500); margin-bottom: 10px;
+    }
+    .template-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tpl-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #FFFFFF; border: 1px solid var(--border-strong);
+      color: var(--ink-700); padding: 7px 12px; border-radius: 8px;
+      font-size: 0.79rem; font-weight: 600; cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .tpl-btn:hover {
+      border-color: var(--ink-900); color: var(--ink-900); background: var(--bg-subtle);
+    }
+
+    /* Right Column: Formal Studio Card */
+    .studio-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    @media (max-width: 640px) { .studio-card { padding: 20px; } }
+    .card-header {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+      padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--border);
+    }
+    .card-header h2 { font-size: 1.15rem; font-weight: 700; color: var(--ink-900); }
+    .card-header p { font-size: 0.83rem; color: var(--ink-500); margin-top: 2px; }
+    .free-tag {
+      font-size: 0.74rem; font-weight: 700; color: var(--emerald);
+      background: var(--emerald-soft); border: 1px solid #A7F3D0;
+      padding: 4px 10px; border-radius: 99px; white-space: nowrap;
+    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
     .full-span { grid-column: 1 / -1; }
-    label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: #E2E8F0; }
+    label { display: block; font-size: 0.81rem; font-weight: 600; margin-bottom: 6px; color: var(--ink-900); }
     input, select, textarea {
-      width: 100%; background: var(--bg-input); border: 1px solid #334155; color: #fff;
-      padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; font-family: inherit;
+      width: 100%; background: var(--bg-subtle); border: 1px solid var(--border-strong);
+      color: var(--ink-900); padding: 11px 13px; border-radius: 9px;
+      font-size: 0.91rem; font-family: inherit; transition: 0.16s;
     }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-hover); }
-    textarea { min-height: 92px; resize: vertical; }
-    .consent-row { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
-    .consent-row input { width: auto; margin-top: 4px; }
+    input:focus, select:focus, textarea:focus {
+      outline: none; background: #FFFFFF; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    .consent-row { display: flex; align-items: flex-start; gap: 9px; font-size: 0.79rem; color: var(--ink-500); }
+    .consent-row input { width: auto; margin-top: 3px; accent-color: var(--ink-900); }
+
     .btn-primary {
-      width: 100%; background: var(--accent); color: #fff; border: none; padding: 16px;
-      font-size: 1.05rem; font-weight: 700; border-radius: 10px; cursor: pointer; margin-top: 12px; transition: 0.2s;
+      width: 100%; background: var(--ink-900); color: #FFFFFF;
+      border: none; padding: 15px 24px; font-size: 0.96rem; font-weight: 700;
+      border-radius: 10px; cursor: pointer; margin-top: 10px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.18s ease;
     }
-    .btn-primary:hover { background: var(--accent-hover); }
-    #previewSection { display: none; }
-    .preview-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px; }
-    .score-pill { background: rgba(16, 185, 129, 0.18); border: 1px solid var(--emerald); color: var(--emerald); padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.95rem; }
-    .rev-pill { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--amber); color: var(--amber); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+    .btn-primary:hover { background: #1E293B; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Process Workflow Strip */
+    .process-strip {
+      padding: 44px 0;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    @media (max-width: 780px) { .steps-grid { grid-template-columns: 1fr; } }
+    .step-card {
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px;
+    }
+        .step-num {
+      font-size: 0.74rem; font-weight: 800; color: var(--accent);
+      letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .step-card p { font-size: 0.85rem; color: var(--ink-500); }
+
+    /* Read-Only Preview & Review Loop */
+    #previewSection { display: none; padding: 52px 0; background: var(--bg-subtle); border-bottom: 1px solid var(--border); }
+    .preview-shell {
+      background: #FFFFFF; border: 1px solid var(--border);
+      border-radius: 18px; padding: 32px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
+    }
+    .preview-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; margin-bottom: 22px; border-bottom: 1px solid var(--border); }
+    .badge-verified { background: var(--emerald-soft); border: 1px solid #A7F3D0; color: var(--emerald); padding: 6px 14px; border-radius: 99px; font-weight: 700; font-size: 0.81rem; }
+    .badge-rev { background: var(--amber-soft); border: 1px solid #FDE68A; color: var(--amber); padding: 6px 14px; border-radius: 99px; font-weight: 700; font-size: 0.79rem; }
+
     .sop-paper {
-      background: #FFFFFF; color: #0F172A; padding: 30px; border-radius: 10px;
-      border: 2px solid #38BDF8; line-height: 1.65; overflow-x: auto;
+      background: #FFFFFF; color: #0F172A; padding: 34px; border-radius: 12px;
+      border: 1px solid var(--border-strong); line-height: 1.65; overflow-x: auto;
       user-select: none; -webkit-user-select: none; -moz-user-select: none;
     }
-    .sop-paper table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92rem; }
-    .sop-paper th { background: #0F172A; color: #FFFFFF; text-align: left; padding: 10px; border: 1px solid #CBD5E1; }
-    .sop-paper td { padding: 10px; border: 1px solid #CBD5E1; vertical-align: top; }
+    .sop-paper table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9rem; }
+    .sop-paper th { background: #0F172A; color: #FFFFFF; text-align: left; padding: 10px 12px; border: 1px solid #CBD5E1; }
+    .sop-paper td { padding: 10px 12px; border: 1px solid #CBD5E1; vertical-align: top; }
     .sop-paper ul, .sop-paper ol { padding-left: 22px; margin: 10px 0; }
     .sop-paper li { margin-bottom: 6px; }
-    .action-bar { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
-    .btn-revise { flex: 1; min-width: 220px; background: var(--amber); color: #070D19; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
-    .btn-approve { flex: 1; min-width: 220px; background: var(--emerald); color: #fff; border: none; padding: 15px; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; }
-    #revisionDrawer { display: none; margin-top: 18px; background: #0B1324; border: 1px solid var(--amber); padding: 18px; border-radius: 10px; }
-    #unlockedCard { display: none; margin-top: 22px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 24px; border-radius: 12px; text-align: center; }
-    .seo-section { margin-top: 56px; }
-    .seo-section h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: 18px; text-align: center; }
-    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-    .comp-table { width: 100%; border-collapse: collapse; background: var(--bg-card); }
-    .comp-table th, .comp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.92rem; }
-    .comp-table th { background: #132038; color: #38BDF8; }
-    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-    summary { font-weight: 700; cursor: pointer; color: #F1F5F9; }
-    details p { margin-top: 10px; color: var(--text-muted); font-size: 0.92rem; }
-    footer { margin-top: 60px; border-top: 1px solid var(--border); padding-top: 24px; text-align: center; color: var(--text-muted); font-size: 0.84rem; }
-    .spinner { display: none; text-align: center; padding: 20px; color: #38BDF8; font-weight: 700; }
+
+    .action-bar { display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+    .btn-outline {
+      flex: 1; min-width: 210px; background: #FFFFFF; color: var(--ink-900);
+      border: 1.5px solid var(--ink-900); padding: 14px 22px; border-radius: 10px;
+      font-weight: 700; font-size: 0.94rem; cursor: pointer; transition: 0.16s;
+    }
+    .btn-outline:hover { background: var(--bg-subtle); }
+    .btn-solid-accent {
+      flex: 1; min-width: 210px; background: var(--accent); color: #FFFFFF;
+      border: none; padding: 14px 22px; border-radius: 10px;
+      font-weight: 700; font-size: 0.94rem; cursor: pointer; transition: 0.16s;
+    }
+    .btn-solid-accent:hover { background: var(--accent-hover); }
+
+    #revisionDrawer { display: none; margin-top: 18px; background: var(--bg-subtle); border: 1px solid var(--border); padding: 20px; border-radius: 12px; }
+    #unlockedCard { display: none; margin-top: 24px; background: var(--emerald-soft); border: 1px solid #A7F3D0; padding: 28px; border-radius: 14px; text-align: center; }
+
+    /* Comparison & FAQ Sections */
+    .section-block { padding: 64px 0; border-bottom: 1px solid var(--border); }
+    .section-title { text-align: center; max-width: 660px; margin: 0 auto 36px; }
+    .section-title h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .section-title p { color: var(--ink-500); font-size: 0.96rem; }
+
+    .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+    .comp-table { width: 100%; border-collapse: collapse; background: #FFFFFF; }
+    .comp-table th, .comp-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.91rem; }
+    .comp-table th { background: var(--bg-subtle); color: var(--ink-900); font-weight: 700; }
+    .tag-yes { color: var(--emerald); font-weight: 600; }
+    .tag-no { color: var(--ink-500); }
+
+    .faq-wrap { max-width: 800px; margin: 0 auto; }
+    details { background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; }
+    summary { font-weight: 700; cursor: pointer; color: var(--ink-900); font-size: 0.95rem; }
+    details p { margin-top: 10px; color: var(--ink-700); font-size: 0.91rem; }
+
+    footer { padding: 32px 0; text-align: center; color: var(--ink-500); font-size: 0.83rem; background: var(--bg-subtle); }
+    .spinner { display: none; text-align: center; padding: 16px; color: var(--accent); font-weight: 600; font-size: 0.89rem; }
   </style>
 </head>
- <body oncontextmenu="return false;">
+
+  <body oncontextmenu="return false;">
 
   <header>
     <div class="container nav-flex">
-      <div class="brand"><span class="brand-dot"></span> SOP FACTORY</div>
-      <span class="nav-badge">VERIFIED &gt;95/100 AUDIT ENGINE • FREE</span>
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </span>
+        SOP Factory
+      </div>
+      <div class="nav-meta">
+        <span class="nav-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Enterprise Process Architecture
+        </span>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <span class="pill">MANUFACTURING • IT • HEALTHCARE • HOSPITALITY • F&amp;B • RESTAURANTS • FINANCE • EDUCATION</span>
-      <h1>Free AI Standard Operating Procedure &amp; Compliance Generator</h1>
-      <p>Convert complex workflows into formal, simple-language SOPs with visual flowcharts, quality gates, and ClickUp checklists in 30 seconds. Every blueprint is self-audited to exceed a 95/100 compliance score.</p>
-      <div class="trust-bar">
-        <div class="trust-item">🎯 Guaranteed &gt;95/100 Audit Score</div>
-        <div class="trust-item">🔄 Visual Flowchart &amp; Simple English</div>
-        <div class="trust-item">✏️ Live Modification Loop &amp; ClickUp Sync</div>
-      </div>
-    </section>
+  <section class="hero-studio">
+    <div class="container studio-grid">
+      <div>
+        <span class="kicker">8-Sector Compliance Studio</span>
+        <h1>Standardize operational workflows into audit-ready SOPs.</h1>
+        <p class="lead">
+          Convert raw operational procedures into formal, plain-English Standard Operating Procedures complete with visual flowcharts, role accountability, and ClickUp execution checklists.
+        </p>
 
-    <section class="presets-section">
-      <div class="presets-label">Instant 1-Click Industry Templates (Click to Auto-Fill):</div>
-      <div class="presets-grid">
-        <button type="button" class="preset-btn" onclick="loadPreset('mfg')">🏭 Manufacturing: ISO 9001 Inspection</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('it')">💻 IT &amp; SaaS: SOC 2 Incident Response</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('health')">🏥 Healthcare: Clinic Hygiene &amp; Triage</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('hosp')">🏨 Hospitality: Hotel Check-In &amp; Rooms</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('fnb')">🥫 Food &amp; Beverages: ISO 22000 &amp; Allergen</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('rest')">🍽️ Restaurants: Kitchen Hygiene &amp; Packing</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('fin')">🏦 Finance: KYC/AML Onboarding Audit</button>
-        <button type="button" class="preset-btn" onclick="loadPreset('edu')">🎓 Education: Admissions &amp; Exam Audit</button>
-      </div>
-    </section>
+        <div class="pillars">
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Regulatory Control Matrix</div>
+              <div class="pillar-text">Embeds mandatory maker-checker gates, pass/fail limits, and sign-off controls aligned with ISO, SOC 2, NABH, FSSAI, HACCP, KYC, and NAAC standards.</div>
+            </div>
+          </div>
 
-    <section id="intakeCard" class="card">
-      <form id="sopForm">
-        <div class="form-grid">
-          <div>
-            <label for="companyName">Organization / Brand / Institution Name *</label>
-            <input type="text" id="companyName" required placeholder="e.g., Apex Foods, Grand Bistro, or Global Academy" />
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M17.5 10v4"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Visual Process Diagram &amp; Plain Language</div>
+              <div class="pillar-text">Generates an executive process flowchart paired with clear, unambiguous instructions that frontline staff can follow without guesswork.</div>
+            </div>
           </div>
-          <div>
-            <label for="sector">Industry / Sector *</label>
-            <select id="sector" required>
-              <option value="Manufacturing & Supply Chain">Manufacturing &amp; Supply Chain</option>
-              <option value="IT & SaaS Operations">IT &amp; SaaS Operations</option>
-              <option value="Healthcare & Clinics">Healthcare &amp; Clinics</option>
-              <option value="Hospitality & Hotels">Hospitality &amp; Hotels</option>
-              <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
-              <option value="Restaurants & Cloud Kitchens">Restaurants &amp; Cloud Kitchens</option>
-              <option value="Financial Institutions & Banking">Financial Institutions &amp; Banking</option>
-              <option value="Education & Academic Institutions">Education &amp; Academic Institutions</option>
-            </select>
-          </div>
-          <div>
-            <label for="standard">Target Compliance Framework *</label>
-            <select id="standard" required>
-              <option value="ISO 9001:2015 & Lean 5S">ISO 9001:2015 &amp; Lean 5S (Manufacturing)</option>
-              <option value="ISO 27001 & SOC 2 Security">ISO 27001 &amp; SOC 2 Security (IT Ops)</option>
-              <option value="NABH / HIPAA Clinical Hygiene">NABH / HIPAA Clinical Hygiene (Healthcare)</option>
-              <option value="Hospitality Guest & Facility Standards">Hospitality Guest &amp; Facility Standards (Hotels)</option>
-              <option value="ISO 22000, FSSAI & Allergen Control">ISO 22000, FSSAI &amp; Allergen Control (Food &amp; Beverages)</option>
-              <option value="HACCP Kitchen Hygiene & Food Safety">HACCP Kitchen Hygiene &amp; Food Safety (Restaurants)</option>
-              <option value="KYC / AML & Financial Audit Controls">KYC / AML &amp; Financial Audit Controls (Finance)</option>
-              <option value="ISO 21001 & NAAC Academic Quality">ISO 21001 &amp; NAAC Academic Quality (Education)</option>
-            </select>
-          </div>
-          <div>
-            <label for="tools">Key Tools, Software, or Equipment</label>
-            <input type="text" id="tools" placeholder="e.g., ERP, POS, Probe Thermometer, LMS, Jira, Core Banking" />
-          </div>
-          <div class="full-span">
-            <label for="bottleneck">Core Process or Workflow Bottleneck to Standardize *</label>
-            <textarea id="bottleneck" required placeholder="Describe the step-by-step task, handoffs, or recurring errors you want standardized..."></textarea>
-          </div>
-          <div class="full-span">
-            <label for="remarks">Specific Layout Instructions, Shift Rules, or Remarks (Optional)</label>
-            <textarea id="remarks" placeholder="e.g., Put hygiene/safety rules at the top, include a 4-column table, add shift closing sign-off..."></textarea>
-          </div>
-          <div class="full-span consent-row">
-            <input type="checkbox" id="consent" required checked />
-            <label for="consent" style="margin:0; font-weight:400;">I agree to anonymized structural processing so the system can benchmark compliance quality (&gt;95/100) without storing personal identities.</label>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Iterative Review &amp; Workspace Sync</div>
+              <div class="pillar-text">Inspect your blueprint in a controlled preview, request custom layout adjustments, and deploy directly into a private ClickUp workspace.</div>
+            </div>
           </div>
         </div>
-        <button type="submit" class="btn-primary" id="generateBtn">Generate Formal SOP Blueprint (&gt;95 Score) →</button>
-        <div class="spinner" id="loadingSpinner">⚙️ Auditing workflow, building flowchart &amp; verifying &gt;95/100 compliance score... (10–15 seconds)</div>
-      </form>
-    </section>
 
-    <section id="previewSection" class="card">
-      <div class="preview-header">
-        <div>
-          <span class="rev-pill" id="revBadge">READ-ONLY PREVIEW • Revision 0 of 3</span>
-          <h2 style="margin-top:8px; font-size:1.3rem;">Inspect Your Generated SOP Blueprint</h2>
-        </div>
-        <div class="score-pill" id="scoreBadge">Verified Audit Score: 98/100</div>
-      </div>
-
-      <div id="sopOutputContainer" class="sop-paper"></div>
-
-      <div class="action-bar" id="decisionButtons">
-        <button type="button" class="btn-revise" onclick="openRevisionDrawer()">✏️ 1. Need Modification</button>
-        <button type="button" class="btn-approve" onclick="approveAndUnlock()">✅ 2. Access My SOP (ClickUp)</button>
-      </div>
-
-      <div id="revisionDrawer">
-        <label for="revisionNotes"><strong>Specify Exact Modifications or Layout Tweaks:</strong></label>
-        <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include temperature log verification..."></textarea>
-        <button type="button" class="btn-revise" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP (&gt;95 Score)</button>
-        <div class="spinner" id="revSpinner">⏳ Applying modifications and re-verifying &gt;95/100 compliance score...</div>
-      </div>
-
-      <div id="unlockedCard">
-        <h3 style="color:#10B981; font-size:1.4rem; margin-bottom:10px;">🎉 SOP Approved &amp; Unlocked!</h3>
-        <p style="color:#E2E8F0; margin-bottom:18px;">Open your private, dedicated SOP workspace in ClickUp to assign team roles and track daily sign-offs:</p>
-        <a id="clickupLink" href="#" target="_blank" rel="noopener" class="btn-approve" style="display:inline-block; text-decoration:none; padding:14px 28px;">Open My Private ClickUp SOP →</a>
-        <div style="margin-top:20px;">
-          <p style="font-size:0.85rem; color:#94A3B8; margin-bottom:8px;">📱 Print this Workstation QR Code for instant mobile audit checks:</p>
-          <img id="qrCodeImg" src="" alt="Workstation Audit QR Code" style="border-radius:8px; border:4px solid #fff;" />
-        </div>
-        <div style="margin-top:22px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.12); font-size:0.9rem;">
-          Need an editable Word (.docx) + Printable Excel Audit Sheet? <a id="gumroadLink" href="#" target="_blank" style="color:#38BDF8; font-weight:700;">Download the Editable Compliance Pack ($9) →</a>
+        <div class="templates-head">Load a Sector Reference Template (1-Click Fill)</div>
+        <div class="template-pills">
+          <button type="button" class="tpl-btn" onclick="loadPreset('mfg')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M4 20V8l6 4V8l6 4V4h4v16"/></svg>
+            Manufacturing (ISO 9001)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('it')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            IT &amp; SaaS (SOC 2)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('health')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Healthcare (NABH)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('hosp')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+            Hospitality &amp; Hotels
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('fnb')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Food &amp; Beverages (FSSAI)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('rest')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+            Restaurants (HACCP)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('fin')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Finance (KYC / AML)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('edu')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Education (ISO 21001)
+          </button>
         </div>
       </div>
-    </section>
 
-    <section class="seo-section">
-      <h2>Why Operations &amp; Institutional Leaders Choose SOP Factory</h2>
+      <div id="intakeCard" class="studio-card">
+        <div class="card-header">
+          <div>
+            <h2>SOP Specification Sheet</h2>
+            <p>Define your operational parameters to compile a structured procedure.</p>
+          </div>
+          <span class="free-tag">No Signup Required</span>
+        </div>
+
+        <form id="sopForm">
+          <div class="form-grid">
+            <div>
+              <label for="companyName">Organization / Institution Name *</label>
+              <input type="text" id="companyName" required placeholder="e.g., Apex Operations or Grand Bistro" />
+            </div>
+            <div>
+              <label for="sector">Industry / Sector *</label>
+              <select id="sector" required>
+                <option value="Manufacturing & Supply Chain">Manufacturing &amp; Supply Chain</option>
+                <option value="IT & SaaS Operations">IT &amp; SaaS Operations</option>
+                <option value="Healthcare & Clinics">Healthcare &amp; Clinics</option>
+                <option value="Hospitality & Hotels">Hospitality &amp; Hotels</option>
+                <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
+                <option value="Restaurants & Cloud Kitchens">Restaurants &amp; Cloud Kitchens</option>
+                <option value="Financial Institutions & Banking">Financial Institutions &amp; Banking</option>
+                <option value="Education & Academic Institutions">Education &amp; Academic Institutions</option>
+              </select>
+            </div>
+            <div>
+              <label for="standard">Compliance Standard *</label>
+              <select id="standard" required>
+                <option value="ISO 9001:2015 & Lean 5S">ISO 9001:2015 &amp; Lean 5S (Manufacturing)</option>
+                <option value="ISO 27001 & SOC 2 Security">ISO 27001 &amp; SOC 2 Security (IT Ops)</option>
+                <option value="NABH / HIPAA Clinical Hygiene">NABH / HIPAA Clinical Hygiene (Healthcare)</option>
+                <option value="Hospitality Guest & Facility Standards">Hospitality Guest &amp; Facility Standards (Hotels)</option>
+                <option value="ISO 22000, FSSAI & Allergen Control">ISO 22000, FSSAI &amp; Allergen Control (F&amp;B)</option>
+                <option value="HACCP Kitchen Hygiene & Food Safety">HACCP Kitchen Hygiene &amp; Food Safety (Restaurants)</option>
+                <option value="KYC / AML & Financial Audit Controls">KYC / AML &amp; Financial Audit Controls (Finance)</option>
+                <option value="ISO 21001 & NAAC Academic Quality">ISO 21001 &amp; NAAC Academic Quality (Education)</option>
+              </select>
+            </div>
+            <div>
+              <label for="tools">Systems, Tools, or Equipment</label>
+              <input type="text" id="tools" placeholder="e.g., ERP, POS, Probe Thermometer, LMS, Jira" />
+            </div>
+            <div class="full-span">
+              <label for="bottleneck">Workflow or Bottleneck to Standardize *</label>
+              <textarea id="bottleneck" required placeholder="Describe the step-by-step task, handoffs, or quality checks you want standardized..."></textarea>
+            </div>
+            <div class="full-span">
+              <label for="remarks">Layout Preferences, Shift Rules, or Remarks (Optional)</label>
+              <textarea id="remarks" placeholder="e.g., Place safety rules at the top, include a 4-column table, add shift handover sign-off..."></textarea>
+            </div>
+            <div class="full-span consent-row">
+              <input type="checkbox" id="consent" required checked />
+              <label for="consent" style="margin:0; font-weight:400;">I consent to anonymized structural processing for quality benchmarking with zero retention of personal identifiers.</label>
+            </div>
+<body oncontextmenu="return false;">
+
+  <header>
+    <div class="container nav-flex">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </span>
+        SOP Factory
+      </div>
+      <div class="nav-meta">
+        <span class="nav-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Enterprise Process Architecture
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-studio">
+    <div class="container studio-grid">
+      <div>
+        <span class="kicker">8-Sector Compliance Studio</span>
+        <h1>Standardize operational workflows into audit-ready SOPs.</h1>
+        <p class="lead">
+          Convert raw operational procedures into formal, plain-English Standard Operating Procedures complete with visual flowcharts, role accountability, and ClickUp execution checklists.
+        </p>
+
+        <div class="pillars">
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Regulatory Control Matrix</div>
+              <div class="pillar-text">Embeds mandatory maker-checker gates, pass/fail limits, and sign-off controls aligned with ISO, SOC 2, NABH, FSSAI, HACCP, KYC, and NAAC standards.</div>
+            </div>
+          </div>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M17.5 10v4"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Visual Process Diagram &amp; Plain Language</div>
+              <div class="pillar-text">Generates an executive process flowchart paired with clear, unambiguous instructions that frontline staff can follow without guesswork.</div>
+            </div>
+          </div>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Iterative Review &amp; Workspace Sync</div>
+              <div class="pillar-text">Inspect your blueprint in a controlled preview, request custom layout adjustments, and deploy directly into a private ClickUp workspace.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="templates-head">Load a Sector Reference Template (1-Click Fill)</div>
+        <div class="template-pills">
+          <button type="button" class="tpl-btn" onclick="loadPreset('mfg')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M4 20V8l6 4V8l6 4V4h4v16"/></svg>
+            Manufacturing (ISO 9001)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('it')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            IT &amp; SaaS (SOC 2)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('health')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Healthcare (NABH)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('hosp')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+            Hospitality &amp; Hotels
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('fnb')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Food &amp; Beverages (FSSAI)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('rest')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+            Restaurants (HACCP)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('fin')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Finance (KYC / AML)
+          </button>
+          <button type="button" class="tpl-btn" onclick="loadPreset('edu')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Education (ISO 21001)
+          </button>
+        </div>
+      </div>
+
+      <div id="intakeCard" class="studio-card">
+        <div class="card-header">
+          <div>
+            <h2>SOP Specification Sheet</h2>
+            <p>Define your operational parameters to compile a structured procedure.</p>
+          </div>
+          <span class="free-tag">No Signup Required</span>
+        </div>
+
+        <form id="sopForm">
+          <div class="form-grid">
+            <div>
+              <label for="companyName">Organization / Institution Name *</label>
+              <input type="text" id="companyName" required placeholder="e.g., Apex Operations or Grand Bistro" />
+            </div>
+            <div>
+              <label for="sector">Industry / Sector *</label>
+              <select id="sector" required>
+                <option value="Manufacturing & Supply Chain">Manufacturing &amp; Supply Chain</option>
+                <option value="IT & SaaS Operations">IT &amp; SaaS Operations</option>
+                <option value="Healthcare & Clinics">Healthcare &amp; Clinics</option>
+                <option value="Hospitality & Hotels">Hospitality &amp; Hotels</option>
+                <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
+                <option value="Restaurants & Cloud Kitchens">Restaurants &amp; Cloud Kitchens</option>
+                <option value="Financial Institutions & Banking">Financial Institutions &amp; Banking</option>
+                <option value="Education & Academic Institutions">Education &amp; Academic Institutions</option>
+              </select>
+            </div>
+            <div>
+              <label for="standard">Compliance Standard *</label>
+              <select id="standard" required>
+                <option value="ISO 9001:2015 & Lean 5S">ISO 9001:2015 &amp; Lean 5S (Manufacturing)</option>
+                <option value="ISO 27001 & SOC 2 Security">ISO 27001 &amp; SOC 2 Security (IT Ops)</option>
+                <option value="NABH / HIPAA Clinical Hygiene">NABH / HIPAA Clinical Hygiene (Healthcare)</option>
+                <option value="Hospitality Guest & Facility Standards">Hospitality Guest &amp; Facility Standards (Hotels)</option>
+                <option value="ISO 22000, FSSAI & Allergen Control">ISO 22000, FSSAI &amp; Allergen Control (F&amp;B)</option>
+                <option value="HACCP Kitchen Hygiene & Food Safety">HACCP Kitchen Hygiene &amp; Food Safety (Restaurants)</option>
+                <option value="KYC / AML & Financial Audit Controls">KYC / AML &amp; Financial Audit Controls (Finance)</option>
+                <option value="ISO 21001 & NAAC Academic Quality">ISO 21001 &amp; NAAC Academic Quality (Education)</option>
+              </select>
+            </div>
+            <div>
+              <label for="tools">Systems, Tools, or Equipment</label>
+              <input type="text" id="tools" placeholder="e.g., ERP, POS, Probe Thermometer, LMS, Jira" />
+            </div>
+            <div class="full-span">
+              <label for="bottleneck">Workflow or Bottleneck to Standardize *</label>
+              <textarea id="bottleneck" required placeholder="Describe the step-by-step task, handoffs, or quality checks you want standardized..."></textarea>
+            </div>
+            <div class="full-span">
+              <label for="remarks">Layout Preferences, Shift Rules, or Remarks (Optional)</label>
+              <textarea id="remarks" placeholder="e.g., Place safety rules at the top, include a 4-column table, add shift handover sign-off..."></textarea>
+            </div>
+            <div class="full-span consent-row">
+              <input type="checkbox" id="consent" required checked />
+              <label for="consent" style="margin:0; font-weight:400;">I consent to anonymized structural processing for quality benchmarking with zero retention of personal identifiers.</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="generateBtn">
+            Compile Formal SOP Blueprint
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <div class="spinner" id="loadingSpinner">Structuring workflow, mapping visual diagram &amp; verifying control gates... (10–15 seconds)</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-strip">
+    <div class="container">
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">STEP 01 • DEFINE</div>
+          <h3>Input Operational Context</h3>
+          <p>Select your sector framework and outline the workflow bottleneck, equipment, and shift rules.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 02 • VERIFY</div>
+          <h3>Inspect &amp; Refine Blueprint</h3>
+          <p>Review the generated document control table and visual flowchart, requesting layout edits as needed.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 03 • DEPLOY</div>
+          <h3>Sync to Private Workspace</h3>
+          <p>Approve your finalized SOP to launch an isolated ClickUp checklist and printable workstation QR code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="previewSection">
+    <div class="container">
+      <div class="preview-shell">
+        <div class="preview-header">
+          <div>
+            <span class="badge-rev" id="revBadge">CONTROLLED PREVIEW • Revision 0 of 3</span>
+            <h2 style="margin-top:8px; font-size:1.35rem;">Inspect Your Compiled SOP Blueprint</h2>
+          </div>
+          <div class="badge-verified" id="scoreBadge">Audit-Ready Standard Verified</div>
+        </div>
+
+        <div id="sopOutputContainer" class="sop-paper"></div>
+
+        <div class="action-bar" id="decisionButtons">
+          <button type="button" class="btn-outline" onclick="openRevisionDrawer()">1. Request Modification</button>
+          <button type="button" class="btn-solid-accent" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
+        </div>
+
+        <div id="revisionDrawer">
+          <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
+          <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include temperature log verification..."></textarea>
+          <button type="button" class="btn-primary" style="margin-top:12px;" onclick="submitRevision()">Regenerate Updated SOP Blueprint</button>
+          <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
+        </div>
+
+        <div id="unlockedCard">
+          <h3 style="color:#047857; font-size:1.38rem; margin-bottom:8px;">SOP Approved &amp; Deployed</h3>
+          <p style="color:#334155; margin-bottom:20px;">Open your private SOP workspace in ClickUp to assign team roles and track daily sign-offs:</p>
+          <a id="clickupLink" href="#" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex; width:auto; text-decoration:none; padding:14px 32px;">Open My Private ClickUp SOP →</a>
+          <div style="margin-top:22px;">
+            <p style="font-size:0.83rem; color:#64748B; margin-bottom:8px;">Print this Workstation QR Code for instant mobile audit checks:</p>
+            <img id="qrCodeImg" src="" alt="Workstation Audit QR Code" style="border-radius:10px; border:1px solid #CBD5E1; padding:6px; background:#fff;" />
+          </div>
+          <div style="margin-top:22px; padding-top:16px; border-top:1px solid #A7F3D0; font-size:0.87rem; color:#334155;">
+            Need an editable Word (.docx) + Printable Excel Audit Sheet? <a id="gumroadLink" href="#" target="_blank" style="color:#1D4ED8; font-weight:700;">Download the Editable Compliance Pack ($9) →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+      <div class="section-title">
+        <h2>Engineered for Institutional Rigor</h2>
+        <p>Compare structured SOP compilation against manual word processing and generic template libraries.</p>
+      </div>
       <div class="table-wrap">
         <table class="comp-table">
           <thead>
             <tr>
               <th>Capability</th>
-              <th>SOP Factory (Free)</th>
+              <th>SOP Factory</th>
               <th>Manual Word / Docs</th>
-              <th>Traditional Paid SOP Tools</th>
+              <th>Legacy Template Tools</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Verified &gt;95/100 Audit Gate</strong></td>
-              <td>✅ Built-in auto-upgrade</td>
-              <td>❌ Manual guesswork</td>
-              <td>❌ Basic text generation only</td>
+              <td><strong>Regulatory Control Gates</strong></td>
+              <td class="tag-yes">Built-in pass/fail checkpoints &amp; sign-offs</td>
+              <td class="tag-no">Manual drafting &amp; omissions</td>
+              <td class="tag-no">Unstructured prose blocks</td>
             </tr>
             <tr>
-              <td><strong>Visual Process Flowchart</strong></td>
-              <td>✅ Auto-generated in HTML</td>
-              <td>❌ Takes 45+ mins manually</td>
-              <td>⚠️ Paid add-on tier</td>
+              <td><strong>Visual Process Diagram</strong></td>
+              <td class="tag-yes">Auto-generated step-by-step flowchart</td>
+              <td class="tag-no">Requires separate diagramming tools</td>
+              <td class="tag-no">Locked behind enterprise tiers</td>
             </tr>
             <tr>
-              <td><strong>8-Sector Compliance Radar</strong></td>
-              <td>✅ ISO, SOC 2, NABH, FSSAI, HACCP, KYC, NAAC</td>
-              <td>❌ Outdated templates</td>
-              <td>⚠️ Generic business templates</td>
+              <td><strong>8-Sector Framework Alignment</strong></td>
+              <td class="tag-yes">ISO, SOC 2, NABH, FSSAI, HACCP, KYC, NAAC</td>
+              <td class="tag-no">Static, outdated documents</td>
+              <td class="tag-no">Generic business checklists</td>
             </tr>
             <tr>
-  <script>
+              <td><strong>Interactive Revision Loop</strong></td>
+              <td class="tag-yes">Instant 3-cycle structural refinement</td>
+              <td class="tag-no">Slow email review threads</td>
+              <td class="tag-no">Seat-based licensing friction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" style="border-bottom:none;">
+    <div class="container faq-wrap">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <details>
+        <summary>How does SOP Factory ensure audit-ready compliance?</summary>
+        <p>Before displaying any blueprint, our backend evaluates your workflow against sector-specific quality gates (ISO 9001, SOC 2, NABH, FSSAI/ISO 22000, HACCP, KYC/AML, or ISO 21001/NAAC) and automatically embeds mandatory verification checks and role sign-offs.</p>
+      </details>
+      <details>
+        <summary>Can I request a specific layout or table structure?</summary>
+        <p>Yes. Enter your formatting preferences in the Layout Preferences &amp; Remarks field before generating, or use the "1. Request Modification" button on the preview screen to refine sections, safety callouts, or table columns.</p>
+      </details>
+      <details>
+        <summary>Which industries and businesses are supported?</summary>
+        <p>SOP Factory is calibrated for Manufacturing, IT &amp; SaaS, Healthcare &amp; Clinics, Hospitality &amp; Hotels, Food &amp; Beverages Manufacturing, Restaurants &amp; Cloud Kitchens, Financial Institutions, and Education &amp; Academic Institutions.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      SOP Factory Systems • Institutional Confidentiality Protocol: Zero personal data retention, zero public indexing of client inputs.
+    </div>
+  </footer>
+
+
+    <script>
     // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL INSIDE THE QUOTES BELOW:
-    const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxdNQoYCGCBGBkOQbWER1ZDV70nsJY2yJw4_3fdflOMrLNdcxAVBStm_6GzByltOy-sSQ/exec
-";
+    const BACKEND_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
     let currentRecordId = null;
 
     const PRESETS = {
@@ -425,12 +875,11 @@
     });
 
     function renderPreview(data) {
-      document.getElementById("intakeCard").style.display = "none";
       document.getElementById("previewSection").style.display = "block";
       document.getElementById("sopOutputContainer").innerHTML = data.sopHtml;
-      document.getElementById("scoreBadge").textContent = "Verified Audit Score: " + data.complianceScore + "/100";
-      document.getElementById("revBadge").textContent = "READ-ONLY PREVIEW • Revision " + data.revisionCount + " of 3";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      document.getElementById("scoreBadge").textContent = "Audit-Ready Standard Verified";
+      document.getElementById("revBadge").textContent = "CONTROLLED PREVIEW • Revision " + data.revisionCount + " of 3";
+      document.getElementById("previewSection").scrollIntoView({ behavior: "smooth" });
     }
 
     function openRevisionDrawer() {
@@ -449,7 +898,7 @@
         });
         const data = await res.json();
         if (data.limitReached) {
-          alert("Maximum 3 automated revisions reached. Click 'Access My SOP' to open your SOP in ClickUp!");
+          alert("Maximum 3 automated revisions reached. Click 'Approve & Open in ClickUp' to finalize your document.");
         } else if (data.success) {
           document.getElementById("revisionDrawer").style.display = "none";
           document.getElementById("revisionNotes").value = "";
@@ -484,3 +933,7 @@
   </script>
 </body>
 </html>
+
+
+
+    
