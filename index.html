@@ -71,9 +71,11 @@
     .subtitle {
       font-size: 0.92rem; color: var(--muted); max-width: 540px; margin: 0 auto 14px;
     }
-    .presets { margin: 12px auto 14px; text-align: center; }
-
-    .pill:hover { background: #EEF2FF; border-color: #818CF8; color: #3730A3; }
+        .micro-trust {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 22px;
+      font-size: 0.82rem; font-weight: 500; color: #334155; margin-bottom: 10px;
+    }
+    .micro-trust span { display: inline-flex; align-items: center; gap: 6px; }
 
     /* Horizontal Lean Studio Card */
     .studio-card {
@@ -170,7 +172,6 @@
 
   <main class="container">
     <section class="hero">
-      <span class="badge">Multi-Sector Compliance Studio</span>
       <h1>Turn workflows into <span>audit-ready SOPs.</span></h1>
       <p class="subtitle">Generate formal Standard Operating Procedures with visual process flowcharts and Checklists — free and structured in seconds.</p>
       <div class="micro-trust">
@@ -178,20 +179,7 @@
         <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Visual Process Flowchart</span>
         <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1-Click ClickUp Sync</span>
       </div>
-
-      <div class="presets">
-        <div class="pill-row">
-          <button type="button" class="pill" onclick="loadPreset('mfg')">Manufacturing</button>
-          <button type="button" class="pill" onclick="loadPreset('it')">IT &amp; SaaS</button>
-          <button type="button" class="pill" onclick="loadPreset('health')">Healthcare</button>
-          <button type="button" class="pill" onclick="loadPreset('hosp')">Hospitality</button>
-          <button type="button" class="pill" onclick="loadPreset('fnb')">Food &amp; Beverages</button>
-          <button type="button" class="pill" onclick="loadPreset('rest')">Restaurants</button>
-          <button type="button" class="pill" onclick="loadPreset('fin')">Finance</button>
-          <button type="button" class="pill" onclick="loadPreset('edu')">Education</button>
-        </div>
-      </div>
-    </section>
+   </section>
 
     <section id="intakeCard" class="studio-card">
       <form id="sopForm">
