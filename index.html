@@ -248,6 +248,21 @@
     #reviewPage { display: none; padding: 36px 0 64px; }
     .back-bar { margin-bottom: 16px; }
     .back-link { background: none; border: none; color: #2563EB; font-weight: 600; font-size: 0.88rem; cursor: pointer; }
+    /* Live Button Spinner Animation */
+    .btn-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spinBtn 0.75s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spinBtn {
+      to { transform: rotate(360deg); }
+    }
 
   </style>
 </head>
@@ -291,9 +306,9 @@
   </main>
 
   <!-- POPUP MODAL: EMPTY DEFAULT FORM WITH "OTHERS" & FILE ATTACHMENT -->
-  <div id="sopModal" class="modal-backdrop" onclick="if(event.target===this) closeFormModal()">
-    <div class="modal-box">
-      <button type="button" class="modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
+      <div id="sopModal" class="modal-backdrop" onclick="if(event.target===this && !isGenerating) closeFormModal()">
+      <div class="modal-box">
+      <button type="button" id="modalCloseBtn" class="modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
       <h2 style="font-size:1.25rem; margin-bottom:4px;">Configure Your SOP Blueprint</h2>
       <p style="font-size:0.84rem; color:#64748B; margin-bottom:18px;">Complete the details below or attach existing notes/SOPs to generate an audit-ready procedure.</p>
 
@@ -475,7 +490,16 @@
         return;
       }
 
-      document.getElementById("generateBtn").disabled = true;
+      isGenerating = true;
+      const btn = document.getElementById("generateBtn");
+      const closeBtn = document.getElementById("modalCloseBtn");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-spinner"></span> Compiling SOP Blueprint...';
+      if (closeBtn) {
+        closeBtn.disabled = true;
+        closeBtn.style.opacity = "0.4";
+        closeBtn.style.cursor = "not-allowed";
+      }
       document.getElementById("loadingSpinner").style.display = "block";
 
       let attachmentData = null;
@@ -519,8 +543,15 @@
         }
       } catch (err) {
         alert("Network error connecting to SOP Engine. Please verify your Web App deployment.");
-      } finally {
-        document.getElementById("generateBtn").disabled = false;
+     } finally {
+        isGenerating = false;
+        btn.disabled = false;
+        btn.innerHTML = 'Generate Audit-Ready SOP →';
+        if (closeBtn) {
+          closeBtn.disabled = false;
+          closeBtn.style.opacity = "1";
+          closeBtn.style.cursor = "pointer";
+        }
         document.getElementById("loadingSpinner").style.display = "none";
       }
     });
