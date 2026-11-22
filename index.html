@@ -425,6 +425,7 @@
      function openFormModal(e) {
       if (e) e.preventDefault();
       document.getElementById("sopForm").reset();
+      document.getElementById("consent").checked = true;
       document.getElementById("customSectorInput").style.display = "none";
       document.getElementById("customStandardInput").style.display = "none";
       document.getElementById("sopModal").style.display = "block";
