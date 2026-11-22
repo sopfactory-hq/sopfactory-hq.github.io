@@ -436,6 +436,7 @@
   <script>
     const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxdNQoYCGCBGBkOQbWER1ZDV70nsJY2yJw4_3fdflOMrLNdcxAVBStm_6GzByltOy-sSQ/exec"
     let currentRecordId = null;
+    let isGenerating = false;
 
      function openFormModal(e) {
       if (e) e.preventDefault();
@@ -505,12 +506,19 @@
       let attachmentData = null;
       try {
         attachmentData = await readAttachment(document.getElementById("referenceFile").files[0]);
-      } catch (fileErr) {
-        alert(fileErr.message);
-        document.getElementById("generateBtn").disabled = false;
-        document.getElementById("loadingSpinner").style.display = "none";
-        return;
-      }
+         } catch (fileErr) {
+     alert(fileErr.message);
+     isGenerating = false;
+     btn.disabled = false;
+     btn.innerHTML = 'Generate Audit-Ready SOP →';
+     if (closeBtn) {
+       closeBtn.disabled = false;
+       closeBtn.style.opacity = "1";
+       closeBtn.style.cursor = "pointer";
+     }
+     document.getElementById("loadingSpinner").style.display = "none";
+     return;
+   }
 
       const sectorVal = document.getElementById("sector").value === "OTHER"
         ? document.getElementById("customSectorInput").value.trim()
