@@ -404,16 +404,17 @@
       <div id="sopOutputContainer" class="sop-paper"></div>
 
       <div class="btn-row" id="decisionButtons">
-        <button type="button" class="btn-edit" onclick="openRevisionDrawer()">1. Request Modification</button>
-        <button type="button" class="btn-unlock" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
+        <button type="button" id="openRevBtn" class="btn-edit" onclick="openRevisionDrawer()">1. Request Modification</button>
+        <button type="button" id="approveBtn" class="btn-unlock" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
       </div>
 
       <div id="revisionDrawer">
         <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
         <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include temperature log verification..."></textarea>
-        <button type="button" class="btn-go" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP Blueprint</button>
+        <button type="button" id="reviseBtn" class="btn-go" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP Blueprint</button>
         <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
       </div>
+
 
       <div id="unlockedCard">
         <h3 style="color:#059669; font-size:1.3rem; margin-bottom:6px;">SOP Approved &amp; Deployed</h3>
@@ -577,9 +578,17 @@
       document.getElementById("revisionDrawer").style.display = "block";
     }
 
-    async function submitRevision() {
+        async function submitRevision() {
       const notes = document.getElementById("revisionNotes").value.trim();
       if (!notes) return alert("Please enter what you would like modified.");
+
+      const revBtn = document.getElementById("reviseBtn");
+      const openRevBtn = document.getElementById("openRevBtn");
+      const approveBtn = document.getElementById("approveBtn");
+      revBtn.disabled = true;
+      revBtn.innerHTML = '<span class="btn-spinner"></span> Applying Modifications...';
+      if (openRevBtn) openRevBtn.disabled = true;
+      if (approveBtn) approveBtn.disabled = true;
       document.getElementById("revSpinner").style.display = "block";
 
       try {
@@ -589,20 +598,32 @@
         });
         const data = await res.json();
         if (data.limitReached) {
-          alert("Maximum 3 automated revisions reached. Click 'Approve & Open in ClickUp' to finalize your document.");
+          alert("Maximum 3 automated revisions reached. Click '2. Approve & Open in ClickUp' to finalize your document.");
         } else if (data.success) {
           document.getElementById("revisionDrawer").style.display = "none";
           document.getElementById("revisionNotes").value = "";
           renderReviewPage(data);
+        } else {
+          alert("Revision error: " + (data.error || "Please try again."));
         }
       } catch (err) {
         alert("Error updating SOP. Please try again.");
       } finally {
+        revBtn.disabled = false;
+        revBtn.innerHTML = 'Regenerate Updated SOP Blueprint';
+        if (openRevBtn) openRevBtn.disabled = false;
+        if (approveBtn) approveBtn.disabled = false;
         document.getElementById("revSpinner").style.display = "none";
       }
     }
 
     async function approveAndUnlock() {
+      const approveBtn = document.getElementById("approveBtn");
+      const openRevBtn = document.getElementById("openRevBtn");
+      approveBtn.disabled = true;
+      approveBtn.innerHTML = '<span class="btn-spinner"></span> Syncing to ClickUp...';
+      if (openRevBtn) openRevBtn.disabled = true;
+
       try {
         const res = await fetch(BACKEND_URL, {
           method: "POST",
@@ -615,10 +636,16 @@
           document.getElementById("unlockedCard").style.display = "block";
           document.getElementById("clickupLink").href = data.clickupUrl;
           document.getElementById("gumroadLink").href = data.gumroadUrl;
-          document.getElementById("qrCodeImg").src = "https://api." + "://qrserver.com" + encodeURIComponent(window.location.href);
+          document.getElementById("qrCodeImg").src = "https://api." + "://qrserver.com" + encodeURIComponent(data.clickupUrl || window.location.href);
+        } else {
+          alert("Approval error: " + (data.error || "Could not create ClickUp task."));
         }
       } catch (err) {
-        alert("Error unlocking workspace link. Please try again.");
+        alert("Error unlocking workspace link: " + err.message);
+      } finally {
+        approveBtn.disabled = false;
+        approveBtn.innerHTML = '2. Approve &amp; Open in ClickUp';
+        if (openRevBtn) openRevBtn.disabled = false;
       }
     }
   </script>
