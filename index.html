@@ -271,12 +271,12 @@
 
   <header>
     <div class="nav">
-      <div class="brand">
+     <a href="index.html" class="brand" style="text-decoration:none; color:inherit;">
         <span class="logo-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </span>
         SOP Factory
-      </div>
+      </a>
       <span class="nav-tag">Multi-Sector Compliance Studio</span>
     </div>
   </header>
@@ -424,8 +424,8 @@
           <p style="font-size:0.8rem; color:#64748B; margin-bottom:6px;">Print this Workstation QR Code for instant mobile audit checks:</p>
           <img id="qrCodeImg" src="" alt="Workstation Audit QR Code" style="border-radius:10px; border:1px solid #CBD5E1; padding:5px; background:#fff;" />
         </div>
-        <div style="margin-top:18px; padding-top:14px; border-top:1px solid #A7F3D0; font-size:0.84rem; color:#334155;">
-          Need an editable Word (.docx) + Printable Excel Audit Sheet? <a id="gumroadLink" href="#" target="_blank" style="color:#2563EB; font-weight:700;">Download the Editable Compliance Pack ($9) →</a>
+               <div style="display:none; margin-top:16px; padding-top:14px; border-top:1px solid #BBF7D0; font-size:0.84rem; color:#166534;">
+          Need an editable Word (.docx) + Printable Excel Audit Sheet? <a id="gumroadLink" href="#" target="_blank" style="color:#15803D; font-weight:700; text-decoration:underline;">Download the Editable Compliance Pack ($9) &rarr;</a>
         </div>
       </div>
     </div>
@@ -636,7 +636,8 @@
           document.getElementById("unlockedCard").style.display = "block";
           document.getElementById("clickupLink").href = data.clickupUrl;
           document.getElementById("gumroadLink").href = data.gumroadUrl;
-          document.getElementById("qrCodeImg").src = "https://api." + "://qrserver.com" + encodeURIComponent(data.clickupUrl || window.location.href);
+          const qrHost = "api.qrserver" + ".com";
+          document.getElementById("qrCodeImg").src = "https://" + qrHost + "/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(data.clickupUrl || window.location.href);
         } else {
           alert("Approval error: " + (data.error || "Could not create ClickUp task."));
         }
