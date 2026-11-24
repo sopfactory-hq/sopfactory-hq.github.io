@@ -556,6 +556,39 @@
         reader.readAsDataURL(file);
       });
     }
+    function detectLocalLanguageContext() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      const browserLang = (navigator.language || "en-US").toLowerCase();
+      const tzMap = {
+        "Asia/Kolkata": "India — Hindi (Devanagari script)",
+        "Asia/Calcutta": "India — Hindi (Devanagari script)",
+        "Asia/Tokyo": "Japan — Japanese (日本語)",
+        "Europe/Paris": "France — French (Français)",
+        "Europe/Berlin": "Germany — German (Deutsch)",
+        "Europe/Madrid": "Spain — Spanish (Español)",
+        "America/Mexico_City": "Mexico — Spanish (Español)",
+        "America/Sao_Paulo": "Brazil — Portuguese (Português)",
+        "Asia/Dubai": "UAE — Arabic (العربية)",
+        "Asia/Riyadh": "Saudi Arabia — Arabic (العربية)",
+        "Asia/Seoul": "South Korea — Korean (한국어)",
+        "Asia/Shanghai": "China — Simplified Chinese (简体中文)",
+        "Europe/Rome": "Italy — Italian (Italiano)",
+        "Asia/Bangkok": "Thailand — Thai (ภาษาไทย)",
+        "Asia/Jakarta": "Indonesia — Indonesian (Bahasa Indonesia)",
+        "Asia/Ho_Chi_Minh": "Vietnam — Vietnamese (Tiếng Việt)"
+      };
+      if (tzMap[tz]) return tzMap[tz];
+      if (browserLang.startsWith("ja")) return "Japan — Japanese (日本語)";
+      if (browserLang.startsWith("fr")) return "France — French (Français)";
+      if (browserLang.startsWith("de")) return "Germany — German (Deutsch)";
+      if (browserLang.startsWith("es")) return "Spanish-speaking region — Spanish (Español)";
+      if (browserLang.startsWith("pt")) return "Portuguese-speaking region — Portuguese (Português)";
+      if (browserLang.startsWith("ar")) return "Middle East / MENA — Arabic (العربية)";
+      if (browserLang.startsWith("ko")) return "South Korea — Korean (한국어)";
+      if (browserLang.startsWith("zh")) return "Chinese-speaking region — Simplified Chinese (简体中文)";
+      if (browserLang.startsWith("hi")) return "India — Hindi (Devanagari script)";
+      return "Detected Timezone: " + (tz || "Global") + " (Use primary local official language alongside Simple English; default to Hindi if in India or Spanish if in Americas)";
+    }
 
     document.getElementById("sopForm").addEventListener("submit", async (e) => {
       e.preventDefault();
