@@ -640,7 +640,7 @@
     function renderReviewPage(data) {
       document.getElementById("landingPage").style.display = "none";
       document.getElementById("reviewPage").style.display = "block";
-      document.getElementById("sopOutputContainer").innerHTML = data.sopHtml;
+      document.getElementById("sopOutputContainer").innerHTML = '<div class="sop-doc-wrapper">' + data.sopHtml + '</div>';
       document.getElementById("scoreBadge").textContent = "Audit-Ready Standard Verified";
       document.getElementById("revBadge").textContent = "CONTROLLED PREVIEW • Revision " + data.revisionCount + " of 3";
       window.scrollTo({ top: 0, behavior: "smooth" });
