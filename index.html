@@ -263,7 +263,26 @@
     @keyframes spinBtn {
       to { transform: rotate(360deg); }
     }
-
+    /* Repeating "SOP Factory" Background Watermark (Screen + Multi-Page Print) */
+    .sop-doc-wrapper {
+      position: relative;
+      background-color: #FFFFFF;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='320' height='220' viewBox='0 0 320 220'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' transform='rotate(-28 160 110)' fill='%230F172A' fill-opacity='0.045' font-family='Inter, Arial, sans-serif' font-weight='800' font-size='26' letter-spacing='2'%3ESOP Factory%3C/text%3E%3C/svg%3E");
+      background-repeat: repeat;
+      padding: 28px;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+    }
+    @media print {
+      .sop-doc-wrapper {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .sop-page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+    }
   </style>
     <!-- Google SEO & Social Preview Metadata -->
   <meta name="description" content="Generate audit-ready Standard Operating Procedures (SOPs) in seconds for ISO 9001, ISO 22000, FSSAI, NABH, and manufacturing workflows with automated quality gates and ClickUp sync." />
