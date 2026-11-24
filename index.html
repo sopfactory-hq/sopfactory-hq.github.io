@@ -477,7 +477,7 @@
         </svg>
         <span>SOP Factory</span>
       </a>
-      <button type="button" class="nav-cta" onclick="openFormModal()">Generate SOP &rarr;</button>
+      <a href="#howItWorks" style="font-size:0.88rem; font-weight:600; color:var(--text-muted); text-decoration:none;">How It Works</a>
     </div>
   </header>
 
@@ -491,26 +491,77 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2 class="section-title">How SOP Factory Works</h2>
-      <p class="section-sub">Three controlled stages from raw process notes, diagrams, or short walkthrough videos to live execution.</p>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-num">Step 01</div>
-          <h3>Capture Workflow &amp; Reference Media</h3>
-          <p>Enter your industry, compliance standard, and process bottlenecks—or upload an existing SOP, whiteboard photo, or short process video.</p>
+       <section id="howItWorks" class="section">
+      <h2 class="section-title" style="text-align:center;">How SOP Factory Works</h2>
+      <p class="section-sub" style="text-align:center;">Visual pipeline from raw process notes or walkthrough video to live floor execution.</p>
+
+      <div style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:14px; align-items:center;" class="visual-flow-grid">
+        <!-- Visual Card 1: Capture -->
+        <div class="card" style="text-align:center; padding:24px 18px;">
+          <div style="width:64px; height:64px; margin:0 auto 14px; background:#E0F2FE; border-radius:16px; display:flex; align-items:center; justify-content:center;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <polygon points="10 12 15 15 10 18 10 12" fill="#0284C7"/>
+            </svg>
+          </div>
+          <div class="card-num">01 &bull; Input</div>
+          <h3>Upload Notes, Photo or Video</h3>
+          <p style="font-size:0.86rem;">Paste raw steps, a whiteboard sketch, or a 30s shop-floor video.</p>
+          <div style="margin-top:12px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
+            <span style="background:#F1F5F9; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">PDF / Image</span>
+            <span style="background:#F1F5F9; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">MP4 Video</span>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-num">Step 02</div>
-          <h3>Audit Gate &amp; Bilingual Generation</h3>
-          <p>Produces a multi-page Management SOP, RACI &amp; FMEA risk matrix, plus a frontline Work Instruction &amp; Checklist in English + your local language.</p>
+
+        <!-- Arrow 1 -->
+        <div style="font-size:1.6rem; font-weight:800; color:#0284C7; text-align:center;" class="flow-arrow">&rarr;</div>
+
+        <!-- Visual Card 2: AI Audit Engine -->
+        <div class="card" style="text-align:center; padding:24px 18px; border-color:#BAE6FD; background:linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);">
+          <div style="width:64px; height:64px; margin:0 auto 14px; background:#0284C7; border-radius:16px; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(2,132,199,0.25);">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="card-num">02 &bull; AI Audit Engine</div>
+          <h3>>95% Score &amp; Local Bilingual</h3>
+          <p style="font-size:0.86rem;">Builds Management SOP, FMEA Risk Table &amp; local-language Operator Guide.</p>
+          <div style="margin-top:12px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
+            <span style="background:#DCFCE7; color:#15803D; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">FMEA + RACI</span>
+            <span style="background:#E0F2FE; color:#0369A1; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">EN + Local</span>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-num">Step 03</div>
-          <h3>Revise &amp; Sync to ClickUp</h3>
-          <p>Request up to 3 automated layout or step revisions, print multi-page watermarked PDFs, or push directly to ClickUp with a workstation QR code.</p>
+
+        <!-- Arrow 2 -->
+        <div style="font-size:1.6rem; font-weight:800; color:#0284C7; text-align:center;" class="flow-arrow">&rarr;</div>
+
+        <!-- Visual Card 3: Live Execution -->
+        <div class="card" style="text-align:center; padding:24px 18px;">
+          <div style="width:64px; height:64px; margin:0 auto 14px; background:#DCFCE7; border-radius:16px; display:flex; align-items:center; justify-content:center;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2"/>
+            </svg>
+          </div>
+          <div class="card-num">03 &bull; Deploy</div>
+          <h3>ClickUp Sync &amp; Floor QR</h3>
+          <p style="font-size:0.86rem;">Print watermarked multi-page PDFs or sync to ClickUp with a QR code.</p>
+          <div style="margin-top:12px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
+            <span style="background:#F1F5F9; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">ClickUp Doc</span>
+            <span style="background:#F1F5F9; padding:3px 8px; border-radius:6px; font-size:0.74rem; font-weight:700;">Scan QR</span>
+          </div>
         </div>
       </div>
+      <style>
+        @media (max-width: 780px) {
+          .visual-flow-grid { grid-template-columns: 1fr !important; }
+          .flow-arrow { transform: rotate(90deg); margin: -4px 0; }
+        }
+      </style>
     </section>
 
     <section class="section">
