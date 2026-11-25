@@ -1192,6 +1192,7 @@
           renderReviewPage(data);
         } else {
           alert("Generation Error: " + (data.error || "Please try again."));
+        }
       } catch (err) {
      if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
      const msg = (err && err.message && err.message.includes("Failed to fetch"))
