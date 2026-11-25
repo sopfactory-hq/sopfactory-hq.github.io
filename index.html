@@ -955,9 +955,21 @@
     </div>
   </section>
 
-  <footer>
-    SOP Factory &mdash; Standardized Process Documentation, FMEA Risk Controls &amp; Frontline Operator Checklists.
+    <footer style="background:#FFFFFF; border-top:1px solid #E2E8F0; padding:24px 20px; margin-top:48px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="display:flex; align-items:center; gap:8px; font-weight:800; font-size:0.95rem; color:#0F172A;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+        <span>Prepared by SOP Factory</span>
+      </div>
+      <a href=https://sopfactory-hq.github.io/" target="_blank" rel="noopener" style="font-size:0.9rem; font-weight:700; color:#0284C7; text-decoration:none;">
+        https://sopfactory-hq.github.io/ &rarr;
+      </a>
+    </div>
   </footer>
+
 
     <script>
     const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxdNQoYCGCBGBkOQbWER1ZDV70nsJY2yJw4_3fdflOMrLNdcxAVBStm_6GzByltOy-sSQ/exec";
@@ -1344,21 +1356,33 @@
           const imgData = pageCanvas.toDataURL("image/jpeg", 0.92);
           pdf.addImage(imgData, "JPEG", margin, margin, usableWidth, sliceHeightMm);
 
-          // 4. Stamp per-page footer with logo + brand + website link
-          const footerY = pageHeight - 8;
+                   // 4. Stamp per-page footer with shield logo + brand + clickable website link
+          const footerY = pageHeight - 7.5;
           pdf.setDrawColor(203, 213, 225);
-          pdf.line(margin, footerY - 4, pageWidth - margin, footerY - 4);
+          pdf.setLineWidth(0.3);
+          pdf.line(margin, footerY - 4.5, pageWidth - margin, footerY - 4.5);
 
+          // Blue shield logo badge with white checkmark
           pdf.setFillColor(2, 132, 199);
-          pdf.roundedRect(margin, footerY - 2.6, 3.4, 3.4, 0.7, 0.7, "F");
+          pdf.roundedRect(margin, footerY - 2.8, 3.6, 3.6, 0.8, 0.8, "F");
+          pdf.setDrawColor(255, 255, 255);
+          pdf.setLineWidth(0.45);
+          pdf.line(margin + 0.9, footerY - 1.0, margin + 1.6, footerY - 0.3);
+          pdf.line(margin + 1.6, footerY - 0.3, margin + 2.8, footerY - 1.9);
+
+          // Brand text
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(8.5);
           pdf.setTextColor(15, 23, 42);
-          pdf.text("Prepared by SOP Factory", margin + 5, footerY);
+          pdf.text("Prepared by SOP Factory", margin + 5.2, footerY);
 
-          pdf.setFont("helvetica", "normal");
+          // Full clickable website link aligned cleanly to right margin
+          const siteUrl = "https://sopfactory-hq.github.io/";
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(8.5);
           pdf.setTextColor(2, 132, 199);
-          pdf.textWithLink("https://github.io", pageWidth - margin - 46, footerY, { url: "https://github.io" });
+          const linkWidth = pdf.getTextWidth(siteUrl);
+          pdf.textWithLink(siteUrl, pageWidth - margin - linkWidth, footerY, { url: siteUrl });
         }
 
         pdf.save("SOP-Factory-Protected-Blueprint.pdf");
