@@ -571,6 +571,12 @@
   </script>
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
+    <script>
+    if ("scrollRestoration" in history) { history.scrollRestoration = "manual"; }
+    window.addEventListener("load", function() {
+      if (!window.location.hash) { window.scrollTo(0, 0); }
+    });
+  </script>
   <meta name="google-site-verification" content="0AaR6HToeiZFARHdxzUEBdrPCwD-pbpYOU4s1ngd40M" />
 </head>
 <body>
@@ -977,7 +983,7 @@
     let isGenerating = false;
 
     function openFormModal() {
-      document.getElementById("sopModal").style.display = "block";
+      document.getElementById("sopModal").style.display = "flex";
     }
     function closeFormModal() {
       if (isGenerating) return;
@@ -1186,15 +1192,12 @@
           renderReviewPage(data);
         } else {
           alert("Generation Error: " + (data.error || "Please try again."));
-        }
       } catch (err) {
      if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
      const msg = (err && err.message && err.message.includes("Failed to fetch"))
        ? "Network connection interrupted while waiting for AI response. Please keep screen awake or retry on a stable connection."
        : (err.message || "Unexpected error generating SOP.");
      alert("Generation Error: " + msg);
-   }
-
       } finally {
         isGenerating = false;
         btn.disabled = false;
@@ -1392,7 +1395,6 @@
         if (reBtn) { reBtn.disabled = false; reBtn.textContent = "Download Protected PDF Again ↓"; }
       }
     }
-}
           (function autoSelectFromUrl() {
       const params = new URLSearchParams(window.location.search);
       if (params.get("sector")) document.getElementById("sector").value = params.get("sector");
