@@ -884,11 +884,14 @@
 
     <div id="sopOutputContainer"></div>
 
-    <div class="action-bar">
-      <div class="btn-row" id="decisionButtons">
-        <button type="button" id="openRevBtn" class="btn-edit" onclick="openRevisionDrawer()">1. Request Modification</button>
-        <button type="button" id="approveBtn" class="btn-unlock" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
-       </div>
+        <div class="action-bar" style="width:100%; margin-top:20px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; padding:18px 22px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
+        <div class="btn-row" id="decisionButtons" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+          <span style="font-size:0.86rem; font-weight:600; color:#475569;">Review your generated SOP blueprint above before deploying:</span>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button type="button" id="openRevBtn" class="btn-edit" style="min-width:210px; justify-content:center;" onclick="openRevisionDrawer()">1. Request Modification</button>
+            <button type="button" id="approveBtn" class="btn-unlock" style="min-width:230px; justify-content:center;" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
+          </div>
+        </div>
 
       <div id="revisionDrawer">
         <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
@@ -1001,29 +1004,27 @@
       { pct: 95, label: "Stage 6 of 6: Finalizing Execution-Ready Blueprint..." }
     ];
 
-    function startProgressTracker() {
-      let currentPct = 8;
+       function startProgressTracker() {
+      let currentPct = 4;
       const fill = document.getElementById("progressBarFill");
       const pctLbl = document.getElementById("progressPctLabel");
       const statusLbl = document.getElementById("progressStatusLabel");
       if (progressTimer) clearInterval(progressTimer);
 
       progressTimer = setInterval(() => {
-        if (currentPct < 96) {
-          currentPct += currentPct < 50 ? 4 : (currentPct < 80 ? 3 : 1);
-          if (currentPct > 96) currentPct = 96;
+        // Proportionate asymptotic curve: moves steadily across all 6 stages without stalling early
+        const remaining = 95 - currentPct;
+        if (remaining > 0.4) {
+          currentPct += Math.max(0.4, remaining * 0.048);
         }
-        fill.style.width = currentPct + "%";
-        pctLbl.textContent = currentPct + "%";
+        const displayPct = Math.min(95, Math.round(currentPct));
+        fill.style.width = displayPct + "%";
+        pctLbl.textContent = displayPct + "%";
 
-        let activeIdx = 0;
-        if (currentPct >= 85) activeIdx = 5;
-        else if (currentPct >= 68) activeIdx = 4;
-        else if (currentPct >= 46) activeIdx = 3;
-        else if (currentPct >= 28) activeIdx = 2;
-        else if (currentPct >= 14) activeIdx = 1;
-
+        // Equal 16% distribution across all 6 stages
+        const activeIdx = Math.min(5, Math.floor(displayPct / 16));
         statusLbl.textContent = STAGES[activeIdx].label;
+
         for (let i = 0; i < 6; i++) {
           const el = document.getElementById("stg-" + (i + 1));
           const title = el.textContent.replace(/^[^\d]+/, "");
@@ -1044,7 +1045,7 @@
             el.innerHTML = "&#9711; " + title;
           }
         }
-      }, 450);
+      }, 750);
     }
 
     function stopProgressTracker(completed) {
@@ -1115,10 +1116,19 @@
           attachment: attachmentObj
         };
 
-        const res = await fetch(BACKEND_URL, {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
+      let wakeLock = null;
+     try {
+       if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen");
+     } catch (wlErr) {}
+
+     const res = await fetch(BACKEND_URL, {
+       method: "POST",
+       redirect: "follow",
+       headers: { "Content-Type": "text/plain;charset=utf-8" },
+       body: JSON.stringify(payload)
+     });
+     if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
+
         const data = await res.json();
         if (data.success) {
           currentRecordId = data.recordId;
@@ -1130,7 +1140,13 @@
           alert("Generation Error: " + (data.error || "Please try again."));
         }
       } catch (err) {
-        alert(err.message || "Error generating SOP. Please try again.");
+     if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
+     const msg = (err && err.message && err.message.includes("Failed to fetch"))
+       ? "Network connection interrupted while waiting for AI response. Please keep screen awake or retry on a stable connection."
+       : (err.message || "Unexpected error generating SOP.");
+     alert("Generation Error: " + msg);
+   }
+
       } finally {
         isGenerating = false;
         btn.disabled = false;
