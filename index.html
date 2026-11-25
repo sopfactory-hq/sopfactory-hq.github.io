@@ -449,6 +449,16 @@
     html { scroll-behavior: smooth; }
     #howItWorks, #faqSection { scroll-margin-top: 84px; }
    @media print { body { display: none !important; } }
+    #sopOutputContainer {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      position: relative;
+    }
+    @media print {
+      body { display: none !important; }
+    }
   </style>
     <script type="application/ld+json">
   {
@@ -559,6 +569,8 @@
     ]
   }
   </script>
+  <script src="https://cloudflare.com"></script>
+  <script src="https://cloudflare.com"></script>
   <meta name="google-site-verification" content="0AaR6HToeiZFARHdxzUEBdrPCwD-pbpYOU4s1ngd40M" />
 </head>
 <body>
@@ -882,16 +894,40 @@
       </div>
     </div>
 
-    <div id="sopOutputContainer"></div>
+    <div id="sopOutputContainer" class="sop-doc-wrapper" oncontextmenu="return false;" oncopy="return false;"></div>
 
-        <div class="action-bar" style="width:100%; margin-top:20px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; padding:18px 22px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
+              <div class="action-bar" style="width:100%; margin-top:20px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; padding:18px 22px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
         <div class="btn-row" id="decisionButtons" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
-          <span style="font-size:0.86rem; font-weight:600; color:#475569;">Review your generated SOP blueprint above before deploying:</span>
+          <span style="font-size:0.86rem; font-weight:600; color:#475569;">Review your generated SOP blueprint above before downloading:</span>
           <div style="display:flex; gap:12px; flex-wrap:wrap;">
             <button type="button" id="openRevBtn" class="btn-edit" style="min-width:210px; justify-content:center;" onclick="openRevisionDrawer()">1. Request Modification</button>
-            <button type="button" id="approveBtn" class="btn-unlock" style="min-width:230px; justify-content:center;" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
+            <button type="button" id="approveBtn" class="btn-unlock" style="min-width:230px; justify-content:center;" onclick="approveAndDownloadPdf()">2. Approve &amp; Download PDF</button>
           </div>
         </div>
+
+        <div id="revisionDrawer">
+          <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
+          <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include generator backup contingency..."></textarea>
+          <button type="button" id="reviseBtn" class="btn-primary" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP &rarr;</button>
+          <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
+        </div>
+
+        <div id="unlockedCard" style="display:none; margin-top:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div>
+              <div style="font-weight:800; color:#14532D; font-size:1.02rem; margin-bottom:4px;">&#10003; SOP Approved &amp; Downloaded as Protected Image-PDF</div>
+              <p style="font-size:0.86rem; color:#166534; margin:0;">Your A4 multi-page SOP is watermarked and flattened against copying or AI conversion.</p>
+            </div>
+            <button type="button" id="reDownloadBtn" class="btn-unlock" onclick="generateProtectedRasterPdf()">Download Protected PDF Again &darr;</button>
+          </div>
+
+          <div style="margin-top:14px; padding:12px 16px; background:#FFFFFF; border:1px solid #BBF7D0; border-radius:8px; font-size:0.85rem; color:#14532D;">
+            <strong>Need Editable Word (.docx) &amp; Auto-Calculating FMEA Excel (.xlsx) Files?</strong><br/>
+            <span style="color:#166534;">Unlock our ready-to-customize Master SOP, RPN Risk Calculator &amp; Audit Checklist Pack: </span>
+            <a id="gumroadLink" href="https://gumroad.com" target="_blank" style="color:#0284C7; font-weight:800; text-decoration:underline;">Get Editable Pack ($9 / ~&#8377;760 INR) &rarr;</a>
+          </div>
+        </div>
+      </div>
 
       <div id="revisionDrawer">
         <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
@@ -1208,37 +1244,130 @@
       }
     }
 
-    async function approveAndUnlock() {
-      const approveBtn = document.getElementById("approveBtn");
-      const openRevBtn = document.getElementById("openRevBtn");
-      approveBtn.disabled = true;
-      approveBtn.innerHTML = '<span class="btn-spinner"></span> Syncing to ClickUp...';
-      if (openRevBtn) openRevBtn.disabled = true;
+        // Block copy, save, view-source, and print shortcuts while viewing SOP preview
+    document.addEventListener("keydown", function(e) {
+      const previewVisible = document.getElementById("previewSection") && document.getElementById("previewSection").style.display !== "none";
+      if (previewVisible && (e.ctrlKey || e.metaKey) && ["c", "u", "s", "p", "a", "x"].includes(e.key.toLowerCase())) {
+        e.preventDefault();
+      }
+    });
+
+    async function approveAndDownloadPdf() {
+      const btn = document.getElementById("approveBtn");
+      btn.disabled = true;
+      btn.textContent = "Locking & Building Protected PDF...";
+
+      if (currentRecordId) {
+        fetch(BACKEND_URL, {
+          method: "POST",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "approve", recordId: currentRecordId })
+        }).catch(() => {});
+      }
+
+      await generateProtectedRasterPdf();
+
+      document.getElementById("decisionButtons").style.display = "none";
+      document.getElementById("revisionDrawer").style.display = "none";
+      document.getElementById("unlockedCard").style.display = "block";
+    }
+
+    async function generateProtectedRasterPdf() {
+      const container = document.getElementById("sopOutputContainer");
+      const reBtn = document.getElementById("reDownloadBtn");
+      if (reBtn) { reBtn.disabled = true; reBtn.textContent = "Rendering Image PDF..."; }
 
       try {
-        const res = await fetch(BACKEND_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "approve", recordId: currentRecordId })
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const margin = 10;
+        const footerHeight = 12;
+        const usableWidth = pageWidth - margin * 2;
+        const usableHeight = pageHeight - margin - footerHeight - 4;
+
+        // Flatten SOP container into high-DPI raster image (zero selectable text)
+        const fullCanvas = await html2canvas(container, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#FFFFFF"
         });
-        const data = await res.json();
-        if (data.success) {
-          document.getElementById("decisionButtons").style.display = "none";
-          document.getElementById("revisionDrawer").style.display = "none";
-          document.getElementById("unlockedCard").style.display = "block";
-          document.getElementById("clickupLink").href = data.clickupUrl;
-document.getElementById("gumroadLink").href = data.gumroadUrl;
-const qrHost = "api.qrserver" + ".com";
-document.getElementById("qrCodeImg").src = "https://" + qrHost + "/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(data.clickupUrl || window.location.href);
-} else {
-alert("Approval error: " + (data.error || "Could not create ClickUp task."));
-}
-} catch (err) {
-alert("Error unlocking workspace link: " + err.message);
-} finally {
-approveBtn.disabled = false;
-approveBtn.innerHTML = '2. Approve & Open in ClickUp';
-if (openRevBtn) openRevBtn.disabled = false;
-}
+
+        const imgWidthPx = fullCanvas.width;
+        const pageHeightPx = Math.floor((usableHeight / usableWidth) * imgWidthPx);
+        const totalPages = Math.ceil(fullCanvas.height / pageHeightPx);
+
+        for (let page = 0; page < totalPages; page++) {
+          if (page > 0) pdf.addPage();
+
+          const sliceHeightPx = Math.min(pageHeightPx, fullCanvas.height - page * pageHeightPx);
+          const pageCanvas = document.createElement("canvas");
+          pageCanvas.width = imgWidthPx;
+          pageCanvas.height = sliceHeightPx;
+          const ctx = pageCanvas.getContext("2d");
+
+          // 1. Draw SOP page slice
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          ctx.drawImage(fullCanvas, 0, page * pageHeightPx, imgWidthPx, sliceHeightPx, 0, 0, imgWidthPx, sliceHeightPx);
+
+          // 2. Overlay anti-OCR wave interference mesh + diagonal SOP Factory watermark
+          ctx.save();
+          ctx.strokeStyle = "rgba(2, 132, 199, 0.08)";
+          ctx.lineWidth = 1.4;
+          for (let y = 24; y < pageCanvas.height; y += 38) {
+            ctx.beginPath();
+            for (let x = 0; x <= pageCanvas.width; x += 25) {
+              const waveY = y + Math.sin(x * 0.025 + y) * 5;
+              if (x === 0) ctx.moveTo(x, waveY);
+              else ctx.lineTo(x, waveY);
+            }
+            ctx.stroke();
+          }
+
+          ctx.translate(pageCanvas.width / 2, pageCanvas.height / 2);
+          ctx.rotate(-28 * Math.PI / 180);
+          ctx.font = "bold 46px Arial, sans-serif";
+          ctx.fillStyle = "rgba(15, 23, 42, 0.085)";
+          ctx.textAlign = "center";
+          for (let wy = -pageCanvas.height; wy < pageCanvas.height; wy += 240) {
+            for (let wx = -pageCanvas.width; wx < pageCanvas.width; wx += 520) {
+              ctx.fillText("SOP Factory • VIEW ONLY", wx, wy);
+            }
+          }
+          ctx.restore();
+
+          // 3. Add flattened JPEG page to PDF
+          const sliceHeightMm = (sliceHeightPx / imgWidthPx) * usableWidth;
+          const imgData = pageCanvas.toDataURL("image/jpeg", 0.92);
+          pdf.addImage(imgData, "JPEG", margin, margin, usableWidth, sliceHeightMm);
+
+          // 4. Stamp per-page footer with logo + brand + website link
+          const footerY = pageHeight - 8;
+          pdf.setDrawColor(203, 213, 225);
+          pdf.line(margin, footerY - 4, pageWidth - margin, footerY - 4);
+
+          pdf.setFillColor(2, 132, 199);
+          pdf.roundedRect(margin, footerY - 2.6, 3.4, 3.4, 0.7, 0.7, "F");
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(8.5);
+          pdf.setTextColor(15, 23, 42);
+          pdf.text("Prepared by SOP Factory", margin + 5, footerY);
+
+          pdf.setFont("helvetica", "normal");
+          pdf.setTextColor(2, 132, 199);
+          pdf.textWithLink("https://github.io", pageWidth - margin - 46, footerY, { url: "https://github.io" });
+        }
+
+        pdf.save("SOP-Factory-Protected-Blueprint.pdf");
+      } catch (err) {
+        alert("PDF export error: " + err.message);
+      } finally {
+        if (reBtn) { reBtn.disabled = false; reBtn.textContent = "Download Protected PDF Again ↓"; }
+      }
+    }
 }
           (function autoSelectFromUrl() {
       const params = new URLSearchParams(window.location.search);
