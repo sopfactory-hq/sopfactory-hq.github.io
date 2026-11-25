@@ -817,6 +817,7 @@
           <div class="field">
             <label for="sector">Industry / Sector *</label>
             <select id="sector" onchange="toggleCustomInput('sector', 'customSector')">
+              <option value="" disabled selected>-- Select Industry / Sector --</option>
               <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
               <option value="Healthcare & Hospital Operations">Healthcare &amp; Hospital Operations</option>
               <option value="Pharmaceutical & Cold-Chain">Pharmaceutical &amp; Cold-Chain</option>
@@ -834,6 +835,7 @@
           <div class="field">
             <label for="standard">Compliance Standard *</label>
             <select id="standard" onchange="toggleCustomInput('standard', 'customStandard')">
+              <option value="" disabled selected>-- Select Compliance Standard --</option>
               <option value="ISO 9001:2015 QMS">ISO 9001:2015 QMS</option>
               <option value="ISO 22000, FSSAI & HACCP">ISO 22000, FSSAI &amp; HACCP</option>
               <option value="NABH, WHO GDP & Cold-Chain">NABH, WHO GDP &amp; Cold-Chain</option>
@@ -982,9 +984,14 @@
     let currentRecordId = null;
     let isGenerating = false;
 
-    function openFormModal() {
+       function openFormModal() {
+      const form = document.getElementById("sopForm");
+      if (form) form.reset();
+      document.getElementById("customSector").style.display = "none";
+      document.getElementById("customStandard").style.display = "none";
       document.getElementById("sopModal").style.display = "flex";
     }
+
     function closeFormModal() {
       if (isGenerating) return;
       document.getElementById("sopModal").style.display = "none";
