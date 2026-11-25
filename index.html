@@ -448,6 +448,7 @@
     }
     html { scroll-behavior: smooth; }
     #howItWorks, #faqSection { scroll-margin-top: 84px; }
+   @media print { body { display: none !important; } }
   </style>
     <script type="application/ld+json">
   {
@@ -871,8 +872,7 @@
       <div class="btn-row" id="decisionButtons">
         <button type="button" id="openRevBtn" class="btn-edit" onclick="openRevisionDrawer()">1. Request Modification</button>
         <button type="button" id="approveBtn" class="btn-unlock" onclick="approveAndUnlock()">2. Approve &amp; Open in ClickUp</button>
-        <button type="button" class="btn-print" onclick="window.print()">Print / Save Multi-Page PDF</button>
-      </div>
+       </div>
 
       <div id="revisionDrawer">
         <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
