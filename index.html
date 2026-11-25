@@ -849,7 +849,23 @@
         </div>
 
         <button type="submit" id="generateBtn" class="btn-primary" style="width:100%; margin-top:6px;">Generate Audit-Ready SOP &rarr;</button>
-        <div class="spinner" id="loadingSpinner">Analyzing process controls, FMEA risks, and bilingual operator instructions...</div>
+                <div id="loadingSpinner" style="display:none; margin-top:16px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:12px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span id="progressStatusLabel" style="font-size:0.86rem; font-weight:800; color:#0F172A;">Stage 1 of 6: Understanding the Process...</span>
+            <span id="progressPctLabel" style="font-size:0.9rem; font-weight:800; color:#0284C7;">8%</span>
+          </div>
+          <div style="width:100%; height:10px; background:#E2E8F0; border-radius:999px; overflow:hidden; margin-bottom:14px;">
+            <div id="progressBarFill" style="width:8%; height:100%; background:linear-gradient(90deg, #0284C7, #15803D); border-radius:999px; transition:width 0.4s ease;"></div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem;">
+            <div id="stg-1" style="padding:6px 10px; border-radius:7px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Understand the Process</div>
+            <div id="stg-2" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Identify Gaps</div>
+            <div id="stg-3" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 3. Assess FMEA Risks</div>
+            <div id="stg-4" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 4. Generate Documentation</div>
+            <div id="stg-5" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 5. Validate Quality (95+)</div>
+            <div id="stg-6" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 6. Enable Execution</div>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -975,6 +991,77 @@
         reader.readAsDataURL(file);
       });
     }
+    let progressTimer = null;
+    const STAGES = [
+      { pct: 12, label: "Stage 1 of 6: Understanding the Process..." },
+      { pct: 28, label: "Stage 2 of 6: Identifying Compliance & Control Gaps..." },
+      { pct: 46, label: "Stage 3 of 6: Assessing FMEA Risks & RPN Limits..." },
+      { pct: 68, label: "Stage 4 of 6: Generating Bilingual SOP & Checklists..." },
+      { pct: 86, label: "Stage 5 of 6: Validating 100-Point Quality Gate (95+)..." },
+      { pct: 95, label: "Stage 6 of 6: Finalizing Execution-Ready Blueprint..." }
+    ];
+
+    function startProgressTracker() {
+      let currentPct = 8;
+      const fill = document.getElementById("progressBarFill");
+      const pctLbl = document.getElementById("progressPctLabel");
+      const statusLbl = document.getElementById("progressStatusLabel");
+      if (progressTimer) clearInterval(progressTimer);
+
+      progressTimer = setInterval(() => {
+        if (currentPct < 96) {
+          currentPct += currentPct < 50 ? 4 : (currentPct < 80 ? 3 : 1);
+          if (currentPct > 96) currentPct = 96;
+        }
+        fill.style.width = currentPct + "%";
+        pctLbl.textContent = currentPct + "%";
+
+        let activeIdx = 0;
+        if (currentPct >= 85) activeIdx = 5;
+        else if (currentPct >= 68) activeIdx = 4;
+        else if (currentPct >= 46) activeIdx = 3;
+        else if (currentPct >= 28) activeIdx = 2;
+        else if (currentPct >= 14) activeIdx = 1;
+
+        statusLbl.textContent = STAGES[activeIdx].label;
+        for (let i = 0; i < 6; i++) {
+          const el = document.getElementById("stg-" + (i + 1));
+          const title = el.textContent.replace(/^[^\d]+/, "");
+          if (i < activeIdx) {
+            el.style.background = "#F0FDF4";
+            el.style.color = "#15803D";
+            el.style.border = "1px solid #BBF7D0";
+            el.innerHTML = "&#10003; " + title;
+          } else if (i === activeIdx) {
+            el.style.background = "#E0F2FE";
+            el.style.color = "#0369A1";
+            el.style.border = "1px solid #7DD3FC";
+            el.innerHTML = "&#9203; " + title;
+          } else {
+            el.style.background = "#FFFFFF";
+            el.style.color = "#64748B";
+            el.style.border = "1px solid #E2E8F0";
+            el.innerHTML = "&#9711; " + title;
+          }
+        }
+      }, 450);
+    }
+
+    function stopProgressTracker(completed) {
+      if (progressTimer) clearInterval(progressTimer);
+      if (completed) {
+        document.getElementById("progressBarFill").style.width = "100%";
+        document.getElementById("progressPctLabel").textContent = "100%";
+        document.getElementById("progressStatusLabel").textContent = "All 6 Stages Validated (95+ Quality Score)!";
+        for (let i = 1; i <= 6; i++) {
+          const el = document.getElementById("stg-" + i);
+          const title = el.textContent.replace(/^[^\d]+/, "");
+          el.style.background = "#F0FDF4";
+          el.style.color = "#15803D";
+          el.innerHTML = "&#10003; " + title;
+        }
+      }
+    }
 
     document.getElementById("sopForm").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -994,6 +1081,7 @@
         closeBtn.style.cursor = "not-allowed";
       }
       document.getElementById("loadingSpinner").style.display = "block";
+      startProgressTracker();
 
       try {
         const fileInput = document.getElementById("refFile");
@@ -1035,6 +1123,7 @@
         if (data.success) {
           currentRecordId = data.recordId;
           isGenerating = false;
+          stopProgressTracker(true);
           closeFormModal();
           renderReviewPage(data);
         } else {
