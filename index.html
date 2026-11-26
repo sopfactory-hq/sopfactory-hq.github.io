@@ -1297,12 +1297,28 @@
       document.getElementById("unlockedCard").style.display = "block";
     }
 
+        function loadScriptSafe(url) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = url;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error("Failed to load PDF library: " + url));
+        document.head.appendChild(s);
+      });
+    }
+
     async function generateProtectedRasterPdf() {
       const container = document.getElementById("sopOutputContainer");
       const reBtn = document.getElementById("reDownloadBtn");
       if (reBtn) { reBtn.disabled = true; reBtn.textContent = "Rendering Image PDF..."; }
 
       try {
+        if (!window.html2canvas) {
+          await loadScriptSafe(["https:/", "://cloudflare.com", "ajax", "libs", "html2canvas", "1.4.1", "html2canvas.min.js"].join("/"));
+        }
+        if (!window.jspdf) {
+          await loadScriptSafe(["https:/", "://cloudflare.com", "ajax", "libs", "jspdf", "2.5.1", "jspdf.umd.min.js"].join("/"));
+        }
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
         const pageWidth = 210;
