@@ -1462,7 +1462,8 @@
           pageIndex++;
         }
 
-        pdf.save("SOP-Factory-Protected-Blueprint.pdf");
+             pdf.save("SOP-Factory-Protected-Blueprint.pdf");
+            setTimeout(() => { window.location.href = "upgrade.html"; }, 1500);
 
       } catch (err) {
         alert("PDF export error: " + err.message);
