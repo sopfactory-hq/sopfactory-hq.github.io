@@ -1297,8 +1297,7 @@
       document.getElementById("unlockedCard").style.display = "block";
     }
 
-        function loadScriptSafe(url) {
-         function loadScriptSafe(libPath) {
+      function loadScriptSafe(libPath) {
       return new Promise((resolve, reject) => {
         const s = document.createElement("script");
         const prefix = String.fromCharCode(104,116,116,112,115,58,47,47,99,100,110,106,115,46,99,108,111,117,100,102,108,97,114,101,46,99,111,109);
