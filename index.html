@@ -1228,10 +1228,9 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    async function submitRevision() {
+      async function submitRevision() {
       const notes = document.getElementById("revisionNotes").value.trim();
       if (!notes) return alert("Please enter what you would like modified.");
-
       const revBtn = document.getElementById("reviseBtn");
       const openRevBtn = document.getElementById("openRevBtn");
       const approveBtn = document.getElementById("approveBtn");
@@ -1240,15 +1239,16 @@
       if (openRevBtn) openRevBtn.disabled = true;
       if (approveBtn) approveBtn.disabled = true;
       document.getElementById("revSpinner").style.display = "block";
-
       try {
         const res = await fetch(BACKEND_URL, {
           method: "POST",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify({ action: "revise", recordId: currentRecordId, notes: notes })
         });
         const data = await res.json();
         if (data.limitReached) {
-          alert("Maximum 3 automated revisions reached. Click '2. Approve & Open in ClickUp' to finalize your document.");
+          alert("Maximum 3 automated revisions reached. Click '2. Approve & Download PDF' to finalize your document.");
         } else if (data.success) {
           document.getElementById("revisionDrawer").style.display = "none";
           document.getElementById("revisionNotes").value = "";
@@ -1257,15 +1257,16 @@
           alert("Revision error: " + (data.error || "Please try again."));
         }
       } catch (err) {
-        alert("Error updating SOP. Please try again.");
+        alert("Error updating SOP: " + (err.message || "Network timeout. Please try again."));
       } finally {
         revBtn.disabled = false;
-        revBtn.innerHTML = 'Regenerate Updated SOP Blueprint';
+        revBtn.innerHTML = 'Regenerate Updated SOP &rarr;';
         if (openRevBtn) openRevBtn.disabled = false;
         if (approveBtn) approveBtn.disabled = false;
         document.getElementById("revSpinner").style.display = "none";
       }
     }
+
 
         // Block copy, save, view-source, and print shortcuts while viewing SOP preview
     document.addEventListener("keydown", function(e) {
