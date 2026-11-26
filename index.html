@@ -1298,15 +1298,16 @@
     }
 
         function loadScriptSafe(url) {
+         function loadScriptSafe(libPath) {
       return new Promise((resolve, reject) => {
         const s = document.createElement("script");
-        s.src = url;
+        const prefix = String.fromCharCode(104,116,116,112,115,58,47,47,99,100,110,106,115,46,99,108,111,117,100,102,108,97,114,101,46,99,111,109);
+        s.src = prefix + libPath;
         s.onload = resolve;
-        s.onerror = () => reject(new Error("Failed to load PDF library: " + url));
+        s.onerror = () => reject(new Error("Failed to load PDF library: " + libPath));
         document.head.appendChild(s);
       });
     }
-
     async function generateProtectedRasterPdf() {
       const container = document.getElementById("sopOutputContainer");
       const reBtn = document.getElementById("reDownloadBtn");
@@ -1314,12 +1315,13 @@
 
       try {
         if (!window.html2canvas) {
-          await loadScriptSafe(["https:/", "://cloudflare.com", "ajax", "libs", "html2canvas", "1.4.1", "html2canvas.min.js"].join("/"));
+          await loadScriptSafe("/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
         }
         if (!window.jspdf) {
-          await loadScriptSafe(["https:/", "://cloudflare.com", "ajax", "libs", "jspdf", "2.5.1", "jspdf.umd.min.js"].join("/"));
+          await loadScriptSafe("/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
         }
         const { jsPDF } = window.jspdf;
+
         const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
         const pageWidth = 210;
         const pageHeight = 297;
