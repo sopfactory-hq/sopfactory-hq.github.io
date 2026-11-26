@@ -211,64 +211,76 @@
       font-weight: 600;
       color: var(--text-main);
     }
-
-    /* Modal Form */
+        /* Modal Form — Clean One-Screen Card */
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(4px);
       z-index: 100;
-      overflow-y: auto;
-      padding: 24px 16px;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
     }
     .modal-box {
       background: var(--surface);
-      max-width: 680px;
-      margin: 20px auto;
-      border-radius: 14px;
-      padding: 28px;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+      width: 100%;
+      max-width: 780px;
+      max-height: 94vh;
+      overflow-y: auto;
+      margin: auto;
+      border-radius: 16px;
+      padding: 20px 26px 22px;
+      border: 1px solid #CBD5E1;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35);
       position: relative;
     }
     .modal-close {
       position: absolute;
-      top: 18px;
-      right: 18px;
+      top: 14px;
+      right: 16px;
       background: #F1F5F9;
-      border: none;
-      width: 34px;
-      height: 34px;
+      border: 1px solid #E2E8F0;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 700;
       cursor: pointer;
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .modal-close:hover { background: #E2E8F0; color: var(--text-main); }
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
     }
     @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
-    .field { margin-bottom: 14px; }
+    .field { margin-bottom: 10px; }
     label {
       display: block;
-      font-size: 0.84rem;
+      font-size: 0.79rem;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       color: var(--text-main);
     }
     input[type="text"], select, textarea, input[type="file"] {
       width: 100%;
-      padding: 10px 12px;
+      padding: 8px 11px;
       border: 1px solid #CBD5E1;
       border-radius: 8px;
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.87rem;
       color: var(--text-main);
-      background: #FFFFFF;
+      background: #F8FAFC;
     }
-    textarea { min-height: 92px; resize: vertical; }
+    input[type="file"] { padding: 6px 9px; font-size: 0.82rem; }
+    textarea { min-height: 66px; max-height: 110px; resize: vertical; }
+
     input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: var(--accent);
@@ -802,21 +814,24 @@
       </div>
     </section>
   </main>
-  <div id="sopModal" class="modal-backdrop" onclick="if(event.target===this && !isGenerating) closeFormModal()">
+   <div id="sopModal" class="modal-backdrop" onclick="if(event.target===this && !isGenerating) closeFormModal()">
     <div class="modal-box">
       <button type="button" id="modalCloseBtn" class="modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
-      <h2 style="font-size:1.3rem; font-weight:800; margin-bottom:4px;">Configure Your SOP Blueprint</h2>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:18px;">Provide your process details below. Missing company-specific sign-offs will be safely flagged for human confirmation.</p>
+      <div style="margin-bottom:14px; padding-right:28px;">
+        <h2 style="font-size:1.22rem; font-weight:800; color:#0F172A; margin-bottom:2px;">Configure Your SOP Blueprint</h2>
+        <p style="font-size:0.82rem; color:var(--text-muted);">Provide process details below. Missing company-specific sign-offs are safely flagged for confirmation.</p>
+      </div>
 
       <form id="sopForm">
+        <!-- Row 1: Organization + Industry -->
         <div class="form-grid">
           <div class="field">
             <label for="companyName">Organization Name *</label>
-            <input type="text" id="companyName" required placeholder=" Enter Your Organization Name" />
+            <input type="text" id="companyName" required placeholder="e.g., PureHarvest Foods Pvt Ltd" />
           </div>
           <div class="field">
             <label for="sector">Industry / Sector *</label>
-            <select id="sector" onchange="toggleCustomInput('sector', 'customSector')">
+            <select id="sector" required onchange="toggleCustomInput('sector', 'customSector')">
               <option value="" disabled selected>-- Select Industry / Sector --</option>
               <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
               <option value="Healthcare & Hospital Operations">Healthcare &amp; Hospital Operations</option>
@@ -827,14 +842,15 @@
               <option value="Finance, Audit & Procurement">Finance, Audit &amp; Procurement</option>
               <option value="Other">Other (Specify below)</option>
             </select>
-            <input type="text" id="customSector" style="display:none; margin-top:8px;" placeholder="Enter your Industry Sector" />
+            <input type="text" id="customSector" style="display:none; margin-top:6px;" placeholder="Enter your industry sector" />
           </div>
         </div>
 
+        <!-- Row 2: Compliance Standard + Systems/Equipment -->
         <div class="form-grid">
           <div class="field">
             <label for="standard">Compliance Standard *</label>
-            <select id="standard" onchange="toggleCustomInput('standard', 'customStandard')">
+            <select id="standard" required onchange="toggleCustomInput('standard', 'customStandard')">
               <option value="" disabled selected>-- Select Compliance Standard --</option>
               <option value="ISO 9001:2015 QMS">ISO 9001:2015 QMS</option>
               <option value="ISO 22000, FSSAI & HACCP">ISO 22000, FSSAI &amp; HACCP</option>
@@ -844,46 +860,51 @@
               <option value="Internal Operational Best Practice">Internal Operational Best Practice</option>
               <option value="Other">Other (Specify below)</option>
             </select>
-            <input type="text" id="customStandard" style="display:none; margin-top:8px;" placeholder="Enter compliance standard" />
+            <input type="text" id="customStandard" style="display:none; margin-top:6px;" placeholder="Enter compliance standard" />
           </div>
           <div class="field">
             <label for="tools">Systems, Machinery or Equipment</label>
-            <input type="text" id="tools" placeholder="Enter the Tools, Softwares etc. You are using till now..." />
+            <input type="text" id="tools" placeholder="e.g., Digital Probe Thermometer, ERP, Scanner" />
           </div>
         </div>
 
+        <!-- Row 3: Full-Width Workflow Steps -->
         <div class="field">
           <label for="bottleneck">Workflow Steps, Acceptance Limits &amp; Bottlenecks *</label>
-          <textarea id="bottleneck" required placeholder="Describe start-to-end steps, exact temperature/time limits, verification checks, and what happens when something fails..."></textarea>
+          <textarea id="bottleneck" required placeholder="Describe start-to-end steps, exact temperature/time limits, verification checks, and failure escalation rules..."></textarea>
         </div>
 
-        <div class="field">
-          <label for="remarks">Layout Rules, Language Override or Shift Notes (Optional)</label>
-          <input type="text" id="remarks" placeholder="e.g., Put safety warning on top, or generate secondary language in German" />
-        </div>
-
-        <div class="field">
-          <label for="refFile">Attach Reference Document, Diagram, or Process Video (Optional)</label>
-          <input type="file" id="refFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.mp4,.webm,.mov,image/*,video/*" />
-          <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Supports PDF, JPG, PNG, WEBP, TXT (Max 4 MB) &amp; Process Videos MP4/WEBM/MOV (Max 12 MB / ~45s).</div>
-        </div>
-
-        <button type="submit" id="generateBtn" class="btn-primary" style="width:100%; margin-top:6px;">Generate Audit-Ready SOP &rarr;</button>
-                <div id="loadingSpinner" style="display:none; margin-top:16px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:12px; padding:16px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <span id="progressStatusLabel" style="font-size:0.86rem; font-weight:800; color:#0F172A;">Stage 1 of 6: Understanding the Process...</span>
-            <span id="progressPctLabel" style="font-size:0.9rem; font-weight:800; color:#0284C7;">8%</span>
+        <!-- Row 4: Layout Rules + Reference File Side-by-Side (Fits Everything on One Screen) -->
+        <div class="form-grid" style="margin-bottom:6px;">
+          <div class="field" style="margin-bottom:4px;">
+            <label for="remarks">Layout Rules / Language Override (Optional)</label>
+            <input type="text" id="remarks" placeholder="e.g., Safety warning on top, or German secondary text" />
           </div>
-          <div style="width:100%; height:10px; background:#E2E8F0; border-radius:999px; overflow:hidden; margin-bottom:14px;">
+          <div class="field" style="margin-bottom:4px;">
+            <label for="refFile">Attach PDF, Image, or Video (Optional)</label>
+            <input type="file" id="refFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.mp4,.webm,.mov,image/*,video/*" />
+            <div style="font-size:0.71rem; color:var(--text-muted); margin-top:3px;">PDF/Img/TXT (&le;4 MB) &bull; Video MP4/WEBM (&le;12 MB)</div>
+          </div>
+        </div>
+
+        <button type="submit" id="generateBtn" class="btn-primary" style="width:100%; padding:12px 20px; font-size:0.95rem; margin-top:4px;">Generate Audit-Ready SOP &rarr;</button>
+
+        <!-- Combined Single-Flow Progress Bar + 6-Stage Pipeline Strip -->
+        <div id="loadingSpinner" style="display:none; margin-top:12px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:12px 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span id="progressStatusLabel" style="font-size:0.81rem; font-weight:800; color:#0F172A;">Stage 1 of 6: Understanding the Process...</span>
+            <span id="progressPctLabel" style="font-size:0.84rem; font-weight:800; color:#0284C7;">8%</span>
+          </div>
+          <div style="width:100%; height:8px; background:#E2E8F0; border-radius:999px; overflow:hidden; margin-bottom:10px;">
             <div id="progressBarFill" style="width:8%; height:100%; background:linear-gradient(90deg, #0284C7, #15803D); border-radius:999px; transition:width 0.4s ease;"></div>
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem;">
-            <div id="stg-1" style="padding:6px 10px; border-radius:7px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Understand the Process</div>
-            <div id="stg-2" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Identify Gaps</div>
-            <div id="stg-3" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 3. Assess FMEA Risks</div>
-            <div id="stg-4" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 4. Generate Documentation</div>
-            <div id="stg-5" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 5. Validate Quality (95+)</div>
-            <div id="stg-6" style="padding:6px 10px; border-radius:7px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 6. Enable Execution</div>
+          <div style="display:grid; grid-template-columns:repeat(6, 1fr); gap:5px; font-size:0.69rem; text-align:center;">
+            <div id="stg-1" style="padding:5px 4px; border-radius:6px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Process</div>
+            <div id="stg-2" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Gaps</div>
+            <div id="stg-3" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 3. FMEA</div>
+            <div id="stg-4" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 4. Draft</div>
+            <div id="stg-5" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 5. 95+ Gate</div>
+            <div id="stg-6" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 6. Ready</div>
           </div>
         </div>
       </form>
