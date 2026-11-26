@@ -1329,39 +1329,87 @@
         const usableWidth = pageWidth - margin * 2;
         const usableHeight = pageHeight - margin - footerHeight - 4;
 
-        // Flatten SOP container into high-DPI raster image (zero selectable text)
+        // Lock capture to clean 980px desktop layout so tables & typography match screen 1:1
+        const captureWidth = 980;
         const fullCanvas = await html2canvas(container, {
           scale: 2,
           useCORS: true,
-          backgroundColor: "#FFFFFF"
+          backgroundColor: "#FFFFFF",
+          width: captureWidth,
+          windowWidth: 1040,
+          onclone: (clonedDoc) => {
+            const clonedBox = clonedDoc.getElementById("sopOutputContainer");
+            if (clonedBox) {
+              clonedBox.style.width = captureWidth + "px";
+              clonedBox.style.maxWidth = captureWidth + "px";
+              clonedBox.style.overflow = "visible";
+              clonedBox.style.padding = "24px";
+              clonedBox.style.backgroundImage = "none";
+              const innerWrap = clonedBox.querySelector(".sop-doc-wrapper");
+              if (innerWrap) {
+                innerWrap.style.border = "none";
+                innerWrap.style.boxShadow = "none";
+                innerWrap.style.padding = "0";
+                innerWrap.style.overflow = "visible";
+                innerWrap.style.backgroundImage = "none";
+              }
+            }
+          }
         });
 
         const imgWidthPx = fullCanvas.width;
-        const pageHeightPx = Math.floor((usableHeight / usableWidth) * imgWidthPx);
-        const totalPages = Math.ceil(fullCanvas.height / pageHeightPx);
+        const maxPageHeightPx = Math.floor((usableHeight / usableWidth) * imgWidthPx);
+        const fullCtx = fullCanvas.getContext("2d");
 
-        for (let page = 0; page < totalPages; page++) {
-          if (page > 0) pdf.addPage();
+        // Smart row-aware slicing so table rows & headings are never cut in half across pages
+        let currentY = 0;
+        let pageIndex = 0;
 
-          const sliceHeightPx = Math.min(pageHeightPx, fullCanvas.height - page * pageHeightPx);
+        while (currentY < fullCanvas.height) {
+          if (pageIndex > 0) pdf.addPage();
+
+          let targetEndY = Math.min(currentY + maxPageHeightPx, fullCanvas.height);
+
+          // Look upward up to 140px from the bottom edge for a clean white horizontal gap between rows/blocks
+          if (targetEndY < fullCanvas.height) {
+            const scanStart = Math.max(currentY + Math.floor(maxPageHeightPx * 0.72), targetEndY - 140);
+            const stripData = fullCtx.getImageData(0, scanStart, imgWidthPx, targetEndY - scanStart).data;
+            const rowBytes = imgWidthPx * 4;
+            for (let y = (targetEndY - scanStart) - 1; y >= 0; y--) {
+              let isCleanRow = true;
+              const rowOffset = y * rowBytes;
+              for (let x = 20 * 4; x < rowBytes - 20 * 4; x += 16) {
+                if (stripData[rowOffset + x] < 248 || stripData[rowOffset + x + 1] < 248 || stripData[rowOffset + x + 2] < 248) {
+                  isCleanRow = false;
+                  break;
+                }
+              }
+              if (isCleanRow) {
+                targetEndY = scanStart + y;
+                break;
+              }
+            }
+          }
+
+          const sliceHeightPx = Math.max(10, targetEndY - currentY);
           const pageCanvas = document.createElement("canvas");
           pageCanvas.width = imgWidthPx;
           pageCanvas.height = sliceHeightPx;
           const ctx = pageCanvas.getContext("2d");
 
-          // 1. Draw SOP page slice
+          // 1. Draw clean SOP slice
           ctx.fillStyle = "#FFFFFF";
           ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
-          ctx.drawImage(fullCanvas, 0, page * pageHeightPx, imgWidthPx, sliceHeightPx, 0, 0, imgWidthPx, sliceHeightPx);
+          ctx.drawImage(fullCanvas, 0, currentY, imgWidthPx, sliceHeightPx, 0, 0, imgWidthPx, sliceHeightPx);
 
-          // 2. Overlay anti-OCR wave interference mesh + diagonal SOP Factory watermark
+          // 2. Overlay crisp diagonal SOP Factory watermark + anti-OCR wave mesh
           ctx.save();
-          ctx.strokeStyle = "rgba(2, 132, 199, 0.08)";
-          ctx.lineWidth = 1.4;
+          ctx.strokeStyle = "rgba(2, 132, 199, 0.075)";
+          ctx.lineWidth = 1.3;
           for (let y = 24; y < pageCanvas.height; y += 38) {
             ctx.beginPath();
             for (let x = 0; x <= pageCanvas.width; x += 25) {
-              const waveY = y + Math.sin(x * 0.025 + y) * 5;
+              const waveY = y + Math.sin(x * 0.025 + y) * 4.5;
               if (x === 0) ctx.moveTo(x, waveY);
               else ctx.lineTo(x, waveY);
             }
@@ -1371,7 +1419,7 @@
           ctx.translate(pageCanvas.width / 2, pageCanvas.height / 2);
           ctx.rotate(-28 * Math.PI / 180);
           ctx.font = "bold 46px Arial, sans-serif";
-          ctx.fillStyle = "rgba(15, 23, 42, 0.085)";
+          ctx.fillStyle = "rgba(15, 23, 42, 0.08)";
           ctx.textAlign = "center";
           for (let wy = -pageCanvas.height; wy < pageCanvas.height; wy += 240) {
             for (let wx = -pageCanvas.width; wx < pageCanvas.width; wx += 520) {
@@ -1380,18 +1428,17 @@
           }
           ctx.restore();
 
-          // 3. Add flattened JPEG page to PDF
+          // 3. Add crisp PNG/JPEG page to PDF
           const sliceHeightMm = (sliceHeightPx / imgWidthPx) * usableWidth;
-          const imgData = pageCanvas.toDataURL("image/jpeg", 0.92);
+          const imgData = pageCanvas.toDataURL("image/jpeg", 0.95);
           pdf.addImage(imgData, "JPEG", margin, margin, usableWidth, sliceHeightMm);
 
-                   // 4. Stamp per-page footer with shield logo + brand + clickable website link
+          // 4. Stamp per-page footer with shield logo + brand + clickable website link
           const footerY = pageHeight - 7.5;
           pdf.setDrawColor(203, 213, 225);
           pdf.setLineWidth(0.3);
           pdf.line(margin, footerY - 4.5, pageWidth - margin, footerY - 4.5);
 
-          // Blue shield logo badge with white checkmark
           pdf.setFillColor(2, 132, 199);
           pdf.roundedRect(margin, footerY - 2.8, 3.6, 3.6, 0.8, 0.8, "F");
           pdf.setDrawColor(255, 255, 255);
@@ -1399,22 +1446,24 @@
           pdf.line(margin + 0.9, footerY - 1.0, margin + 1.6, footerY - 0.3);
           pdf.line(margin + 1.6, footerY - 0.3, margin + 2.8, footerY - 1.9);
 
-          // Brand text
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(8.5);
           pdf.setTextColor(15, 23, 42);
           pdf.text("Prepared by SOP Factory", margin + 5.2, footerY);
 
-          // Full clickable website link aligned cleanly to right margin
-          const siteUrl = "https://sopfactory-hq.github.io/";
+          const siteUrl = "https://github.io";
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(8.5);
           pdf.setTextColor(2, 132, 199);
           const linkWidth = pdf.getTextWidth(siteUrl);
           pdf.textWithLink(siteUrl, pageWidth - margin - linkWidth, footerY, { url: siteUrl });
+
+          currentY = targetEndY;
+          pageIndex++;
         }
 
         pdf.save("SOP-Factory-Protected-Blueprint.pdf");
+
       } catch (err) {
         alert("PDF export error: " + err.message);
       } finally {
