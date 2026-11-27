@@ -17,7 +17,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SOP Factory — Audit-Ready Standard Operating Procedure Generator" />
   <meta property="og:description" content="Turn raw workflows, whiteboard notes, or short process videos into >95% audit-ready multi-page SOP blueprints with bilingual operator guides and instant ClickUp sync." />
-  <meta property="og:url" content="https://github.io" />
+  <meta property="og:url" content="https://sopfactory-hq.github.io" />
 
   <script type="application/ld+json">
       {
@@ -26,7 +26,7 @@
     "name": "SOP Factory",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
-    "url": "https://github.io",
+    "url": "https://sopfactory-hq.github.io",
     "description": "Multi-sector AI Standard Operating Procedure (SOP) generator for ISO, FSSAI, NABH, and operational compliance workflows.",
     "offers": {
       "@type": "
@@ -1214,90 +1214,119 @@
       </div>
     </section>
   </main>
-   <div id="sopModal" class="modal-backdrop" onclick="if(event.target===this && !isGenerating) closeFormModal()">
-    <div class="modal-box">
-      <button type="button" id="modalCloseBtn" class="modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
-      <div style="margin-bottom:14px; padding-right:28px;">
-        <h2 style="font-size:1.22rem; font-weight:800; color:#0F172A; margin-bottom:2px;">Configure Your SOP Blueprint</h2>
-        <p style="font-size:0.82rem; color:var(--text-muted);">Provide process details below. Missing company-specific sign-offs are safely flagged for confirmation.</p>
-      </div>
+       let currentWizStep = 1;
 
-      <form id="sopForm">
-        <!-- Row 1: Organization + Industry -->
-        <div class="form-grid">
-          <div class="field">
-            <label for="companyName">Organization Name *</label>
-            <input type="text" id="companyName" required placeholder="e.g., PureHarvest Foods Pvt Ltd" />
-          </div>
-          <div class="field">
-            <label for="sector">Industry / Sector *</label>
-            <select id="sector" required onchange="toggleCustomInput('sector', 'customSector')">
-              <option value="" disabled selected>-- Select Industry / Sector --</option>
-              <option value="Food & Beverages Manufacturing">Food &amp; Beverages Manufacturing</option>
-              <option value="Healthcare & Hospital Operations">Healthcare &amp; Hospital Operations</option>
-              <option value="Pharmaceutical & Cold-Chain">Pharmaceutical &amp; Cold-Chain</option>
-              <option value="Manufacturing & Engineering">Manufacturing &amp; Engineering</option>
-              <option value="Logistics & Supply Chain">Logistics &amp; Supply Chain</option>
-              <option value="IT, SaaS & Information Security">IT, SaaS &amp; Information Security</option>
-              <option value="Finance, Audit & Procurement">Finance, Audit &amp; Procurement</option>
-              <option value="Other">Other (Specify below)</option>
-            </select>
-            <input type="text" id="customSector" style="display:none; margin-top:6px;" placeholder="Enter your industry sector" />
-          </div>
-        </div>
+    function openFormModal() {
+      const form = document.getElementById("sopForm");
+      if (form) form.reset();
+      document.getElementById("sector").value = "";
+      document.getElementById("standard").value = "";
+      document.getElementById("customSector").style.display = "none";
+      document.getElementById("customStandard").style.display = "none";
+      document.querySelectorAll(".choice-tile").forEach(t => t.classList.remove("selected"));
+      goToWizStep(1, true);
+      document.getElementById("sopModal").style.display = "flex";
+    }
 
-        <!-- Row 2: Compliance Standard + Systems/Equipment -->
-        <div class="form-grid">
-          <div class="field">
-            <label for="standard">Compliance Standard *</label>
-            <select id="standard" required onchange="toggleCustomInput('standard', 'customStandard')">
-              <option value="" disabled selected>-- Select Compliance Standard --</option>
-              <option value="ISO 9001:2015 QMS">ISO 9001:2015 QMS</option>
-              <option value="ISO 22000, FSSAI & HACCP">ISO 22000, FSSAI &amp; HACCP</option>
-              <option value="NABH, WHO GDP & Cold-Chain">NABH, WHO GDP &amp; Cold-Chain</option>
-              <option value="OSHA & Industrial EHS Safety">OSHA &amp; Industrial EHS Safety</option>
-              <option value="SOC 2 & ISO 27001 InfoSec">SOC 2 &amp; ISO 27001 InfoSec</option>
-              <option value="Internal Operational Best Practice">Internal Operational Best Practice</option>
-              <option value="Other">Other (Specify below)</option>
-            </select>
-            <input type="text" id="customStandard" style="display:none; margin-top:6px;" placeholder="Enter compliance standard" />
-          </div>
-          <div class="field">
-            <label for="tools">Systems, Machinery or Equipment</label>
-            <input type="text" id="tools" placeholder="e.g., Digital Probe Thermometer, ERP, Scanner" />
-          </div>
-        </div>
+    function closeFormModal() {
+      if (isGenerating) return;
+      document.getElementById("sopModal").style.display = "none";
+    }
 
-        <!-- Row 3: Full-Width Workflow Steps -->
-        <div class="field">
-          <label for="bottleneck">Workflow Steps, Acceptance Limits &amp; Bottlenecks *</label>
-          <textarea id="bottleneck" required placeholder="Describe start-to-end steps, exact temperature/time limits, verification checks, and failure escalation rules..."></textarea>
-        </div>
+    function selectSectorTile(el, val) {
+      document.querySelectorAll("#sectorTileGrid .choice-tile").forEach(t => t.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("sector").value = val;
+      document.getElementById("customSector").style.display = val === "Other" ? "block" : "none";
+    }
 
-        <!-- Row 4: Layout Rules + Reference File Side-by-Side (Fits Everything on One Screen) -->
-        <div class="form-grid" style="margin-bottom:6px;">
-          <div class="field" style="margin-bottom:4px;">
-            <label for="remarks">Layout Rules / Language Override (Optional)</label>
-            <input type="text" id="remarks" placeholder="e.g., Safety warning on top, or German secondary text" />
-          </div>
-          <div class="field" style="margin-bottom:4px;">
-            <label for="refFile">Attach PDF, Image, or Video (Optional)</label>
-            <input type="file" id="refFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.mp4,.webm,.mov,image/*,video/*" />
-            <div style="font-size:0.71rem; color:var(--text-muted); margin-top:3px;">PDF/Img/TXT (&le;4 MB) &bull; Video MP4/WEBM (&le;12 MB)</div>
-          </div>
-        </div>
+    function selectStandardTile(el, val) {
+      document.querySelectorAll("#standardTileGrid .choice-tile").forEach(t => t.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("standard").value = val;
+      document.getElementById("customStandard").style.display = val === "Other" ? "block" : "none";
+    }
 
-        <button type="submit" id="generateBtn" class="btn-primary" style="width:100%; padding:12px 20px; font-size:0.95rem; margin-top:4px;">Generate Audit-Ready SOP &rarr;</button>
+    function appendChip(inputId, text) {
+      const el = document.getElementById(inputId);
+      const cur = el.value.trim();
+      if (!cur) el.value = text;
+      else if (!cur.includes(text)) el.value = cur + (cur.endsWith(".") ? " " : ", ") + text;
+    }
 
-        <!-- Combined Single-Flow Progress Bar + 6-Stage Pipeline Strip -->
-        <div id="loadingSpinner" style="display:none; margin-top:12px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:12px 14px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <span id="progressStatusLabel" style="font-size:0.81rem; font-weight:800; color:#0F172A;">Stage 1 of 6: Understanding the Process...</span>
-            <span id="progressPctLabel" style="font-size:0.84rem; font-weight:800; color:#0284C7;">8%</span>
-          </div>
-          <div style="width:100%; height:8px; background:#E2E8F0; border-radius:999px; overflow:hidden; margin-bottom:10px;">
-            <div id="progressBarFill" style="width:8%; height:100%; background:linear-gradient(90deg, #0284C7, #15803D); border-radius:999px; transition:width 0.4s ease;"></div>
-          </div>
+    function nextWizStep(targetStep) {
+      if (targetStep === 2) {
+        if (!document.getElementById("companyName").value.trim()) {
+          alert("Please enter your organisation name first.");
+          document.getElementById("companyName").focus();
+          return;
+        }
+        if (!document.getElementById("sector").value) {
+          alert("Please select your industry tile to continue.");
+          return;
+        }
+      }
+      if (targetStep === 3) {
+        if (!document.getElementById("standard").value) {
+          alert("Please select a compliance standard tile to continue.");
+          return;
+        }
+      }
+      if (targetStep === 4) {
+        if (!document.getElementById("bottleneck").value.trim()) {
+          alert("Please describe your workflow steps and acceptance limits before reviewing.");
+          document.getElementById("bottleneck").focus();
+          return;
+        }
+        populateWizardSummary();
+      }
+      goToWizStep(targetStep);
+    }
+
+    function goToWizStep(stepNum, skipValidation) {
+      if (!skipValidation && stepNum > currentWizStep) {
+        return nextWizStep(stepNum);
+      }
+      currentWizStep = stepNum;
+      for (let i = 1; i <= 4; i++) {
+        const pane = document.getElementById("wizStep-" + i);
+        const node = document.getElementById("wizNode-" + i);
+        const circle = document.getElementById("wizCircle-" + i);
+        if (pane) pane.classList.toggle("active", i === stepNum);
+        if (node) {
+          node.classList.remove("active", "done");
+          if (i < stepNum) {
+            node.classList.add("done");
+            if (circle) circle.innerHTML = "&#10003;";
+          } else if (i === stepNum) {
+            node.classList.add("active");
+            if (circle) circle.textContent = String(i);
+          } else {
+            if (circle) circle.textContent = String(i);
+          }
+        }
+      }
+      const lineFill = document.getElementById("wizProgressLine");
+      const widths = { 1: "12%", 2: "42%", 3: "72%", 4: "92%" };
+      if (lineFill) lineFill.style.width = widths[stepNum] || "12%";
+    }
+
+    function populateWizardSummary() {
+      const org = document.getElementById("companyName").value.trim() || "—";
+      const secVal = document.getElementById("sector").value;
+      const finalSec = secVal === "Other" ? (document.getElementById("customSector").value.trim() || "Other") : secVal;
+      const stdVal = document.getElementById("standard").value;
+      const finalStd = stdVal === "Other" ? (document.getElementById("customStandard").value.trim() || "Custom Standard") : stdVal;
+      const tools = document.getElementById("tools").value.trim() || "Standard operational tools";
+      const wf = document.getElementById("bottleneck").value.trim();
+
+      document.getElementById("sumOrg").textContent = org;
+      document.getElementById("sumSector").textContent = finalSec;
+      document.getElementById("sumStandard").textContent = finalStd;
+      document.getElementById("sumTools").textContent = tools;
+      document.getElementById("sumWorkflow").textContent = wf.length > 140 ? wf.slice(0, 140) + "..." : wf;
+    }
+
           <div style="display:grid; grid-template-columns:repeat(6, 1fr); gap:5px; font-size:0.69rem; text-align:center;">
             <div id="stg-1" style="padding:5px 4px; border-radius:6px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Process</div>
             <div id="stg-2" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Gaps</div>
@@ -1872,7 +1901,7 @@
           pdf.setTextColor(15, 23, 42);
           pdf.text("Prepared by SOP Factory", margin + 5.2, footerY);
 
-          const siteUrl = "https://github.io";
+          const siteUrl = "https://sopfactory-hq.github.io";
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(8.5);
           pdf.setTextColor(2, 132, 199);
