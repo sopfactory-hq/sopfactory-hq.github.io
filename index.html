@@ -7,36 +7,30 @@
   <link rel="preconnect" href="https://googleapis.com" />
   <link rel="preconnect" href="https://gstatic.com" crossorigin />
   <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Google SEO & Social Preview Metadata -->
   <meta name="description" content="Transform any workflow, document, image, or process knowledge into a 95+ Quality-Validated SOP with FMEA risk assessments, process flowcharts, bilingual operator instructions, and verification checklists." />
-  <meta name="keywords" content="AI SOP generator, Standard Operating Procedure template, ISO 9001 SOP builder, FSSAI SOP generator, NABH compliance SOP, manufacturing SOP creator, ClickUp SOP automation" />
+  <meta name="keywords" content="AI SOP generator, Standard Operating Procedure template, ISO 9001 SOP builder, FSSAI SOP generator, NABH compliance SOP, manufacturing SOP creator, quality SOP automation" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://github.io" />
-
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SOP Factory — Audit-Ready Standard Operating Procedure Generator" />
-  <meta property="og:description" content="Turn raw workflows, whiteboard notes, or short process videos into >95% audit-ready multi-page SOP blueprints with bilingual operator guides and instant ClickUp sync." />
-  <meta property="og:url" content="https://sopfactory-hq.github.io" />
-
+  <meta property="og:description" content="Turn raw workflows, whiteboard notes, or short process videos into >95% audit-ready multi-page SOP blueprints with bilingual operator guides." />
+  <meta property="og:url" content="https://github.io" />
   <script type="application/ld+json">
-      {
+  {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "SOP Factory",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
-    "url": "https://sopfactory-hq.github.io",
+    "url": "https://github.io",
     "description": "Multi-sector AI Standard Operating Procedure (SOP) generator for ISO, FSSAI, NABH, and operational compliance workflows.",
     "offers": {
-      "@type": "
-    Offer",
+      "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
     }
   }
   </script>
-
   <style>
     :root {
       --bg: #F8FAFC;
@@ -50,8 +44,9 @@
       --success: #15803D;
       --success-bg: #F0FDF4;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    #howItWorks, #faqSection { scroll-margin-top: 84px; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
@@ -59,7 +54,6 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-
     .topbar {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -85,28 +79,15 @@
       text-decoration: none;
       color: var(--text-main);
     }
-    .nav-cta {
-      background: var(--primary);
-      color: #FFFFFF;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s ease;
-    }
-    .nav-cta:hover { background: #1E293B; }
-
     .container {
       max-width: 1040px;
       margin: 0 auto;
       padding: 0 24px;
     }
-        .hero {
-      padding: 112px 0 116px;
+    .hero {
+      padding: 72px 0 76px;
       text-align: center;
-      max-width: 780px;
+      max-width: 820px;
       margin: 0 auto;
     }
     .eyebrow {
@@ -128,11 +109,6 @@
       line-height: 1.14;
       color: var(--text-main);
       margin-bottom: 18px;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 30px;
     }
     .hero-actions {
       display: flex;
@@ -197,497 +173,362 @@
       color: var(--text-muted);
     }
 
-    .sector-pills {
+    /* ================= MULTI-STEP PSYCHOLOGICAL WIZARD CSS ================= */
+    .wizard-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .wizard-shell {
+      background: #F8FAFC;
+      width: 100%;
+      max-width: 820px;
+      max-height: 94vh;
+      overflow-y: auto;
+      margin: auto;
+      border-radius: 20px;
+      border: 1px solid #CBD5E1;
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35);
+      position: relative;
+    }
+    .wizard-header {
+      background: #FFFFFF;
+      padding: 16px 26px;
+      border-bottom: 1px solid #E2E8F0;
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 20px 20px 0 0;
+    }
+    .wizard-brand {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
-    .pill {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--text-main);
+    .wizard-brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #0284C7;
+      line-height: 1.1;
     }
- /* ================= MULTI-STEP PSYCHOLOGICAL WIZARD CSS ================= */
-.wizard-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.72);
-  backdrop-filter: blur(5px);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  overflow-y: auto;
-}
-
-.wizard-shell {
-  background: #F8FAFC;
-  width: 100%;
-  max-width: 820px;
-  max-height: 94vh;
-  overflow-y: auto;
-  margin: auto;
-  border-radius: 20px;
-  border: 1px solid #CBD5E1;
-  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.35);
-  position: relative;
-}
-
-/* Top Wizard Header */
-.wizard-header {
-  background: #FFFFFF;
-  padding: 16px 26px;
-  border-bottom: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 20px 20px 0 0;
-}
-
-.wizard-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.wizard-brand-title {
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: #0284C7;
-  line-height: 1.1;
-}
-
-.wizard-brand-sub {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #64748B;
-}
-
-.wizard-close {
-  background: #F1F5F9;
-  border: 1px solid #E2E8F0;
-  color: #475569;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-}
-
-.wizard-close:hover {
-  background: #E2E8F0;
-  color: #0F172A;
-}
-
-/* 4-Step Goal-Gradient Stepper Bar */
-.stepper-wrap {
-  background: #FFFFFF;
-  padding: 18px 36px 20px;
-  border-bottom: 1px solid #E2E8F0;
-}
-
-.stepper-track {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
-  max-width: 660px;
-  margin: 0 auto;
-}
-
-.stepper-line-bg {
-  position: absolute;
-  top: 16px;
-  left: 44px;
-  right: 44px;
-  height: 3px;
-  background: #E2E8F0;
-  z-index: 1;
-  border-radius: 999px;
-}
-
-.stepper-line-fill {
-  position: absolute;
-  top: 16px;
-  left: 44px;
-  height: 3px;
-  width: 12%;
-  background: linear-gradient(90deg, #0284C7, #2563EB);
-  z-index: 2;
-  border-radius: 999px;
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.step-node {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 110px;
-  cursor: pointer;
-}
-
-.step-circle {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #E2E8F0;
-  color: #475569;
-  font-weight: 800;
-  font-size: 0.88rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 6px;
-  border: 3px solid #FFFFFF;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
-  transition: all 0.25s ease;
-}
-
-.step-label {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #64748B;
-  line-height: 1.25;
-  transition: color 0.25s ease;
-}
-
-.step-node.active .step-circle {
-  background: #0284C7;
-  color: #FFFFFF;
-  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.18);
-}
-
-.step-node.active .step-label {
-  color: #0284C7;
-  font-weight: 800;
-}
-
-.step-node.done .step-circle {
-  background: #15803D;
-  color: #FFFFFF;
-}
-
-.step-node.done .step-label {
-  color: #15803D;
-  font-weight: 700;
-}
-
-/* Main White Step Card */
-.wizard-card {
-  background: #FFFFFF;
-  margin: 20px 24px 24px;
-  padding: 26px 28px;
-  border-radius: 16px;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-}
-
-.wizard-step-pane {
-  display: none;
-  animation: stepFadeIn 0.28s ease forwards;
-}
-
-.wizard-step-pane.active {
-  display: block;
-}
-
-@keyframes stepFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.step-hero-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-
-.step-hero-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #E0F2FE;
-  color: #0284C7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  flex-shrink: 0;
-}
-
-.step-hero-title {
-  font-size: 1.32rem;
-  font-weight: 800;
-  color: #0F172A;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.step-hero-sub {
-  font-size: 0.86rem;
-  color: #64748B;
-  margin-top: 2px;
-}
-
-.wiz-question {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #0F172A;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.wiz-question span.req {
-  color: #DC2626;
-}
-
-.wiz-input, .wiz-textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1.5px solid #CBD5E1;
-  border-radius: 10px;
-  font-family: inherit;
-  font-size: 0.93rem;
-  color: #0F172A;
-  background: #FFFFFF;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.wiz-input:focus, .wiz-textarea:focus {
-  outline: none;
-  border-color: #0284C7;
-  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
-}
-
-.wiz-textarea {
-  min-height: 105px;
-  resize: vertical;
-}
-
-/* Tactile Visual Selection Tiles (Industry & Standards) */
-.tile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(134px, 1fr));
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.choice-tile {
-  position: relative;
-  background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 14px 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.choice-tile:hover {
-  border-color: #7DD3FC;
-  background: #F8FAFC;
-  transform: translateY(-2px);
-}
-
-.choice-tile.selected {
-  border-color: #0284C7;
-  background: #F0F9FF;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
-}
-
-.choice-tile .tile-check {
-  display: none;
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #0284C7;
-  color: #FFFFFF;
-  font-size: 0.68rem;
-  font-weight: 800;
-  align-items: center;
-  justify-content: center;
-}
-
-.choice-tile.selected .tile-check {
-  display: flex;
-}
-
-.choice-tile .tile-icon {
-  font-size: 1.55rem;
-  line-height: 1;
-}
-
-.choice-tile .tile-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #1E293B;
-  line-height: 1.25;
-}
-
-/* Soft Blue File Upload Drop-Bar */
-.upload-banner {
-  margin-top: 18px;
-  background: #F0F9FF;
-  border: 1.5px dashed #BAE6FD;
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.upload-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.upload-icon {
-  font-size: 1.5rem;
-  color: #0284C7;
-}
-
-/* Quick-Chip Suggestions */
-.chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 8px;
-}
-
-.quick-chip {
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  color: #334155;
-  border-radius: 999px;
-  padding: 5px 12px;
-  font-size: 0.76rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.quick-chip:hover {
-  background: #E0F2FE;
-  border-color: #7DD3FC;
-  color: #0369A1;
-}
-
-/* Summary Review Box (Step 4) */
-.summary-box {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 16px 18px;
-  display: grid;
-  gap: 10px;
-  font-size: 0.86rem;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px dashed #CBD5E1;
-  padding-bottom: 8px;
-}
-
-.summary-row:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.summary-key {
-  font-weight: 700;
-  color: #475569;
-  min-width: 140px;
-}
-
-.summary-val {
-  font-weight: 600;
-  color: #0F172A;
-  text-align: right;
-  word-break: break-word;
-}
-
-/* Bottom Navigation Bar */
-.wizard-footer {
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn-wiz-back {
-  background: #FFFFFF;
-  color: #0284C7;
-  border: 1.5px solid #BAE6FD;
-  padding: 11px 22px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-wiz-back:hover {
-  background: #F0F9FF;
-}
-
-.btn-wiz-next {
-  background: linear-gradient(135deg, #0284C7, #2563EB);
-  color: #FFFFFF;
-  border: none;
-  padding: 12px 26px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 0.94rem;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.28);
-  transition: all 0.15s ease;
-}
-
-.btn-wiz-next:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
-}
-
-@media (max-width: 640px) {
-  .stepper-wrap { padding: 14px 12px; }
-  .step-label { font-size: 0.68rem; }
-  .wizard-card { margin: 12px; padding: 18px 16px; }
-  .tile-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-    /* Live Button Spinner */
+    .wizard-brand-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #64748B;
+    }
+    .wizard-close {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #475569;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .wizard-close:hover { background: #E2E8F0; color: #0F172A; }
+    .stepper-wrap {
+      background: #FFFFFF;
+      padding: 18px 36px 20px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .stepper-track {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .stepper-line-bg {
+      position: absolute;
+      top: 16px;
+      left: 44px;
+      right: 44px;
+      height: 3px;
+      background: #E2E8F0;
+      z-index: 1;
+      border-radius: 999px;
+    }
+    .stepper-line-fill {
+      position: absolute;
+      top: 16px;
+      left: 44px;
+      height: 3px;
+      width: 12%;
+      background: linear-gradient(90deg, #0284C7, #2563EB);
+      z-index: 2;
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .step-node {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 110px;
+      cursor: pointer;
+    }
+    .step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: #475569;
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+      transition: all 0.25s ease;
+    }
+    .step-label {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #64748B;
+      line-height: 1.25;
+      transition: color 0.25s ease;
+    }
+    .step-node.active .step-circle {
+      background: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.18);
+    }
+    .step-node.active .step-label { color: #0284C7; font-weight: 800; }
+    .step-node.done .step-circle { background: #15803D; color: #FFFFFF; }
+    .step-node.done .step-label { color: #15803D; font-weight: 700; }
+    .wizard-card {
+      background: #FFFFFF;
+      margin: 20px 24px 24px;
+      padding: 26px 28px;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+    .wizard-step-pane {
+      display: none;
+      animation: stepFadeIn 0.28s ease forwards;
+    }
+    .wizard-step-pane.active { display: block; }
+    @keyframes stepFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .step-hero-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .step-hero-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #E0F2FE;
+      color: #0284C7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .step-hero-title {
+      font-size: 1.32rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .step-hero-sub {
+      font-size: 0.86rem;
+      color: #64748B;
+      margin-top: 2px;
+    }
+    .wiz-question {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .wiz-question span.req { color: #DC2626; }
+    .wiz-input, .wiz-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: #0F172A;
+      background: #FFFFFF;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .wiz-input:focus, .wiz-textarea:focus {
+      outline: none;
+      border-color: #0284C7;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+    }
+    .wiz-textarea { min-height: 105px; resize: vertical; }
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(134px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .choice-tile {
+      position: relative;
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .choice-tile:hover {
+      border-color: #7DD3FC;
+      background: #F8FAFC;
+      transform: translateY(-2px);
+    }
+    .choice-tile.selected {
+      border-color: #0284C7;
+      background: #F0F9FF;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+    }
+    .choice-tile .tile-check {
+      display: none;
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #0284C7;
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 800;
+      align-items: center;
+      justify-content: center;
+    }
+    .choice-tile.selected .tile-check { display: flex; }
+    .choice-tile .tile-icon { font-size: 1.55rem; line-height: 1; }
+    .choice-tile .tile-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.25;
+    }
+    .upload-banner {
+      margin-top: 18px;
+      background: #F0F9FF;
+      border: 1.5px dashed #BAE6FD;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .upload-info { display: flex; align-items: center; gap: 12px; }
+    .upload-icon { font-size: 1.5rem; color: #0284C7; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .quick-chip {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .quick-chip:hover {
+      background: #E0F2FE;
+      border-color: #7DD3FC;
+      color: #0369A1;
+    }
+    .summary-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: grid;
+      gap: 10px;
+      font-size: 0.86rem;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px dashed #CBD5E1;
+      padding-bottom: 8px;
+    }
+    .summary-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .summary-key { font-weight: 700; color: #475569; min-width: 140px; }
+    .summary-val { font-weight: 600; color: #0F172A; text-align: right; word-break: break-word; }
+    .wizard-footer {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-wiz-back {
+      background: #FFFFFF;
+      color: #0284C7;
+      border: 1.5px solid #BAE6FD;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+    }
+    .btn-wiz-back:hover { background: #F0F9FF; }
+    .btn-wiz-next {
+      background: linear-gradient(135deg, #0284C7, #2563EB);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.94rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.28);
+    }
+    .btn-wiz-next:hover { transform: translateY(-1px); }
+    @media (max-width: 640px) {
+      .stepper-wrap { padding: 14px 12px; }
+      .step-label { font-size: 0.68rem; }
+      .wizard-card { margin: 12px; padding: 18px 16px; }
+      .tile-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     .btn-spinner {
       display: inline-block;
       width: 16px;
@@ -700,7 +541,6 @@
       margin-right: 8px;
     }
     @keyframes spinBtn { to { transform: rotate(360deg); } }
-
     .spinner {
       display: none;
       text-align: center;
@@ -709,8 +549,6 @@
       color: var(--accent);
       font-size: 0.9rem;
     }
-
-    /* Review & Approval Workspace */
     #reviewSection { display: none; padding: 36px 0 64px; }
     .review-header {
       display: flex;
@@ -738,8 +576,13 @@
       font-weight: 700;
       font-size: 0.84rem;
     }
-
-    /* Repeating "SOP Factory" Watermark + Multi-Page Print Support */
+    #sopOutputContainer {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      position: relative;
+    }
     .sop-doc-wrapper {
       position: relative;
       background-color: #FFFFFF;
@@ -769,33 +612,6 @@
       font-weight: 700;
       color: #0F172A;
     }
-    @media print {
-      .topbar, .action-bar, #revisionDrawer, #unlockedCard { display: none !important; }
-      .sop-doc-wrapper {
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-      .sop-page-break {
-        page-break-before: always;
-        break-before: page;
-      }
-    }
-
-    .action-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 22px;
-    }
-    .btn-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
     .btn-edit {
       background: #FFFFFF;
       color: var(--text-main);
@@ -818,172 +634,26 @@
       cursor: pointer;
     }
     .btn-unlock:hover { background: #166534; }
-    .btn-print {
-      background: #F1F5F9;
-      color: var(--text-main);
-      border: 1px solid #CBD5E1;
-      padding: 12px 18px;
-      border-radius: 9px;
-      font-weight: 700;
-      font-size: 0.92rem;
-      cursor: pointer;
-    }
-
     #revisionDrawer {
       display: none;
       margin-top: 16px;
       padding-top: 16px;
       border-top: 1px solid var(--border);
     }
-
-    #unlockedCard {
-      display: none;
-      margin-top: 18px;
-      background: var(--success-bg);
-      border: 1.5px solid #86EFAC;
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .unlock-flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 26px 24px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-    html { scroll-behavior: smooth; }
-    #howItWorks, #faqSection { scroll-margin-top: 84px; }
-   @media print { body { display: none !important; } }
-    #sopOutputContainer {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      position: relative;
+    #revisionDrawer textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 10px 12px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.92rem;
     }
     @media print {
       body { display: none !important; }
     }
   </style>
-    <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is a Standard Operating Procedure (SOP)?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A Standard Operating Procedure (SOP) is a controlled, step-by-step instruction document that defines who performs a task, required tools and PPE, exact pass/fail acceptance criteria, and exception escalation rules so work is executed consistently every time."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why is an SOP needed in an organization?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SOPs eliminate guesswork, prevent human errors and safety incidents, preserve critical operational knowledge across shift or staff changes, and maintain verifiable compliance with audit and statutory frameworks."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How are SOPs beneficial for any business?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Well-structured SOPs cut new-hire onboarding time by up to 50%, reduce costly rework and compliance penalties, establish clear RACI accountability across teams, and let businesses scale across locations without constant supervision."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which industries and departments can SOP Factory generate SOPs for?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SOP Factory supports 15+ industries and corporate functions, including Healthcare and Hospitals, Food and Beverages Manufacturing, Manufacturing and Engineering, Pharmaceuticals and Cold-Chain, Quality Assurance and QC, Supply Chain and Inventory, Maintenance, IT and InfoSec, Finance and Accounts, Procurement, HR, Hospitality, Education, and R&D."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which global and national standards (ISO, ISI, FSSAI, NABH) and input formats are supported?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "SOP Factory builds audit-ready procedures aligned with global and Indian standards—including ISO 9001, ISO 22000, ISO 27001, ISI (BIS), FSSAI, NABH, NABL, WHO GDP, HACCP, OSHA, and SOC 2—as well as custom internal company standards. You can generate SOPs from past SOPs, internal guidelines, handwritten notes, whiteboard photos, or process walkthrough videos."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does SOP Factory ensure generated SOPs pass audits?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Every blueprint passes through an automated dual-maturity quality gate scoring Document Control, RACI accountability, FMEA risk controls (Severity, Occurrence, Detection, RPN), measurable acceptance limits, and verification checklists—enforcing a verified score above 95/100."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can SOP Factory create bilingual work instructions for shop-floor operators?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. SOP Factory automatically pairs Simple English instructions with the local official language of your facility's region—such as Hindi, Japanese, French, German, Spanish, or Arabic—alongside a bilingual verification checklist."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I convert an existing PDF, handwritten notes, or process video into an SOP?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Attach past SOP PDFs, internal standards, handwritten notes, equipment photos, or concise MP4/WEBM walkthrough videos (up to 12 MB), and the engine extracts every sequential action, tool, and safety checkpoint."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does ClickUp integration and workstation QR deployment work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "After reviewing and approving your SOP, SOP Factory publishes a structured Markdown SOP directly into your ClickUp workspace and generates a scannable workstation QR code for instant floor access."
-        }
-      }
-    ]
-  }
-  </script>
-    <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "How to Create an Audit-Ready Standard Operating Procedure (SOP)",
-    "description": "Generate a >95% audit-scored SOP with FMEA risk matrix, RACI accountability, and bilingual operator checklist in 3 steps.",
-    "totalTime": "PT2M",
-    "step": [
-      {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Input Process Details or Media",
-        "text": "Enter your organization name, industry sector, compliance standard (ISO 9001, ISI, FSSAI, NABH), and workflow steps, or attach a PDF, whiteboard photo, or short walkthrough video."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Automated >95/100 Quality & Risk Gate",
-        "text": "The AI engine compiles a Management SOP, FMEA Risk Table, RACI Matrix, and auto-localized bilingual operator work instruction."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Revise & Deploy to ClickUp with QR Code",
-        "text": "Request targeted revisions if needed, then approve to sync directly to ClickUp and generate a scannable workstation QR code."
-      }
-    ]
-  }
-  </script>
-  <script src="https://cloudflare.com"></script>
-  <script src="https://cloudflare.com"></script>
-    <script>
+  <script>
     if ("scrollRestoration" in history) { history.scrollRestoration = "manual"; }
     window.addEventListener("load", function() {
       if (!window.location.hash) { window.scrollTo(0, 0); }
@@ -992,7 +662,6 @@
   <meta name="google-site-verification" content="0AaR6HToeiZFARHdxzUEBdrPCwD-pbpYOU4s1ngd40M" />
 </head>
 <body>
-
   <header class="topbar">
     <div class="topbar-inner">
       <a href="index.html" class="brand">
@@ -1014,10 +683,6 @@
           <polygon points="20,4 34,12 20,20 6,12" fill="url(#sopTop)"/>
           <polygon points="6,12 20,20 20,36 6,28" fill="url(#sopLeft)"/>
           <polygon points="34,12 20,20 20,36 34,28" fill="url(#sopRight)"/>
-          <polyline points="10,18 16,21.5" stroke="#BAE6FD" stroke-width="1.8" stroke-linecap="round"/>
-          <polyline points="10,23 16,26.5" stroke="#7DD3FC" stroke-width="1.8" stroke-linecap="round"/>
-          <polyline points="24,21.5 30,18" stroke="#E0F2FE" stroke-width="1.8" stroke-linecap="round"/>
-          <polyline points="24,26.5 30,23" stroke="#BAE6FD" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
         <span>SOP Factory</span>
       </a>
@@ -1028,193 +693,223 @@
     </div>
   </header>
 
-   <main id="landingSection" class="container">
-       <!-- HERO SECTION -->
-    <section class="hero" style="padding: 72px 0 76px; max-width: 820px;">
+  <main id="landingSection" class="container">
+    <section class="hero">
       <div class="eyebrow">95+ SOP Factory Quality Validated</div>
       <h1>Transform Any Workflow into a Quality-Validated SOP</h1>
       <p style="font-size: 1.08rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 24px;">
-        Convert documents, notes, images, or videos into audit-ready SOPs, FMEA risk matrices, and bilingual checklists—aligned with any global or internal standard.     
+        Convert documents, notes, images, or videos into audit-ready SOPs, FMEA risk matrices, and bilingual checklists—aligned with any global or internal standard.
       </p>
-
-      <!-- Visual Capability Badges -->
-      <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:28px;">
-        <span style="background:#FFFFFF; border:1px solid #CBD5E1; padding:6px 14px; border-radius:999px; font-size:0.82rem; font-weight:700; color:#0F172A; display:inline-flex; align-items:center; gap:6px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Docs, Photos &amp; Videos
-        </span>
-        <span style="background:#FFFFFF; border:1px solid #CBD5E1; padding:6px 14px; border-radius:999px; font-size:0.82rem; font-weight:700; color:#0F172A; display:inline-flex; align-items:center; gap:6px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          Global &amp; Internal Standards
-        </span>
-        <span style="background:#F0FDF4; border:1px solid #BBF7D0; padding:6px 14px; border-radius:999px; font-size:0.82rem; font-weight:700; color:#15803D; display:inline-flex; align-items:center; gap:6px;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          100-Point Audit Gate (95+)
-        </span>
-      </div>
-
       <div class="hero-actions">
         <button type="button" class="btn-primary" onclick="openFormModal()">Create Your SOP Blueprint &rarr;</button>
       </div>
-
-      <!-- Visual Input -> Engine -> Output Strip -->
       <div style="margin: 34px auto 0; max-width: 680px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px 18px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 6px 20px rgba(15,23,42,0.04);">
-        <div style="text-align:center;">
-          <div style="font-size:0.72rem; font-weight:800; color:#64748B; text-transform:uppercase;">Input</div>
-          <div style="font-size:0.86rem; font-weight:700; color:#0F172A;">Notes / PDF / Video</div>
-        </div>
+        <div style="text-align:center;"><div style="font-size:0.72rem; font-weight:800; color:#64748B; text-transform:uppercase;">Input</div><div style="font-size:0.86rem; font-weight:700; color:#0F172A;">Notes / PDF / Video</div></div>
         <div style="color:#0284C7; font-weight:800; font-size:1.1rem;">&rarr;</div>
-        <div style="text-align:center; background:#F0F9FF; padding:6px 14px; border-radius:8px; border:1px solid #BAE6FD;">
-          <div style="font-size:0.72rem; font-weight:800; color:#0284C7; text-transform:uppercase;">SOP Factory Engine</div>
-          <div style="font-size:0.86rem; font-weight:700; color:#0F172A;">FMEA + RACI + Bilingual</div>
-        </div>
+        <div style="text-align:center; background:#F0F9FF; padding:6px 14px; border-radius:8px; border:1px solid #BAE6FD;"><div style="font-size:0.72rem; font-weight:800; color:#0284C7; text-transform:uppercase;">SOP Factory Engine</div><div style="font-size:0.86rem; font-weight:700; color:#0F172A;">FMEA + RACI + Bilingual</div></div>
         <div style="color:#0284C7; font-weight:800; font-size:1.1rem;">&rarr;</div>
-        <div style="text-align:center;">
-          <div style="font-size:0.72rem; font-weight:800; color:#15803D; text-transform:uppercase;">Output</div>
-          <div style="font-size:0.86rem; font-weight:700; color:#0F172A;">95+ Audit SOP &amp; QR</div>
-        </div>
+        <div style="text-align:center;"><div style="font-size:0.72rem; font-weight:800; color:#15803D; text-transform:uppercase;">Output</div><div style="font-size:0.86rem; font-weight:700; color:#0F172A;">95+ Audit SOP &amp; PDF</div></div>
       </div>
+    </section>
 
-      </section>
-
-    <!-- 3 CORE VALUE PILLARS -->
-    <section class="section">
-          <!-- 3 CORE VALUE PILLARS -->
     <section class="section">
       <div style="margin-bottom: 24px; text-align: center; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">
         SOP FACTORY &mdash; YOUR PROCESSES. YOUR STANDARDS. YOUR QUALITY FRAMEWORK.
       </div>
       <div class="grid-3">
-        <div class="card">
-          <div class="card-num">01 &bull; Precision Engineering</div>
-          <h3>High-Accuracy SOP Development</h3>
-          <p>AI-powered process analysis, structured documentation and multi-layer quality validation to improve the accuracy, completeness and consistency of every SOP.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">02 &bull; Zero Lock-In</div>
-          <h3>Standards-Agnostic. Requirements-Driven.</h3>
-          <p>Not restricted to a predefined list of standards. Adapt SOPs to applicable international and national standards, industry-specific requirements, statutory obligations, customer requirements and your organization's own internal frameworks.</p>
-        </div>
-        <div class="card" style="border-color: #BBF7D0; background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 100%);">
-          <div class="card-num" style="color: var(--success);">03 &bull; Verified Audit Gate</div>
-          <h3>95+ SOP Factory Quality Score</h3>
-          <p>Every SOP presented as 95+ Quality Validated has passed our defined 100-point SOP quality assessment framework, subject to mandatory critical-control checks.</p>
-        </div>
+        <div class="card"><div class="card-num">01 &bull; Precision Engineering</div><h3>High-Accuracy SOP Development</h3><p>AI-powered process analysis, structured documentation and multi-layer quality validation to improve accuracy, completeness and consistency.</p></div>
+        <div class="card"><div class="card-num">02 &bull; Zero Lock-In</div><h3>Standards-Agnostic. Requirements-Driven.</h3><p>Adapt SOPs to ISO, FSSAI, NABH, statutory obligations, customer requirements, or your organization's own internal frameworks.</p></div>
+        <div class="card" style="border-color: #BBF7D0; background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 100%);"><div class="card-num" style="color: var(--success);">03 &bull; Verified Audit Gate</div><h3>95+ SOP Factory Quality Score</h3><p>Every SOP presented as 95+ Quality Validated passes our 100-point SOP quality assessment framework with mandatory critical-control checks.</p></div>
       </div>
     </section>
 
-    <!-- COMPLETE DOCUMENTATION DELIVERABLES -->
-    <section class="section">
-      <h2 class="section-title" style="text-align:center;">Complete Documentation. Ready for Implementation.</h2>
-      <p class="section-sub" style="text-align:center;">Every generation compiles a full multi-layer operational governance package in one click.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px;">
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; Detailed Management &amp; Audit SOPs</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Full governance headers, scope, controls, records, and KPIs.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; Process Flowcharts &amp; RACI Matrices</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Visual step flows, decision gates, and clear role ownership.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; FMEA-Based Risk Assessments</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Severity, Occurrence, Detection, RPN scoring &amp; preventive controls.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; Simple English &amp; Hindi / Local Operator Instructions</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Frontline instructions in Simple English paired with Hindi or local official language.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; One-Page Visual Instructions</div>
-          <p style="font-size:0.83rem; margin-top:4px;">A4 workstation-ready visual cards with safety warnings &amp; escalation.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; Operational &amp; Verification Checklists</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Bilingual pass/fail checkpoints with operator &amp; supervisor sign-off.</p>
-        </div>
-        <div class="card" style="padding:16px 18px;">
-          <div style="font-weight:700; font-size:0.94rem; color:var(--text-main);">&#10003; Deviation &amp; CAPA Formats</div>
-          <p style="font-size:0.83rem; margin-top:4px;">Immediate containment, 5-Why RCA, and escalation matrices.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6-STAGE EXECUTION PIPELINE -->
     <section id="howItWorks" class="section">
-          <h2 class="section-title" style="text-align:center;">How SOP Factory Works</h2>
+      <h2 class="section-title" style="text-align:center;">How SOP Factory Works</h2>
       <p class="section-sub" style="text-align:center;">From process knowledge to standardized execution in six controlled stages.</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px;">
-        <div class="card" style="text-align:center; padding:18px 12px;">
-          <div class="card-num">Stage 01</div>
-          <h3 style="font-size:0.95rem;">Understand the Process</h3>
-        </div>
-        <div class="card" style="text-align:center; padding:18px 12px;">
-          <div class="card-num">Stage 02</div>
-          <h3 style="font-size:0.95rem;">Identify Gaps</h3>
-        </div>
-        <div class="card" style="text-align:center; padding:18px 12px;">
-          <div class="card-num">Stage 03</div>
-          <h3 style="font-size:0.95rem;">Assess Risks</h3>
-        </div>
-        <div class="card" style="text-align:center; padding:18px 12px;">
-          <div class="card-num">Stage 04</div>
-          <h3 style="font-size:0.95rem;">Generate Documentation</h3>
-        </div>
-        <div class="card" style="text-align:center; padding:18px 12px; border-color:#BAE6FD; background:#F0F9FF;">
-          <div class="card-num">Stage 05</div>
-          <h3 style="font-size:0.95rem;">Validate Quality (95+)</h3>
-        </div>
-        <div class="card" style="text-align:center; padding:18px 12px; border-color:#BBF7D0; background:#F0FDF4;">
-          <div class="card-num" style="color:var(--success);">Stage 06</div>
-          <h3 style="font-size:0.95rem;">Enable Consistent Execution</h3>
-        </div>
+        <div class="card" style="text-align:center; padding:18px 12px;"><div class="card-num">Stage 01</div><h3 style="font-size:0.95rem;">Understand Process</h3></div>
+        <div class="card" style="text-align:center; padding:18px 12px;"><div class="card-num">Stage 02</div><h3 style="font-size:0.95rem;">Identify Gaps</h3></div>
+        <div class="card" style="text-align:center; padding:18px 12px;"><div class="card-num">Stage 03</div><h3 style="font-size:0.95rem;">Assess Risks</h3></div>
+        <div class="card" style="text-align:center; padding:18px 12px;"><div class="card-num">Stage 04</div><h3 style="font-size:0.95rem;">Draft Blueprint</h3></div>
+        <div class="card" style="text-align:center; padding:18px 12px; border-color:#BAE6FD; background:#F0F9FF;"><div class="card-num">Stage 05</div><h3 style="font-size:0.95rem;">Validate (95+)</h3></div>
+        <div class="card" style="text-align:center; padding:18px 12px; border-color:#BBF7D0; background:#F0FDF4;"><div class="card-num" style="color:var(--success);">Stage 06</div><h3 style="font-size:0.95rem;">Deploy &amp; Audit</h3></div>
       </div>
     </section>
 
     <section id="faqSection" class="section">
       <h2 class="section-title" style="text-align:center;">SOP Fundamentals &amp; Platform FAQ</h2>
-      <p class="section-sub" style="text-align:center;">Learn why Standard Operating Procedures matter and how SOP Factory automates audit readiness.</p>
-      <div style="max-width:820px; margin:0 auto; display:grid; gap:12px;">
-        <details class="card" style="padding:16px 20px; cursor:pointer;" open>
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">What is a Standard Operating Procedure (SOP)?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">A Standard Operating Procedure (SOP) is a controlled, step-by-step instruction document that defines who performs a task, required tools and PPE, exact pass/fail acceptance criteria, and exception escalation rules so work is executed consistently every time.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">Why is an SOP needed in an organization?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">SOPs eliminate guesswork, prevent human errors and workplace safety incidents, preserve critical process knowledge when employees change roles, and ensure verifiable compliance with audit and statutory frameworks.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">How are SOPs beneficial for any business?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Well-structured SOPs cut new-hire onboarding time by up to 50%, reduce costly rework and audit penalties, establish clear RACI accountability across teams, and allow founders and managers to scale across shifts or locations without constant supervision.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">Which industries and departments can SOP Factory generate SOPs for?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">SOP Factory adapts terminology, risks, controls, and acceptance criteria across 15+ industries and functions—including Healthcare &amp; Hospitals, Food &amp; Beverages Manufacturing, Manufacturing &amp; Engineering, Pharma Cold-Chain, Quality Assurance &amp; QC, Logistics &amp; Inventory, Maintenance, IT &amp; InfoSec, Finance &amp; Accounts, Procurement, HR, Hospitality, Education, and R&amp;D.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">Which global and national standards (ISO, ISI, FSSAI, NABH) and input formats are supported?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">SOP Factory builds audit-ready procedures aligned with global and Indian standards—including <strong>ISO 9001, ISO 22000, ISO 27001, ISI (BIS), FSSAI, NABH, NABL, WHO GDP, HACCP, OSHA, and SOC 2</strong>—as well as custom internal company standards. You can start from scratch or upload past SOPs, internal guidelines, handwritten notes, whiteboard photos, or process walkthrough videos.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">How does SOP Factory ensure generated SOPs pass audits?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Every blueprint runs through an automated dual-maturity quality gate evaluating Document Control, RACI accountability, FMEA risk controls (Severity, Occurrence, Detection, RPN), measurable acceptance limits, and verification checklists—enforcing a verified score above 95/100.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">Can SOP Factory create bilingual work instructions for shop-floor operators?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Yes. SOP Factory automatically pairs Simple English instructions with the local official language of your facility's region—such as Hindi, Japanese, French, German, Spanish, or Arabic—alongside a bilingual verification checklist.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">Can I convert an existing PDF, handwritten notes, or process video into an SOP?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Yes. Attach past SOP PDFs, internal standards, handwritten notes, equipment photos, or concise MP4/WEBM walkthrough videos (up to 12 MB), and the engine extracts every sequential action, tool, and safety checkpoint.</p>
-        </details>
-        <details class="card" style="padding:16px 20px; cursor:pointer;">
-          <summary style="font-weight:700; font-size:0.98rem; color:var(--text-main);">How does ClickUp integration and workstation QR deployment work?</summary>
-          <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">After reviewing and approving your SOP, SOP Factory publishes a structured Markdown SOP directly into your ClickUp workspace and generates a scannable workstation QR code for instant floor access.</p>
-        </details>
+      <div style="max-width:820px; margin:20px auto 0; display:grid; gap:12px;">
+        <details class="card" style="padding:16px 20px; cursor:pointer;"><summary style="font-weight:700;">What is a Standard Operating Procedure (SOP)?</summary><p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">A controlled, step-by-step instruction document defining who performs a task, required tools and PPE, exact pass/fail criteria, and exception escalation rules.</p></details>
+        <details class="card" style="padding:16px 20px; cursor:pointer;"><summary style="font-weight:700;">How does SOP Factory ensure generated SOPs pass audits?</summary><p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Every blueprint passes an automated quality gate evaluating Document Control, RACI accountability, FMEA risk controls (RPN), measurable limits, and verification checklists above 95/100.</p></details>
+        <details class="card" style="padding:16px 20px; cursor:pointer;"><summary style="font-weight:700;">Can SOP Factory create bilingual work instructions?</summary><p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Yes. Simple English instructions are automatically paired with your facility's local official language alongside a bilingual verification checklist.</p></details>
       </div>
     </section>
   </main>
-       let currentWizStep = 1;
+
+  <div id="sopModal" class="wizard-backdrop" onclick="if(event.target===this && !isGenerating) closeFormModal()">
+    <div class="wizard-shell">
+      <div class="wizard-header">
+        <div class="wizard-brand"><div><div class="wizard-brand-title">SOP Factory</div><div class="wizard-brand-sub">Create &bull; Customize &bull; Comply</div></div></div>
+        <button type="button" id="modalCloseBtn" class="wizard-close" onclick="closeFormModal()">✕</button>
+      </div>
+      <div class="stepper-wrap">
+        <div class="stepper-track">
+          <div class="stepper-line-bg"></div>
+          <div class="stepper-line-fill" id="wizProgressLine"></div>
+          <div class="step-node active" id="wizNode-1" onclick="goToWizStep(1)"><div class="step-circle" id="wizCircle-1">1</div><div class="step-label">Organisation<br/>Profile</div></div>
+          <div class="step-node" id="wizNode-2" onclick="goToWizStep(2)"><div class="step-circle" id="wizCircle-2">2</div><div class="step-label">Compliance<br/>Standard</div></div>
+          <div class="step-node" id="wizNode-3" onclick="goToWizStep(3)"><div class="step-circle" id="wizCircle-3">3</div><div class="step-label">Process &amp;<br/>Controls</div></div>
+          <div class="step-node" id="wizNode-4" onclick="goToWizStep(4)"><div class="step-circle" id="wizCircle-4">4</div><div class="step-label">Review &amp;<br/>Generate</div></div>
+        </div>
+      </div>
+      <div class="wizard-card">
+        <form id="sopForm">
+          <input type="hidden" id="sector" value="" />
+          <input type="hidden" id="standard" value="" />
+
+          <div class="wizard-step-pane active" id="wizStep-1">
+            <div class="step-hero-row"><div class="step-hero-icon">&#127970;</div><div><div class="step-hero-title">Let's build your SOP together!</div><div class="step-hero-sub">Just a few quick details about your organisation will tailor the entire audit framework.</div></div></div>
+            <div style="margin-bottom:18px;">
+              <label class="wiz-question" for="companyName">1. What is your organisation called? <span class="req">*</span></label>
+              <input type="text" id="companyName" class="wiz-input" required placeholder="e.g., PureHarvest Foods Pvt Ltd" />
+            </div>
+            <div>
+              <label class="wiz-question">2. Which industry do you operate in? <span class="req">*</span></label>
+              <div class="tile-grid" id="sectorTileGrid">
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Manufacturing & Engineering')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127981;</span><span class="tile-label">Manufacturing</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Healthcare & Hospital Operations')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#10084;&#65039;</span><span class="tile-label">Healthcare</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Food & Beverages Manufacturing')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127860;</span><span class="tile-label">Food &amp; Beverage</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Pharmaceutical & Cold-Chain')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#128138;</span><span class="tile-label">Pharmaceutical</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Logistics & Supply Chain')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#128666;</span><span class="tile-label">Logistics &amp; Supply</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'IT, SaaS & Information Security')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#128187;</span><span class="tile-label">IT &amp; Technology</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Finance, Audit & Procurement')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127974;</span><span class="tile-label">Finance &amp; Audit</span></div>
+                <div class="choice-tile" onclick="selectSectorTile(this, 'Other')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#8226;&#8226;&#8226;</span><span class="tile-label">Other</span></div>
+              </div>
+              <input type="text" id="customSector" class="wiz-input" style="display:none; margin-top:10px;" placeholder="Specify your industry or department..." />
+            </div>
+            <div class="upload-banner">
+              <div class="upload-info"><span class="upload-icon">&#9729;&#65039;</span><div><div style="font-weight:700; font-size:0.86rem;">Have an existing document, photo, or process video?</div><div style="font-size:0.76rem; color:#475569;">Upload your SOP, policy, notes, or MP4 clip (optional)</div></div></div>
+              <input type="file" id="refFile" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.mp4,.webm,.mov,image/*,video/*" style="max-width:230px; font-size:0.8rem;" />
+            </div>
+            <div class="wizard-footer"><button type="button" class="btn-wiz-back" onclick="closeFormModal()">&larr; Cancel</button><button type="button" class="btn-wiz-next" onclick="nextWizStep(2)">Continue &rarr;</button></div>
+          </div>
+
+          <div class="wizard-step-pane" id="wizStep-2">
+            <div class="step-hero-row"><div class="step-hero-icon">&#128737;&#65039;</div><div><div class="step-hero-title">Select your target compliance benchmark</div><div class="step-hero-sub">We automatically map clauses, FMEA severity limits, and audit checkpoints to your chosen standard.</div></div></div>
+            <div>
+              <label class="wiz-question">3. Which standard or framework must this SOP satisfy? <span class="req">*</span></label>
+              <div class="tile-grid" id="standardTileGrid">
+                <div class="choice-tile" onclick="selectStandardTile(this, 'ISO 9001:2015 QMS')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127942;</span><span class="tile-label">ISO 9001 QMS</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'ISO 22000, FSSAI & HACCP')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127807;</span><span class="tile-label">FSSAI &amp; HACCP</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'NABH, WHO GDP & Cold-Chain')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#127973;</span><span class="tile-label">NABH &amp; GDP</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'OSHA & Industrial EHS Safety')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#9937;&#65039;</span><span class="tile-label">OSHA / EHS</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'SOC 2 & ISO 27001 InfoSec')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#128274;</span><span class="tile-label">SOC 2 / ISO 27001</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'Internal Operational Best Practice')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#128203;</span><span class="tile-label">Internal SOP</span></div>
+                <div class="choice-tile" onclick="selectStandardTile(this, 'Other')"><span class="tile-check">&#10003;</span><span class="tile-icon">&#9997;&#65039;</span><span class="tile-label">Custom Standard</span></div>
+              </div>
+              <input type="text" id="customStandard" class="wiz-input" style="display:none; margin-top:10px;" placeholder="Enter custom compliance standard..." />
+            </div>
+            <div style="margin-top:18px;">
+              <label class="wiz-question" for="tools">4. Key systems, machinery, or software used (Optional)</label>
+              <input type="text" id="tools" class="wiz-input" placeholder="e.g., Digital Probe Thermometer, SAP ERP, Barcode Scanner" />
+              <div class="chip-row">
+                <span class="quick-chip" onclick="appendChip('tools', 'ERP / QMS Portal')">+ ERP / QMS Portal</span>
+                <span class="quick-chip" onclick="appendChip('tools', 'Calibrated Digital Sensors')">+ Calibrated Sensors</span>
+                <span class="quick-chip" onclick="appendChip('tools', 'PPE & Safety Lockout Kit')">+ PPE &amp; LOTO Kit</span>
+                <span class="quick-chip" onclick="appendChip('tools', 'SSO & Encrypted Laptop')">+ SSO &amp; MDM</span>
+              </div>
+            </div>
+            <div class="wizard-footer"><button type="button" class="btn-wiz-back" onclick="goToWizStep(1)">&larr; Back</button><button type="button" class="btn-wiz-next" onclick="nextWizStep(3)">Continue &rarr;</button></div>
+          </div>
+
+          <div class="wizard-step-pane" id="wizStep-3">
+            <div class="step-hero-row"><div class="step-hero-icon">&#9881;&#65039;</div><div><div class="step-hero-title">Describe your workflow &amp; critical limits</div><div class="step-hero-sub">Include key steps, pass/fail thresholds, and what happens if something goes wrong.</div></div></div>
+            <div style="margin-bottom:16px;">
+              <label class="wiz-question" for="bottleneck">5. Step-by-step workflow, acceptance limits &amp; escalation rules <span class="req">*</span></label>
+              <textarea id="bottleneck" class="wiz-textarea" required placeholder="Example: Inspect delivery seal on arrival. Check core temperature within 5 mins (limit <= 4°C)..."></textarea>
+              <div class="chip-row">
+                <span class="quick-chip" onclick="appendChip('bottleneck', 'Quarantine non-conforming items immediately and raise NCR.')">+ Quarantine &amp; NCR</span>
+                <span class="quick-chip" onclick="appendChip('bottleneck', 'Supervisor sign-off required before proceeding to next stage.')">+ Supervisor Sign-Off</span>
+                <span class="quick-chip" onclick="appendChip('bottleneck', 'Escalate deviations to QA / Department Head within 30 minutes.')">+ 30-Min Escalation</span>
+              </div>
+            </div>
+            <div>
+              <label class="wiz-question" for="remarks">6. Layout preferences or bilingual language override (Optional)</label>
+              <input type="text" id="remarks" class="wiz-input" placeholder="e.g., Put safety warnings on top, or use German/Arabic as secondary shop-floor language" />
+            </div>
+            <div class="wizard-footer"><button type="button" class="btn-wiz-back" onclick="goToWizStep(2)">&larr; Back</button><button type="button" class="btn-wiz-next" onclick="nextWizStep(4)">Review Blueprint &rarr;</button></div>
+          </div>
+
+          <div class="wizard-step-pane" id="wizStep-4">
+            <div class="step-hero-row"><div class="step-hero-icon">&#128640;</div><div><div class="step-hero-title">Ready to generate your 95+ Audit SOP</div><div class="step-hero-sub">Confirm your inputs below. Our AI engine will compile Management SOP, FMEA Matrix, RACI &amp; Bilingual Checklists.</div></div></div>
+            <div class="summary-box">
+              <div class="summary-row"><span class="summary-key">Organisation</span><span class="summary-val" id="sumOrg">—</span></div>
+              <div class="summary-row"><span class="summary-key">Industry / Sector</span><span class="summary-val" id="sumSector">—</span></div>
+              <div class="summary-row"><span class="summary-key">Compliance Standard</span><span class="summary-val" id="sumStandard">—</span></div>
+              <div class="summary-row"><span class="summary-key">Systems &amp; Equipment</span><span class="summary-val" id="sumTools">Standard operational tools</span></div>
+              <div class="summary-row"><span class="summary-key">Workflow Scope</span><span class="summary-val" id="sumWorkflow" style="max-width:440px;">—</span></div>
+            </div>
+            <div id="loadingSpinner" style="display:none; margin-top:16px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:12px; padding:14px 16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;"><span id="progressStatusLabel" style="font-size:0.82rem; font-weight:800; color:#0F172A;">Stage 1 of 6: Understanding the Process...</span><span id="progressPctLabel" style="font-size:0.85rem; font-weight:800; color:#0284C7;">8%</span></div>
+              <div style="width:100%; height:8px; background:#E2E8F0; border-radius:999px; overflow:hidden; margin-bottom:10px;"><div id="progressBarFill" style="width:8%; height:100%; background:linear-gradient(90deg, #0284C7, #15803D); border-radius:999px; transition:width 0.4s ease;"></div></div>
+              <div style="display:grid; grid-template-columns:repeat(6, 1fr); gap:5px; font-size:0.7rem; text-align:center;">
+                <div id="stg-1" style="padding:5px 4px; border-radius:6px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Process</div>
+                <div id="stg-2" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Gaps</div>
+                <div id="stg-3" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 3. FMEA</div>
+                <div id="stg-4" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 4. Draft</div>
+                <div id="stg-5" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 5. 95+ Gate</div>
+                <div id="stg-6" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 6. Ready</div>
+              </div>
+            </div>
+            <div class="wizard-footer"><button type="button" class="btn-wiz-back" onclick="goToWizStep(3)">&larr; Edit Details</button><button type="submit" id="generateBtn" class="btn-wiz-next" style="background:linear-gradient(135deg, #15803D, #0284C7);">Generate Audit-Ready SOP &rarr;</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<section id="reviewSection" class="container">
+    <div class="review-header">
+      <div><h2 style="font-size:1.35rem; font-weight:800;">Generated Controlled SOP Package</h2><p style="font-size:0.88rem; color:var(--text-muted);">Review Part A (Management SOP &amp; FMEA), Part B (Bilingual Operator Guide), and Part C (Verification Checklist).</p></div>
+      <div class="badges"><span class="badge-score" id="scoreBadge">Audit Score: 98/100</span><span class="badge-rev" id="revBadge">Revision 0 of 3</span></div>
+    </div>
+    <div id="sopOutputContainer" class="sop-doc-wrapper" oncontextmenu="return false;" oncopy="return false;"></div>
+    <div class="action-bar" style="width:100%; margin-top:20px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; padding:18px 22px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
+      <div class="btn-row" id="decisionButtons" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+        <span style="font-size:0.86rem; font-weight:600; color:#475569;">Review your generated SOP blueprint above before downloading:</span>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <button type="button" id="openRevBtn" class="btn-edit" style="min-width:210px; justify-content:center;" onclick="openRevisionDrawer()">1. Request Modification</button>
+          <button type="button" id="approveBtn" class="btn-unlock" style="min-width:230px; justify-content:center;" onclick="approveAndDownloadPdf()">2. Approve &amp; Download PDF</button>
+        </div>
+      </div>
+      <div id="revisionDrawer">
+        <label for="revisionNotes" style="display:block; font-weight:700; font-size:0.86rem; margin-bottom:6px;">Specify Exact Modifications or Layout Adjustments:</label>
+        <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include generator backup contingency..."></textarea>
+        <button type="button" id="reviseBtn" class="btn-primary" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP &rarr;</button>
+        <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
+      </div>
+      <div id="unlockedCard" style="display:none; margin-top:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div><div style="font-weight:800; color:#14532D; font-size:1.02rem; margin-bottom:4px;">&#10003; SOP Approved &amp; Downloaded as Protected Image-PDF</div><p style="font-size:0.86rem; color:#166534; margin:0;">Your A4 multi-page SOP is watermarked and flattened against copying or AI conversion.</p></div>
+          <button type="button" id="reDownloadBtn" class="btn-unlock" onclick="generateProtectedRasterPdf()">Download Protected PDF Again &darr;</button>
+        </div>
+        <div style="margin-top:14px; padding:12px 16px; background:#FFFFFF; border:1px solid #BBF7D0; border-radius:8px; font-size:0.85rem; color:#14532D;">
+          <strong>Want a Clean Un-Watermarked PDF or Editable Word + Auto-FMEA Excel + Slides Ecosystem?</strong><br/>
+          <a href="upgrade.html" style="color:#0284C7; font-weight:800; text-decoration:underline;">View Voluntary Clean PDF Gift ($0+) &amp; Full Ecosystem ($9.50) &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#FFFFFF; border-top:1px solid #E2E8F0; padding:24px 20px; margin-top:48px;">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="font-weight:800; font-size:0.95rem; color:#0F172A;">Prepared by SOP Factory</div>
+      <a href="upgrade.html" style="font-size:0.9rem; font-weight:700; color:#0284C7; text-decoration:none;">Upgrade to Clean PDF / Full Ecosystem &rarr;</a>
+    </div>
+  </footer>
+
+  <script>
+    const BACKEND_URL = String.fromCharCode(104,116,116,112,115,58,47,47,115,99,114,105,112,116,46,103,111,111,103,108,101,46,99,111,109,47,109,97,99,114,111,115,47,115,47,65,75,102,121,99,98,120,100,78,81,111,89,67,71,67,66,71,66,107,79,81,98,87,69,82,49,90,68,86,55,48,110,115,74,89,50,121,74,119,52,95,51,102,100,102,108,79,77,114,76,78,100,99,120,65,86,66,83,116,109,95,54,71,122,66,121,108,116,79,121,45,115,83,81,47,101,120,101,99);
+    let currentRecordId = null, isGenerating = false, currentWizStep = 1, progressTimer = null;
 
     function openFormModal() {
       const form = document.getElementById("sopForm");
@@ -1227,707 +922,243 @@
       goToWizStep(1, true);
       document.getElementById("sopModal").style.display = "flex";
     }
-
-    function closeFormModal() {
-      if (isGenerating) return;
-      document.getElementById("sopModal").style.display = "none";
-    }
-
+    function closeFormModal() { if (!isGenerating) document.getElementById("sopModal").style.display = "none"; }
     function selectSectorTile(el, val) {
       document.querySelectorAll("#sectorTileGrid .choice-tile").forEach(t => t.classList.remove("selected"));
       el.classList.add("selected");
       document.getElementById("sector").value = val;
       document.getElementById("customSector").style.display = val === "Other" ? "block" : "none";
     }
-
     function selectStandardTile(el, val) {
       document.querySelectorAll("#standardTileGrid .choice-tile").forEach(t => t.classList.remove("selected"));
       el.classList.add("selected");
       document.getElementById("standard").value = val;
       document.getElementById("customStandard").style.display = val === "Other" ? "block" : "none";
     }
-
     function appendChip(inputId, text) {
-      const el = document.getElementById(inputId);
-      const cur = el.value.trim();
+      const el = document.getElementById(inputId), cur = el.value.trim();
       if (!cur) el.value = text;
       else if (!cur.includes(text)) el.value = cur + (cur.endsWith(".") ? " " : ", ") + text;
     }
-
     function nextWizStep(targetStep) {
       if (targetStep === 2) {
-        if (!document.getElementById("companyName").value.trim()) {
-          alert("Please enter your organisation name first.");
-          document.getElementById("companyName").focus();
-          return;
-        }
-        if (!document.getElementById("sector").value) {
-          alert("Please select your industry tile to continue.");
-          return;
-        }
+        if (!document.getElementById("companyName").value.trim()) { alert("Please enter your organisation name first."); document.getElementById("companyName").focus(); return; }
+        if (!document.getElementById("sector").value) { alert("Please select your industry tile to continue."); return; }
       }
-      if (targetStep === 3) {
-        if (!document.getElementById("standard").value) {
-          alert("Please select a compliance standard tile to continue.");
-          return;
-        }
-      }
+      if (targetStep === 3 && !document.getElementById("standard").value) { alert("Please select a compliance standard tile to continue."); return; }
       if (targetStep === 4) {
-        if (!document.getElementById("bottleneck").value.trim()) {
-          alert("Please describe your workflow steps and acceptance limits before reviewing.");
-          document.getElementById("bottleneck").focus();
-          return;
-        }
+        if (!document.getElementById("bottleneck").value.trim()) { alert("Please describe your workflow steps and acceptance limits before reviewing."); document.getElementById("bottleneck").focus(); return; }
         populateWizardSummary();
       }
       goToWizStep(targetStep);
     }
-
     function goToWizStep(stepNum, skipValidation) {
-      if (!skipValidation && stepNum > currentWizStep) {
-        return nextWizStep(stepNum);
-      }
+      if (!skipValidation && stepNum > currentWizStep) return nextWizStep(stepNum);
       currentWizStep = stepNum;
       for (let i = 1; i <= 4; i++) {
-        const pane = document.getElementById("wizStep-" + i);
-        const node = document.getElementById("wizNode-" + i);
-        const circle = document.getElementById("wizCircle-" + i);
+        const pane = document.getElementById("wizStep-" + i), node = document.getElementById("wizNode-" + i), circle = document.getElementById("wizCircle-" + i);
         if (pane) pane.classList.toggle("active", i === stepNum);
         if (node) {
           node.classList.remove("active", "done");
-          if (i < stepNum) {
-            node.classList.add("done");
-            if (circle) circle.innerHTML = "&#10003;";
-          } else if (i === stepNum) {
-            node.classList.add("active");
-            if (circle) circle.textContent = String(i);
-          } else {
-            if (circle) circle.textContent = String(i);
-          }
+          if (i < stepNum) { node.classList.add("done"); if (circle) circle.innerHTML = "&#10003;"; }
+          else if (i === stepNum) { node.classList.add("active"); if (circle) circle.textContent = String(i); }
+          else if (circle) circle.textContent = String(i);
         }
       }
       const lineFill = document.getElementById("wizProgressLine");
       const widths = { 1: "12%", 2: "42%", 3: "72%", 4: "92%" };
       if (lineFill) lineFill.style.width = widths[stepNum] || "12%";
     }
-
     function populateWizardSummary() {
       const org = document.getElementById("companyName").value.trim() || "—";
       const secVal = document.getElementById("sector").value;
-      const finalSec = secVal === "Other" ? (document.getElementById("customSector").value.trim() || "Other") : secVal;
       const stdVal = document.getElementById("standard").value;
-      const finalStd = stdVal === "Other" ? (document.getElementById("customStandard").value.trim() || "Custom Standard") : stdVal;
-      const tools = document.getElementById("tools").value.trim() || "Standard operational tools";
       const wf = document.getElementById("bottleneck").value.trim();
-
       document.getElementById("sumOrg").textContent = org;
-      document.getElementById("sumSector").textContent = finalSec;
-      document.getElementById("sumStandard").textContent = finalStd;
-      document.getElementById("sumTools").textContent = tools;
+      document.getElementById("sumSector").textContent = secVal === "Other" ? (document.getElementById("customSector").value.trim() || "Other") : secVal;
+      document.getElementById("sumStandard").textContent = stdVal === "Other" ? (document.getElementById("customStandard").value.trim() || "Custom Standard") : stdVal;
+      document.getElementById("sumTools").textContent = document.getElementById("tools").value.trim() || "Standard operational tools";
       document.getElementById("sumWorkflow").textContent = wf.length > 140 ? wf.slice(0, 140) + "..." : wf;
-    }
-
-          <div style="display:grid; grid-template-columns:repeat(6, 1fr); gap:5px; font-size:0.69rem; text-align:center;">
-            <div id="stg-1" style="padding:5px 4px; border-radius:6px; background:#E0F2FE; color:#0369A1; font-weight:700;">&#9203; 1. Process</div>
-            <div id="stg-2" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 2. Gaps</div>
-            <div id="stg-3" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 3. FMEA</div>
-            <div id="stg-4" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 4. Draft</div>
-            <div id="stg-5" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 5. 95+ Gate</div>
-            <div id="stg-6" style="padding:5px 4px; border-radius:6px; background:#FFFFFF; color:#64748B; font-weight:600; border:1px solid #E2E8F0;">&#9711; 6. Ready</div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <section id="reviewSection" class="container">
-    <div class="review-header">
-      <div>
-        <h2 style="font-size:1.35rem; font-weight:800;">Generated Controlled SOP Package</h2>
-        <p style="font-size:0.88rem; color:var(--text-muted);">Review Part A (Management SOP &amp; FMEA), Part B (Bilingual Operator Guide), and Part C (Verification Checklist).</p>
-      </div>
-      <div class="badges">
-        <span class="badge-score" id="scoreBadge">Audit Score: 98/100</span>
-        <span class="badge-rev" id="revBadge">Revision 0 of 3</span>
-      </div>
-    </div>
-
-    <div id="sopOutputContainer" class="sop-doc-wrapper" oncontextmenu="return false;" oncopy="return false;"></div>
-
-              <div class="action-bar" style="width:100%; margin-top:20px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:12px; padding:18px 22px; box-shadow:0 4px 16px rgba(15,23,42,0.04);">
-        <div class="btn-row" id="decisionButtons" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
-          <span style="font-size:0.86rem; font-weight:600; color:#475569;">Review your generated SOP blueprint above before downloading:</span>
-          <div style="display:flex; gap:12px; flex-wrap:wrap;">
-            <button type="button" id="openRevBtn" class="btn-edit" style="min-width:210px; justify-content:center;" onclick="openRevisionDrawer()">1. Request Modification</button>
-            <button type="button" id="approveBtn" class="btn-unlock" style="min-width:230px; justify-content:center;" onclick="approveAndDownloadPdf()">2. Approve &amp; Download PDF</button>
-          </div>
-        </div>
-
-        <div id="revisionDrawer">
-          <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
-          <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include generator backup contingency..."></textarea>
-          <button type="button" id="reviseBtn" class="btn-primary" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP &rarr;</button>
-          <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
-        </div>
-
-        <div id="unlockedCard" style="display:none; margin-top:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:16px 20px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-            <div>
-              <div style="font-weight:800; color:#14532D; font-size:1.02rem; margin-bottom:4px;">&#10003; SOP Approved &amp; Downloaded as Protected Image-PDF</div>
-              <p style="font-size:0.86rem; color:#166534; margin:0;">Your A4 multi-page SOP is watermarked and flattened against copying or AI conversion.</p>
-            </div>
-            <button type="button" id="reDownloadBtn" class="btn-unlock" onclick="generateProtectedRasterPdf()">Download Protected PDF Again &darr;</button>
-          </div>
-
-          <div style="margin-top:14px; padding:12px 16px; background:#FFFFFF; border:1px solid #BBF7D0; border-radius:8px; font-size:0.85rem; color:#14532D;">
-            <strong>Need Editable Word (.docx) &amp; Auto-Calculating FMEA Excel (.xlsx) Files?</strong><br/>
-            <span style="color:#166534;">Unlock our ready-to-customize Master SOP, RPN Risk Calculator &amp; Audit Checklist Pack: </span>
-            <a id="gumroadLink" href="https://gumroad.com" target="_blank" style="color:#0284C7; font-weight:800; text-decoration:underline;">Get Editable Pack ($9 / ~&#8377;760 INR) &rarr;</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="revisionDrawer">
-        <label for="revisionNotes">Specify Exact Modifications or Layout Adjustments:</label>
-        <textarea id="revisionNotes" placeholder="e.g., Add a supervisor sign-off step, simplify step 3, include generator backup contingency..."></textarea>
-        <button type="button" id="reviseBtn" class="btn-primary" style="width:100%; margin-top:10px;" onclick="submitRevision()">Regenerate Updated SOP Blueprint</button>
-        <div class="spinner" id="revSpinner">Applying modifications and updating compliance controls...</div>
-      </div>
-
-      <div id="unlockedCard">
-        <div class="unlock-flex">
-          <div>
-            <div style="font-weight:800; color:#14532D; font-size:1.05rem; margin-bottom:4px;">Approved &amp; Synced to ClickUp Workspace</div>
-            <p style="font-size:0.88rem; color:#166534; margin-bottom:12px;">Your controlled SOP has been archived as a Gold Standard template and published to ClickUp.</p>
-            <a id="clickupLink" href="#" target="_blank" class="btn-unlock" style="display:inline-block; text-decoration:none;">Open Live SOP in ClickUp &rarr;</a>
-          </div>
-          <div style="text-align:center; background:#FFFFFF; padding:10px; border-radius:10px; border:1px solid #BBF7D0;">
-            <img id="qrCodeImg" src="" alt="Workstation Audit QR Code" width="120" height="120" style="display:block; margin:0 auto;" />
-            <div style="font-size:0.72rem; font-weight:700; color:#166534; margin-top:4px;">Workstation QR</div>
-          </div>
-        </div>
-        <div style="display:none; margin-top:16px; padding-top:14px; border-top:1px solid #BBF7D0; font-size:0.84rem; color:#166534;">
-          Need an editable Word (.docx) + Printable Excel Audit Sheet? <a id="gumroadLink" href="#" target="_blank" style="color:#15803D; font-weight:700; text-decoration:underline;">Download the Editable Compliance Pack ($9) &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-    <footer style="background:#FFFFFF; border-top:1px solid #E2E8F0; padding:24px 20px; margin-top:48px;">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-      <div style="display:flex; align-items:center; gap:8px; font-weight:800; font-size:0.95rem; color:#0F172A;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <polyline points="9 12 11 14 15 10"/>
-        </svg>
-        <span>Prepared by SOP Factory</span>
-      </div>
-      <a href=https://sopfactory-hq.github.io/" target="_blank" rel="noopener" style="font-size:0.9rem; font-weight:700; color:#0284C7; text-decoration:none;">
-        https://sopfactory-hq.github.io/ &rarr;
-      </a>
-    </div>
-  </footer>
-
-
-    <script>
-    const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxdNQoYCGCBGBkOQbWER1ZDV70nsJY2yJw4_3fdflOMrLNdcxAVBStm_6GzByltOy-sSQ/exec";
-    let currentRecordId = null;
-    let isGenerating = false;
-
-       function openFormModal() {
-      const form = document.getElementById("sopForm");
-      if (form) form.reset();
-      document.getElementById("customSector").style.display = "none";
-      document.getElementById("customStandard").style.display = "none";
-      document.getElementById("sopModal").style.display = "flex";
-    }
-
-    function closeFormModal() {
-      if (isGenerating) return;
-      document.getElementById("sopModal").style.display = "none";
-    }
-    function toggleCustomInput(selectId, inputId) {
-      const sel = document.getElementById(selectId);
-      const inp = document.getElementById(inputId);
-      inp.style.display = sel.value === "Other" ? "block" : "none";
     }
     function openRevisionDrawer() {
       const drawer = document.getElementById("revisionDrawer");
       drawer.style.display = drawer.style.display === "block" ? "none" : "block";
     }
-
     function detectLocalLanguageContext() {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-      const browserLang = (navigator.language || "en-US").toLowerCase();
-      const tzMap = {
-        "Asia/Kolkata": "India — Hindi (Devanagari script)",
-        "Asia/Calcutta": "India — Hindi (Devanagari script)",
-        "Asia/Tokyo": "Japan — Japanese (日本語)",
-        "Europe/Paris": "France — French (Français)",
-        "Europe/Berlin": "Germany — German (Deutsch)",
-        "Europe/Madrid": "Spain — Spanish (Español)",
-        "America/Mexico_City": "Mexico — Spanish (Español)",
-        "America/Sao_Paulo": "Brazil — Portuguese (Português)",
-        "Asia/Dubai": "UAE — Arabic (العربية)",
-        "Asia/Riyadh": "Saudi Arabia — Arabic (العربية)",
-        "Asia/Seoul": "South Korea — Korean (한국어)",
-        "Asia/Shanghai": "China — Simplified Chinese (简体中文)",
-        "Europe/Rome": "Italy — Italian (Italiano)",
-        "Asia/Bangkok": "Thailand — Thai (ภาษาไทย)",
-        "Asia/Jakarta": "Indonesia — Indonesian (Bahasa Indonesia)",
-        "Asia/Ho_Chi_Minh": "Vietnam — Vietnamese (Tiếng Việt)"
-      };
-      if (tzMap[tz]) return tzMap[tz];
-      if (browserLang.startsWith("ja")) return "Japan — Japanese (日本語)";
-      if (browserLang.startsWith("fr")) return "France — French (Français)";
-      if (browserLang.startsWith("de")) return "Germany — German (Deutsch)";
-      if (browserLang.startsWith("es")) return "Spanish-speaking region — Spanish (Español)";
-      if (browserLang.startsWith("pt")) return "Portuguese-speaking region — Portuguese (Português)";
-      if (browserLang.startsWith("ar")) return "Middle East / MENA — Arabic (العربية)";
-      if (browserLang.startsWith("ko")) return "South Korea — Korean (한국어)";
-      if (browserLang.startsWith("zh")) return "Chinese-speaking region — Simplified Chinese (简体中文)";
-      if (browserLang.startsWith("hi")) return "India — Hindi (Devanagari script)";
+      if (tz.includes("Kolkata") || tz.includes("Calcutta")) return "India — Hindi (Devanagari script)";
+      if (tz.includes("Tokyo")) return "Japan — Japanese";
+      if (tz.includes("Paris")) return "France — French";
+      if (tz.includes("Berlin")) return "Germany — German";
+      if (tz.includes("Dubai") || tz.includes("Riyadh")) return "UAE / MENA — Arabic";
       return "Detected Timezone: " + (tz || "Global") + " (Use local official language alongside Simple English)";
     }
-
     function fileToBase64Object(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => {
-          const base64Data = reader.result.split(",").at(1);
-          resolve({
-            fileName: file.name,
-            mimeType: file.type || "application/octet-stream",
-            data: base64Data
-          });
-        };
-        reader.onerror = () => reject(new Error("Failed to read attached file."));
-        reader.readAsDataURL(file);
-      });
-    }
-    let progressTimer = null;
-    const STAGES = [
-      { pct: 12, label: "Stage 1 of 6: Understanding the Process..." },
-      { pct: 28, label: "Stage 2 of 6: Identifying Compliance & Control Gaps..." },
-      { pct: 46, label: "Stage 3 of 6: Assessing FMEA Risks & RPN Limits..." },
-      { pct: 68, label: "Stage 4 of 6: Generating Bilingual SOP & Checklists..." },
-      { pct: 86, label: "Stage 5 of 6: Validating 100-Point Quality Gate (95+)..." },
-      { pct: 95, label: "Stage 6 of 6: Finalizing Execution-Ready Blueprint..." }
-    ];
-
-       function startProgressTracker() {
-      let currentPct = 4;
-      const fill = document.getElementById("progressBarFill");
-      const pctLbl = document.getElementById("progressPctLabel");
-      const statusLbl = document.getElementById("progressStatusLabel");
-      if (progressTimer) clearInterval(progressTimer);
-
-      progressTimer = setInterval(() => {
-        // Proportionate asymptotic curve: moves steadily across all 6 stages without stalling early
-        const remaining = 95 - currentPct;
-        if (remaining > 0.4) {
-          currentPct += Math.max(0.4, remaining * 0.048);
-        }
-        const displayPct = Math.min(95, Math.round(currentPct));
-        fill.style.width = displayPct + "%";
-        pctLbl.textContent = displayPct + "%";
-
-        // Equal 16% distribution across all 6 stages
-        const activeIdx = Math.min(5, Math.floor(displayPct / 16));
-        statusLbl.textContent = STAGES[activeIdx].label;
-
-        for (let i = 0; i < 6; i++) {
-          const el = document.getElementById("stg-" + (i + 1));
-          const title = el.textContent.replace(/^[^\d]+/, "");
-          if (i < activeIdx) {
-            el.style.background = "#F0FDF4";
-            el.style.color = "#15803D";
-            el.style.border = "1px solid #BBF7D0";
-            el.innerHTML = "&#10003; " + title;
-          } else if (i === activeIdx) {
-            el.style.background = "#E0F2FE";
-            el.style.color = "#0369A1";
-            el.style.border = "1px solid #7DD3FC";
-            el.innerHTML = "&#9203; " + title;
-          } else {
-            el.style.background = "#FFFFFF";
-            el.style.color = "#64748B";
-            el.style.border = "1px solid #E2E8F0";
-            el.innerHTML = "&#9711; " + title;
-          }
-        }
-      }, 750);
-    }
-
-    function stopProgressTracker(completed) {
-      if (progressTimer) clearInterval(progressTimer);
-      if (completed) {
-        document.getElementById("progressBarFill").style.width = "100%";
-        document.getElementById("progressPctLabel").textContent = "100%";
-        document.getElementById("progressStatusLabel").textContent = "All 6 Stages Validated (95+ Quality Score)!";
-        for (let i = 1; i <= 6; i++) {
-          const el = document.getElementById("stg-" + i);
-          const title = el.textContent.replace(/^[^\d]+/, "");
-          el.style.background = "#F0FDF4";
-          el.style.color = "#15803D";
-          el.innerHTML = "&#10003; " + title;
-        }
-      }
-    }
-
-    document.getElementById("sopForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (BACKEND_URL.includes("PASTE_YOUR")) {
-        alert("Please paste your Google Apps Script Web App URL into BACKEND_URL inside index.html first.");
-        return;
-      }
-
-      isGenerating = true;
-      const btn = document.getElementById("generateBtn");
-      const closeBtn = document.getElementById("modalCloseBtn");
-      btn.disabled = true;
-      btn.innerHTML = '<span class="btn-spinner"></span> Compiling Multi-Page SOP...';
-      if (closeBtn) {
-        closeBtn.disabled = true;
-        closeBtn.style.opacity = "0.4";
-        closeBtn.style.cursor = "not-allowed";
-      }
-      document.getElementById("loadingSpinner").style.display = "block";
-      startProgressTracker();
-
-      try {
-        const fileInput = document.getElementById("refFile");
-        let attachmentObj = null;
-        if (fileInput && fileInput.files && fileInput.files.length > 0) {
-          const file = fileInput.files.at(0);
-          const isVideo = file.type.startsWith("video/");
-          const maxBytes = isVideo ? 12 * 1024 * 1024 : 4 * 1024 * 1024;
-          if (file.size > maxBytes) {
-            throw new Error(isVideo
-              ? "Video exceeds 12 MB limit. Please upload a concise 20–45 second MP4/WEBM process clip."
-              : "Reference file exceeds 4 MB limit. Please upload a smaller PDF, image, or text file.");
-          }
-          attachmentObj = await fileToBase64Object(file);
-        }
-
-        const sectorVal = document.getElementById("sector").value;
-        const standardVal = document.getElementById("standard").value;
-        const finalSector = sectorVal === "Other" ? (document.getElementById("customSector").value.trim() || "General Operations") : sectorVal;
-        const finalStandard = standardVal === "Other" ? (document.getElementById("customStandard").value.trim() || "Internal Standard") : standardVal;
-
-        const payload = {
-          action: "generate",
-          companyName: document.getElementById("companyName").value.trim(),
-          sector: finalSector,
-          standard: finalStandard,
-          bottleneck: document.getElementById("bottleneck").value.trim(),
-          tools: document.getElementById("tools").value.trim(),
-          remarks: document.getElementById("remarks").value.trim(),
-          localLanguage: detectLocalLanguageContext(),
-          attachment: attachmentObj
-        };
-
-      let wakeLock = null;
-     try {
-       if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen");
-     } catch (wlErr) {}
-
-     const res = await fetch(BACKEND_URL, {
-       method: "POST",
-       redirect: "follow",
-       headers: { "Content-Type": "text/plain;charset=utf-8" },
-       body: JSON.stringify(payload)
-     });
-     if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
-
-        const data = await res.json();
-        if (data.success) {
-          currentRecordId = data.recordId;
-          isGenerating = false;
-          stopProgressTracker(true);
-          closeFormModal();
-          renderReviewPage(data);
-        } else {
-          alert("Generation Error: " + (data.error || "Please try again."));
-        }
-      } catch (err) {
-     if (wakeLock) { try { await wakeLock.release(); } catch (e) {} }
-     const msg = (err && err.message && err.message.includes("Failed to fetch"))
-       ? "Network connection interrupted while waiting for AI response. Please keep screen awake or retry on a stable connection."
-       : (err.message || "Unexpected error generating SOP.");
-     alert("Generation Error: " + msg);
-      } finally {
-        isGenerating = false;
-        btn.disabled = false;
-        btn.innerHTML = 'Generate Audit-Ready SOP &rarr;';
-        if (closeBtn) {
-          closeBtn.disabled = false;
-          closeBtn.style.opacity = "1";
-          closeBtn.style.cursor = "pointer";
-        }
-        document.getElementById("loadingSpinner").style.display = "none";
-      }
-    });
-
-    function renderReviewPage(data) {
-      document.getElementById("landingSection").style.display = "none";
-      document.getElementById("reviewSection").style.display = "block";
-      document.getElementById("scoreBadge").textContent = "Audit Score: " + data.complianceScore + "/100";
-      document.getElementById("revBadge").textContent = "Revision " + data.revisionCount + " of 3";
-      document.getElementById("sopOutputContainer").innerHTML = '<div class="sop-doc-wrapper">' + data.sopHtml + '<\/div>';
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-      async function submitRevision() {
-      const notes = document.getElementById("revisionNotes").value.trim();
-      if (!notes) return alert("Please enter what you would like modified.");
-      const revBtn = document.getElementById("reviseBtn");
-      const openRevBtn = document.getElementById("openRevBtn");
-      const approveBtn = document.getElementById("approveBtn");
-      revBtn.disabled = true;
-      revBtn.innerHTML = '<span class="btn-spinner"></span> Applying Modifications...';
-      if (openRevBtn) openRevBtn.disabled = true;
-      if (approveBtn) approveBtn.disabled = true;
-      document.getElementById("revSpinner").style.display = "block";
-      try {
-        const res = await fetch(BACKEND_URL, {
-          method: "POST",
-          redirect: "follow",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ action: "revise", recordId: currentRecordId, notes: notes })
-        });
-        const data = await res.json();
-        if (data.limitReached) {
-          alert("Maximum 3 automated revisions reached. Click '2. Approve & Download PDF' to finalize your document.");
-        } else if (data.success) {
-          document.getElementById("revisionDrawer").style.display = "none";
-          document.getElementById("revisionNotes").value = "";
-          renderReviewPage(data);
-        } else {
-          alert("Revision error: " + (data.error || "Please try again."));
-        }
-      } catch (err) {
-        alert("Error updating SOP: " + (err.message || "Network timeout. Please try again."));
-      } finally {
-        revBtn.disabled = false;
-        revBtn.innerHTML = 'Regenerate Updated SOP &rarr;';
-        if (openRevBtn) openRevBtn.disabled = false;
-        if (approveBtn) approveBtn.disabled = false;
-        document.getElementById("revSpinner").style.display = "none";
-      }
-    }
-
-
-        // Block copy, save, view-source, and print shortcuts while viewing SOP preview
-    document.addEventListener("keydown", function(e) {
-      const previewVisible = document.getElementById("previewSection") && document.getElementById("previewSection").style.display !== "none";
-      if (previewVisible && (e.ctrlKey || e.metaKey) && ["c", "u", "s", "p", "a", "x"].includes(e.key.toLowerCase())) {
-        e.preventDefault();
-      }
-    });
-
-    async function approveAndDownloadPdf() {
-      const btn = document.getElementById("approveBtn");
-      btn.disabled = true;
-      btn.textContent = "Locking & Building Protected PDF...";
-
-      if (currentRecordId) {
-        fetch(BACKEND_URL, {
-          method: "POST",
-          redirect: "follow",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ action: "approve", recordId: currentRecordId })
-        }).catch(() => {});
-      }
-
-      await generateProtectedRasterPdf();
-
-      document.getElementById("decisionButtons").style.display = "none";
-      document.getElementById("revisionDrawer").style.display = "none";
-      document.getElementById("unlockedCard").style.display = "block";
-    }
-
-      function loadScriptSafe(libPath) {
-      return new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        const prefix = String.fromCharCode(104,116,116,112,115,58,47,47,99,100,110,106,115,46,99,108,111,117,100,102,108,97,114,101,46,99,111,109);
-        s.src = prefix + libPath;
-        s.onload = resolve;
-        s.onerror = () => reject(new Error("Failed to load PDF library: " + libPath));
-        document.head.appendChild(s);
-      });
-    }
-    async function generateProtectedRasterPdf() {
-      const container = document.getElementById("sopOutputContainer");
-      const reBtn = document.getElementById("reDownloadBtn");
-      if (reBtn) { reBtn.disabled = true; reBtn.textContent = "Rendering Image PDF..."; }
-
-      try {
-        if (!window.html2canvas) {
-          await loadScriptSafe("/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
-        }
-        if (!window.jspdf) {
-          await loadScriptSafe("/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
-        }
-        const { jsPDF } = window.jspdf;
-
-        const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
-        const pageWidth = 210;
-        const pageHeight = 297;
-        const margin = 10;
-        const footerHeight = 12;
-        const usableWidth = pageWidth - margin * 2;
-        const usableHeight = pageHeight - margin - footerHeight - 4;
-
-        // Lock capture to clean 980px desktop layout so tables & typography match screen 1:1
-        const captureWidth = 980;
-        const fullCanvas = await html2canvas(container, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#FFFFFF",
-          width: captureWidth,
-          windowWidth: 1040,
-          onclone: (clonedDoc) => {
-            const clonedBox = clonedDoc.getElementById("sopOutputContainer");
-            if (clonedBox) {
-              clonedBox.style.width = captureWidth + "px";
-              clonedBox.style.maxWidth = captureWidth + "px";
-              clonedBox.style.overflow = "visible";
-              clonedBox.style.padding = "24px";
-              clonedBox.style.backgroundImage = "none";
-              const innerWrap = clonedBox.querySelector(".sop-doc-wrapper");
-              if (innerWrap) {
-                innerWrap.style.border = "none";
-                innerWrap.style.boxShadow = "none";
-                innerWrap.style.padding = "0";
-                innerWrap.style.overflow = "visible";
-                innerWrap.style.backgroundImage = "none";
-              }
-            }
-          }
-        });
-
-        const imgWidthPx = fullCanvas.width;
-        const maxPageHeightPx = Math.floor((usableHeight / usableWidth) * imgWidthPx);
-        const fullCtx = fullCanvas.getContext("2d");
-
-        // Smart row-aware slicing so table rows & headings are never cut in half across pages
-        let currentY = 0;
-        let pageIndex = 0;
-
-        while (currentY < fullCanvas.height) {
-          if (pageIndex > 0) pdf.addPage();
-
-          let targetEndY = Math.min(currentY + maxPageHeightPx, fullCanvas.height);
-
-          // Look upward up to 140px from the bottom edge for a clean white horizontal gap between rows/blocks
-          if (targetEndY < fullCanvas.height) {
-            const scanStart = Math.max(currentY + Math.floor(maxPageHeightPx * 0.72), targetEndY - 140);
-            const stripData = fullCtx.getImageData(0, scanStart, imgWidthPx, targetEndY - scanStart).data;
-            const rowBytes = imgWidthPx * 4;
-            for (let y = (targetEndY - scanStart) - 1; y >= 0; y--) {
-              let isCleanRow = true;
-              const rowOffset = y * rowBytes;
-              for (let x = 20 * 4; x < rowBytes - 20 * 4; x += 16) {
-                if (stripData[rowOffset + x] < 248 || stripData[rowOffset + x + 1] < 248 || stripData[rowOffset + x + 2] < 248) {
-                  isCleanRow = false;
-                  break;
-                }
-              }
-              if (isCleanRow) {
-                targetEndY = scanStart + y;
-                break;
-              }
-            }
-          }
-
-          const sliceHeightPx = Math.max(10, targetEndY - currentY);
-          const pageCanvas = document.createElement("canvas");
-          pageCanvas.width = imgWidthPx;
-          pageCanvas.height = sliceHeightPx;
-          const ctx = pageCanvas.getContext("2d");
-
-          // 1. Draw clean SOP slice
-          ctx.fillStyle = "#FFFFFF";
-          ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
-          ctx.drawImage(fullCanvas, 0, currentY, imgWidthPx, sliceHeightPx, 0, 0, imgWidthPx, sliceHeightPx);
-
-          // 2. Overlay crisp diagonal SOP Factory watermark + anti-OCR wave mesh
-          ctx.save();
-          ctx.strokeStyle = "rgba(2, 132, 199, 0.075)";
-          ctx.lineWidth = 1.3;
-          for (let y = 24; y < pageCanvas.height; y += 38) {
-            ctx.beginPath();
-            for (let x = 0; x <= pageCanvas.width; x += 25) {
-              const waveY = y + Math.sin(x * 0.025 + y) * 4.5;
-              if (x === 0) ctx.moveTo(x, waveY);
-              else ctx.lineTo(x, waveY);
-            }
-            ctx.stroke();
-          }
-
-          ctx.translate(pageCanvas.width / 2, pageCanvas.height / 2);
-          ctx.rotate(-28 * Math.PI / 180);
-          ctx.font = "bold 46px Arial, sans-serif";
-          ctx.fillStyle = "rgba(15, 23, 42, 0.08)";
-          ctx.textAlign = "center";
-          for (let wy = -pageCanvas.height; wy < pageCanvas.height; wy += 240) {
-            for (let wx = -pageCanvas.width; wx < pageCanvas.width; wx += 520) {
-              ctx.fillText("SOP Factory • VIEW ONLY", wx, wy);
-            }
-          }
-          ctx.restore();
-
-          // 3. Add crisp PNG/JPEG page to PDF
-          const sliceHeightMm = (sliceHeightPx / imgWidthPx) * usableWidth;
-          const imgData = pageCanvas.toDataURL("image/jpeg", 0.95);
-          pdf.addImage(imgData, "JPEG", margin, margin, usableWidth, sliceHeightMm);
-
-          // 4. Stamp per-page footer with shield logo + brand + clickable website link
-          const footerY = pageHeight - 7.5;
-          pdf.setDrawColor(203, 213, 225);
-          pdf.setLineWidth(0.3);
-          pdf.line(margin, footerY - 4.5, pageWidth - margin, footerY - 4.5);
-
-          pdf.setFillColor(2, 132, 199);
-          pdf.roundedRect(margin, footerY - 2.8, 3.6, 3.6, 0.8, 0.8, "F");
-          pdf.setDrawColor(255, 255, 255);
-          pdf.setLineWidth(0.45);
-          pdf.line(margin + 0.9, footerY - 1.0, margin + 1.6, footerY - 0.3);
-          pdf.line(margin + 1.6, footerY - 0.3, margin + 2.8, footerY - 1.9);
-
-          pdf.setFont("helvetica", "bold");
-          pdf.setFontSize(8.5);
-          pdf.setTextColor(15, 23, 42);
-          pdf.text("Prepared by SOP Factory", margin + 5.2, footerY);
-
-          const siteUrl = "https://sopfactory-hq.github.io";
-          pdf.setFont("helvetica", "bold");
-          pdf.setFontSize(8.5);
-          pdf.setTextColor(2, 132, 199);
-          const linkWidth = pdf.getTextWidth(siteUrl);
-          pdf.textWithLink(siteUrl, pageWidth - margin - linkWidth, footerY, { url: siteUrl });
-
-          currentY = targetEndY;
-          pageIndex++;
-        }
-
-             pdf.save("SOP-Factory-Protected-Blueprint.pdf");
-            setTimeout(() => { window.location.href = "upgrade.html"; }, 1500);
-
-      } catch (err) {
-        alert("PDF export error: " + err.message);
-      } finally {
-        if (reBtn) { reBtn.disabled = false; reBtn.textContent = "Download Protected PDF Again ↓"; }
-      }
-    }
-          (function autoSelectFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("sector")) document.getElementById("sector").value = params.get("sector");
-      if (params.get("standard")) document.getElementById("standard").value = params.get("standard");
-      if (params.get("open") === "1") openFormModal();
-    })();
-    
-</script>
-</body>
+reader.onload = () => resolve({ fileName: file.name, mimeType: file.type || "application/octet-stream", data: reader.result.split(",").at(1) });
+reader.onerror = () => reject(new Error("Failed to read attached file."));
+reader.readAsDataURL(file);
+});
+}
+const STAGES = [
+{ label: "Stage 1 of 6: Understanding the Process..." },
+{ label: "Stage 2 of 6: Identifying Compliance & Control Gaps..." },
+{ label: "Stage 3 of 6: Assessing FMEA Risks & RPN Limits..." },
+{ label: "Stage 4 of 6: Generating Bilingual SOP & Checklists..." },
+{ label: "Stage 5 of 6: Validating 100-Point Quality Gate (95+)..." },
+{ label: "Stage 6 of 6: Finalizing Execution-Ready Blueprint..." }
+];
+function startProgressTracker() {
+let currentPct = 4;
+const fill = document.getElementById("progressBarFill"), pctLbl = document.getElementById("progressPctLabel"), statusLbl = document.getElementById("progressStatusLabel");
+if (progressTimer) clearInterval(progressTimer);
+progressTimer = setInterval(() => {
+const remaining = 95 - currentPct;
+if (remaining > 0.4) currentPct += Math.max(0.4, remaining * 0.048);
+const displayPct = Math.min(95, Math.round(currentPct));
+fill.style.width = displayPct + "%"; pctLbl.textContent = displayPct + "%";
+const activeIdx = Math.min(5, Math.floor(displayPct / 16));
+statusLbl.textContent = STAGES[activeIdx].label;
+for (let i = 0; i < 6; i++) {
+const el = document.getElementById("stg-" + (i + 1)), title = el.textContent.replace(/^[^\d]+/, "");
+if (i < activeIdx) { el.style.background = "#F0FDF4"; el.style.color = "#15803D"; el.style.border = "1px solid #BBF7D0"; el.innerHTML = "✓ " + title; }
+else if (i === activeIdx) { el.style.background = "#E0F2FE"; el.style.color = "#0369A1"; el.style.border = "1px solid #7DD3FC"; el.innerHTML = "⏳ " + title; }
+else { el.style.background = "#FFFFFF"; el.style.color = "#64748B"; el.style.border = "1px solid #E2E8F0"; el.innerHTML = "◯ " + title; }
+}
+}, 750);
+}
+function stopProgressTracker(completed) {
+if (progressTimer) clearInterval(progressTimer);
+if (completed) {
+document.getElementById("progressBarFill").style.width = "100%";
+document.getElementById("progressPctLabel").textContent = "100%";
+document.getElementById("progressStatusLabel").textContent = "All 6 Stages Validated (95+ Quality Score)!";
+}
+}
+document.getElementById("sopForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+isGenerating = true;
+const btn = document.getElementById("generateBtn"), closeBtn = document.getElementById("modalCloseBtn");
+btn.disabled = true; btn.innerHTML = ' Compiling Multi-Page SOP...';
+if (closeBtn) { closeBtn.disabled = true; closeBtn.style.opacity = "0.4"; }
+document.getElementById("loadingSpinner").style.display = "block";
+startProgressTracker();
+try {
+const fileInput = document.getElementById("refFile");
+let attachmentObj = null;
+if (fileInput && fileInput.files && fileInput.files.length > 0) {
+const file = fileInput.files.at(0), maxBytes = file.type.startsWith("video/") ? 12 * 1024 * 1024 : 4 * 1024 * 1024;
+if (file.size > maxBytes) throw new Error("Attached file exceeds size limit.");
+attachmentObj = await fileToBase64Object(file);
+}
+const secVal = document.getElementById("sector").value, stdVal = document.getElementById("standard").value;
+const payload = {
+action: "generate",
+companyName: document.getElementById("companyName").value.trim(),
+sector: secVal === "Other" ? (document.getElementById("customSector").value.trim() || "General Operations") : secVal,
+standard: stdVal === "Other" ? (document.getElementById("customStandard").value.trim() || "Internal Standard") : stdVal,
+bottleneck: document.getElementById("bottleneck").value.trim(),
+tools: document.getElementById("tools").value.trim(),
+remarks: document.getElementById("remarks").value.trim(),
+localLanguage: detectLocalLanguageContext(),
+attachment: attachmentObj
+};
+const res = await fetch(BACKEND_URL, { method: "POST", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+const data = await res.json();
+if (data.success) {
+currentRecordId = data.recordId; isGenerating = false; stopProgressTracker(true); closeFormModal(); renderReviewPage(data);
+} else {
+stopProgressTracker(false); alert("Generation Error: " + (data.error || "Please try again."));
+}
+} catch (err) {
+stopProgressTracker(false); alert("Generation Error: " + (err.message || "Unexpected error."));
+} finally {
+isGenerating = false; btn.disabled = false; btn.innerHTML = 'Generate Audit-Ready SOP →';
+if (closeBtn) { closeBtn.disabled = false; closeBtn.style.opacity = "1"; }
+document.getElementById("loadingSpinner").style.display = "none";
+}
+});
+function renderReviewPage(data) {
+document.getElementById("landingSection").style.display = "none";
+document.getElementById("reviewSection").style.display = "block";
+document.getElementById("scoreBadge").textContent = "Audit Score: " + data.complianceScore + "/100";
+document.getElementById("revBadge").textContent = "Revision " + data.revisionCount + " of 3";
+document.getElementById("sopOutputContainer").innerHTML = '' + data.sopHtml + '</div>';
+window.scrollTo({ top: 0, behavior: "smooth" });
+}
+async function submitRevision() {
+const notes = document.getElementById("revisionNotes").value.trim();
+if (!notes) return alert("Please enter what you would like modified.");
+const revBtn = document.getElementById("reviseBtn");
+revBtn.disabled = true; revBtn.innerHTML = ' Applying Modifications...';
+document.getElementById("revSpinner").style.display = "block";
+try {
+const res = await fetch(BACKEND_URL, { method: "POST", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "revise", recordId: currentRecordId, notes: notes }) });
+const data = await res.json();
+if (data.limitReached) alert("Maximum 3 automated revisions reached.");
+else if (data.success) { document.getElementById("revisionDrawer").style.display = "none"; document.getElementById("revisionNotes").value = ""; renderReviewPage(data); }
+else alert("Revision error: " + (data.error || "Please try again."));
+} catch (err) { alert("Error updating SOP: " + err.message); }
+finally { revBtn.disabled = false; revBtn.innerHTML = 'Regenerate Updated SOP →'; document.getElementById("revSpinner").style.display = "none"; }
+}
+async function approveAndDownloadPdf() {
+const btn = document.getElementById("approveBtn");
+btn.disabled = true; btn.textContent = "Locking & Building Protected PDF...";
+if (currentRecordId) fetch(BACKEND_URL, { method: "POST", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "approve", recordId: currentRecordId }) }).catch(() => {});
+await generateProtectedRasterPdf();
+document.getElementById("decisionButtons").style.display = "none";
+document.getElementById("revisionDrawer").style.display = "none";
+document.getElementById("unlockedCard").style.display = "block";
+}
+function loadScriptSafe(libPath) {
+return new Promise((resolve, reject) => {
+const s = document.createElement("script");
+s.src = String.fromCharCode(104,116,116,112,115,58,47,47,99,100,110,106,115,46,99,108,111,117,100,102,108,97,114,101,46,99,111,109) + libPath;
+s.onload = resolve; s.onerror = () => reject(new Error("Failed to load PDF library: " + libPath));
+document.head.appendChild(s);
+});
+}
+async function generateProtectedRasterPdf() {
+const container = document.getElementById("sopOutputContainer");
+try {
+if (!window.html2canvas) await loadScriptSafe("/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+if (!window.jspdf) await loadScriptSafe("/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+const { jsPDF } = window.jspdf;
+const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4", compress: true });
+const pageWidth = 210, pageHeight = 297, margin = 10, usableWidth = 190, usableHeight = 271, captureWidth = 980;
+const fullCanvas = await html2canvas(container, { scale: 2, useCORS: true, backgroundColor: "#FFFFFF", width: captureWidth, windowWidth: 1040 });
+const imgWidthPx = fullCanvas.width, maxPageHeightPx = Math.floor((usableHeight / usableWidth) * imgWidthPx);
+let currentY = 0, pageIndex = 0;
+const siteUrl = String.fromCharCode(104,116,116,112,115,58,47,47,115,111,112,102,97,99,116,111,114,121,45,104,113,46,103,105,116,104,117,98,46,105,111,47);
+while (currentY < fullCanvas.height) {
+if (pageIndex > 0) pdf.addPage();
+const sliceHeightPx = Math.min(maxPageHeightPx, fullCanvas.height - currentY);
+const pageCanvas = document.createElement("canvas");
+pageCanvas.width = imgWidthPx; pageCanvas.height = sliceHeightPx;
+const ctx = pageCanvas.getContext("2d");
+ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+ctx.drawImage(fullCanvas, 0, currentY, imgWidthPx, sliceHeightPx, 0, 0, imgWidthPx, sliceHeightPx);
+ctx.save(); ctx.translate(pageCanvas.width / 2, pageCanvas.height / 2); ctx.rotate(-28 * Math.PI / 180);
+ctx.font = "bold 46px Arial, sans-serif"; ctx.fillStyle = "rgba(15, 23, 42, 0.08)"; ctx.textAlign = "center";
+for (let wy = -pageCanvas.height; wy < pageCanvas.height; wy += 240) for (let wx = -pageCanvas.width; wx < pageCanvas.width; wx += 520) ctx.fillText("SOP Factory • VIEW ONLY", wx, wy);
+ctx.restore();
+pdf.addImage(pageCanvas.toDataURL("image/jpeg", 0.95), "JPEG", margin, margin, usableWidth, (sliceHeightPx / imgWidthPx) * usableWidth);
+const footerY = pageHeight - 7.5;
+pdf.setFont("helvetica", "bold"); pdf.setFontSize(8.5); pdf.setTextColor(15, 23, 42); pdf.text("Prepared by SOP Factory", margin, footerY);
+pdf.setTextColor(2, 132, 199); pdf.textWithLink(siteUrl, pageWidth - margin - pdf.getTextWidth(siteUrl), footerY, { url: siteUrl });
+currentY += sliceHeightPx; pageIndex++;
+}
+pdf.save("SOP-Factory-Protected-Blueprint.pdf");
+setTimeout(() => { window.location.href = "upgrade.html"; }, 1500);
+} catch (err) { alert("PDF export error: " + err.message); }
+}
+(function autoSelectFromUrl() {
+const params = new URLSearchParams(window.location.search);
+if (params.get("open") === "1") openFormModal();
+})();
+</script> 
+</body> 
 </html>
+
+
