@@ -940,19 +940,34 @@
       if (!cur) el.value = text;
       else if (!cur.includes(text)) el.value = cur + (cur.endsWith(".") ? " " : ", ") + text;
     }
-    function nextWizStep(targetStep) {
+        function nextWizStep(targetStep) {
       if (targetStep === 2) {
-        if (!document.getElementById("companyName").value.trim()) { alert("Please enter your organisation name first."); document.getElementById("companyName").focus(); return; }
-        if (!document.getElementById("sector").value) { alert("Please select your industry tile to continue."); return; }
+        if (!document.getElementById("companyName").value.trim()) {
+          alert("Please enter your organisation name first.");
+          document.getElementById("companyName").focus();
+          return;
+        }
+        if (!document.getElementById("sector").value) {
+          alert("Please select your industry tile to continue.");
+          return;
+        }
       }
-      if (targetStep === 3 && !document.getElementById("standard").value) { alert("Please select a compliance standard tile to continue."); return; }
+      if (targetStep === 3 && !document.getElementById("standard").value) {
+        alert("Please select a compliance standard tile to continue.");
+        return;
+      }
       if (targetStep === 4) {
-        if (!document.getElementById("bottleneck").value.trim()) { alert("Please describe your workflow steps and acceptance limits before reviewing."); document.getElementById("bottleneck").focus(); return; }
+        if (!document.getElementById("bottleneck").value.trim()) {
+          alert("Please describe your workflow steps and acceptance limits before reviewing.");
+          document.getElementById("bottleneck").focus();
+          return;
+        }
         populateWizardSummary();
       }
       goToWizStep(targetStep);
     }
-       function goToWizStep(stepNum, skipValidation) {
+
+    function goToWizStep(stepNum, skipValidation) {
       if (!skipValidation && stepNum > currentWizStep) {
         return nextWizStep(stepNum);
       }
@@ -985,6 +1000,7 @@
       const shell = document.querySelector(".wizard-shell");
       if (shell) shell.scrollTop = 0;
     }
+
     function populateWizardSummary() {
       const org = document.getElementById("companyName").value.trim() || "—";
       const secVal = document.getElementById("sector").value;
