@@ -767,7 +767,7 @@
           <input type="hidden" id="sector" value="" />
           <input type="hidden" id="standard" value="" />
 
-          <div class="wizard-step-pane active" id="wizStep-1">
+         <div class="wizard-step-pane active" id="wizStep-1">
             <div class="step-hero-row"><div class="step-hero-icon">&#127970;</div><div><div class="step-hero-title">Let's build your SOP together!</div><div class="step-hero-sub">Just a few quick details about your organisation will tailor the entire audit framework.</div></div></div>
             <div style="margin-bottom:18px;">
               <label class="wiz-question" for="companyName">1. What is your organisation called? <span class="req">*</span></label>
@@ -968,6 +968,8 @@
       const lineFill = document.getElementById("wizProgressLine");
       const widths = { 1: "12%", 2: "42%", 3: "72%", 4: "92%" };
       if (lineFill) lineFill.style.width = widths[stepNum] || "12%";
+     const shell = document.querySelector(".wizard-shell");
+      if (shell) shell.scrollTop = 0;
     }
     function populateWizardSummary() {
       const org = document.getElementById("companyName").value.trim() || "—";
