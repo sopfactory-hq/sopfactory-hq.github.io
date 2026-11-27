@@ -952,23 +952,37 @@
       }
       goToWizStep(targetStep);
     }
-    function goToWizStep(stepNum, skipValidation) {
-      if (!skipValidation && stepNum > currentWizStep) return nextWizStep(stepNum);
+       function goToWizStep(stepNum, skipValidation) {
+      if (!skipValidation && stepNum > currentWizStep) {
+        return nextWizStep(stepNum);
+      }
       currentWizStep = stepNum;
       for (let i = 1; i <= 4; i++) {
-        const pane = document.getElementById("wizStep-" + i), node = document.getElementById("wizNode-" + i), circle = document.getElementById("wizCircle-" + i);
-        if (pane) pane.classList.toggle("active", i === stepNum);
+        const pane = document.getElementById("wizStep-" + i);
+        const node = document.getElementById("wizNode-" + i);
+        const circle = document.getElementById("wizCircle-" + i);
+        if (pane) {
+          pane.classList.toggle("active", i === stepNum);
+          pane.style.display = (i === stepNum) ? "block" : "none";
+        }
         if (node) {
           node.classList.remove("active", "done");
-          if (i < stepNum) { node.classList.add("done"); if (circle) circle.innerHTML = "&#10003;"; }
-          else if (i === stepNum) { node.classList.add("active"); if (circle) circle.textContent = String(i); }
-          else if (circle) circle.textContent = String(i);
+          if (i < stepNum) {
+            node.classList.add("done");
+            if (circle) circle.innerHTML = "&#10003;";
+          } else if (i === stepNum) {
+            node.classList.add("active");
+            if (circle) circle.textContent = String(i);
+          } else if (circle) {
+            circle.textContent = String(i);
+          }
         }
       }
       const lineFill = document.getElementById("wizProgressLine");
       const widths = { 1: "12%", 2: "42%", 3: "72%", 4: "92%" };
       if (lineFill) lineFill.style.width = widths[stepNum] || "12%";
-     const shell = document.querySelector(".wizard-shell");
+
+      const shell = document.querySelector(".wizard-shell");
       if (shell) shell.scrollTop = 0;
     }
     function populateWizardSummary() {
