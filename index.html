@@ -10,7 +10,7 @@
   <meta name="description" content="Transform any workflow, document, image, or process knowledge into a 95+ Quality-Validated SOP with FMEA risk assessments, process flowcharts, bilingual operator instructions, and verification checklists." />
   <meta name="keywords" content="AI SOP generator, Standard Operating Procedure template, ISO 9001 SOP builder, FSSAI SOP generator, NABH compliance SOP, manufacturing SOP creator, quality SOP automation" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://github.io" />
+  <link rel="canonical" href="https://sopfactory-hq.github.io" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SOP Factory — Audit-Ready Standard Operating Procedure Generator" />
   <meta property="og:description" content="Turn raw workflows, whiteboard notes, or short process videos into >95% audit-ready multi-page SOP blueprints with bilingual operator guides." />
@@ -1084,7 +1084,7 @@ document.getElementById("landingSection").style.display = "none";
 document.getElementById("reviewSection").style.display = "block";
 document.getElementById("scoreBadge").textContent = "Audit Score: " + data.complianceScore + "/100";
 document.getElementById("revBadge").textContent = "Revision " + data.revisionCount + " of 3";
-document.getElementById("sopOutputContainer").innerHTML = '' + data.sopHtml + '</div>';
+document.getElementById("sopOutputContainer").innerHTML = data.sopHtml;
 window.scrollTo({ top: 0, behavior: "smooth" });
 }
 async function submitRevision() {
