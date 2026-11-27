@@ -1189,7 +1189,74 @@ setTimeout(() => { window.location.href = "upgrade.html"; }, 1500);
 const params = new URLSearchParams(window.location.search);
 if (params.get("open") === "1") openFormModal();
 })();
-</script> 
+</script>
+    <script>
+    window.nextWizStep = function(targetStep) {
+      if (targetStep === 2) {
+        var org = document.getElementById("companyName");
+        var sec = document.getElementById("sector");
+        if (!org || !org.value.trim()) {
+          alert("Please enter your organisation name first.");
+          if (org) org.focus();
+          return;
+        }
+        if (!sec || !sec.value) {
+          alert("Please select an industry tile to continue.");
+          return;
+        }
+      }
+      if (targetStep === 3) {
+        var std = document.getElementById("standard");
+        if (!std || !std.value) {
+          alert("Please select a compliance standard tile to continue.");
+          return;
+        }
+      }
+      if (targetStep === 4) {
+        var wf = document.getElementById("bottleneck");
+        if (!wf || !wf.value.trim()) {
+          alert("Please describe your workflow steps and acceptance limits before reviewing.");
+          if (wf) wf.focus();
+          return;
+        }
+        if (typeof populateWizardSummary === "function") populateWizardSummary();
+      }
+      window.goToWizStep(targetStep, true);
+    };
+
+    window.goToWizStep = function(stepNum, skipValidation) {
+      if (!skipValidation && stepNum > (window.currentWizStep || 1)) {
+        return window.nextWizStep(stepNum);
+      }
+      window.currentWizStep = stepNum;
+      for (var i = 1; i <= 4; i++) {
+        var pane = document.getElementById("wizStep-" + i);
+        var node = document.getElementById("wizNode-" + i);
+        var circle = document.getElementById("wizCircle-" + i);
+        if (pane) {
+          pane.style.setProperty("display", i === stepNum ? "block" : "none", "important");
+        }
+        if (node) {
+          node.classList.remove("active", "done");
+          if (i < stepNum) {
+            node.classList.add("done");
+            if (circle) circle.innerHTML = "&#10003;";
+          } else if (i === stepNum) {
+            node.classList.add("active");
+            if (circle) circle.textContent = String(i);
+          } else if (circle) {
+            circle.textContent = String(i);
+          }
+        }
+      }
+      var lineFill = document.getElementById("wizProgressLine");
+      var widths = { 1: "12%", 2: "42%", 3: "72%", 4: "92%" };
+      if (lineFill) lineFill.style.width = widths[stepNum] || "12%";
+      var shell = document.querySelector(".wizard-shell");
+      if (shell) shell.scrollTop = 0;
+    };
+  </script>
+
 </body> 
 </html>
 
